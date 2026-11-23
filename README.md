@@ -2,7 +2,7 @@
 
 A FastAPI service that classifies support tickets, drafts replies and records which prompt and model served each request.
 
-**Local rollback drill:** a candidate passed the offline gate, then reached **244.8 ms p95** across 25 fixture requests versus **56.6 ms** across 237 stable requests. Setting the candidate weight to zero restored the stable version on **30/30** subsequent requests, at **53.1 ms p95**. The test injected 180 ms into candidate calls and used real loopback HTTP. [Drill results](results/fixture/canary.json)
+In a local rollback drill, the candidate passed a fresh held-out gate, then reached **227.3 ms p95** across 25 fixture requests versus **46.9 ms** across 185 stable requests. Setting its weight to zero restored the stable version on **30/30** subsequent requests, at **47.3 ms p95**. The test injected 180 ms into candidate calls and sent traffic through the Compose API. [Drill results](results/fixture/canary.json)
 
 ![Project Grafana dashboard during local fixture traffic](results/fixture/grafana-load.png)
 
@@ -59,6 +59,8 @@ uv run --frozen python -m scripts.gate .local/base.json .local/candidate.json
 
 Python setup downloads checksum-verified token tables once. Docker includes them in the image. The adapter integration test sends an OpenAI-format request to a local server returning HTTP 429, then verifies the Anthropic-format request and successful response. This exercises the SDK adapters without provider accounts or charges.
 
+The fixture classifies by keyword. Its scores can reveal changes to the harness, schema or service, but it does not evaluate whether a real model follows a rewritten prompt. The live quality gate requires at least 200 human priority reviews, held-out priority labels, reply grades for every successful case and complete reported inference usage. Those checks remain open.
+
 The frozen sample contains 132 dev and 132 held-out tickets across 11 categories. Category uses exact match to the upstream label. Product uses exact match to the project-defined category-to-product mapping. Priority becomes scorable only after human review. Summary uses a lexical grounding proxy: at least half of its distinct word tokens must appear in the ticket. The fixture often echoes the ticket, so 100% on this check offers little evidence of summary quality. Only draft_reply has an optional live judge. [Data provenance and priority rubric](data/README.md)
 
 |Held-out fixture measure, same 132 tickets|v1 baseline|v2 trimmed|
@@ -83,12 +85,12 @@ Set RECORD_REPLAY=1 only for a controlled development run. Replay uses a disk ca
 
 |Target RPS|Completed / achieved RPS|All-request p50 / p95 / p99 (ms)|HTTP 429|Other errors|
 |---:|---:|---:|---:|---:|
-|2|31 / 2.07|37.1 / 75.7 / 461.9|0|0|
-|6|91 / 6.07|37.3 / 39.6 / 40.0|0|0|
-|12|181 / 12.07|36.5 / 39.1 / 40.2|13|0|
-|24|360 / 24.00|2.9 / 38.9 / 40.6|181|0|
+|2|31 / 2.07|36.8 / 39.3 / 39.4|0|0|
+|6|90 / 6.00|38.1 / 40.2 / 41.5|0|0|
+|12|181 / 12.07|36.9 / 39.8 / 41.9|13|0|
+|24|361 / 24.07|7.0 / 41.0 / 48.7|181|0|
 
-Rate limiting first appeared at the configured boundary of 12 RPS. At 24 RPS, fast 429s lowered the median while successful-request p95 remained 39.8 ms. This sweep found the admission limit before provider saturation. A long first-stage tail included a 612 ms request. [2 RPS](results/fixture/load-2.json) · [6 RPS](results/fixture/load-6.json) · [12 RPS](results/fixture/load-12.json) · [24 RPS](results/fixture/load-24.json)
+Rate limiting first appeared at the configured boundary of 12 RPS. At 24 RPS, fast 429s lowered the median while successful-request p95 reached 41.9 ms. This sweep measures admission limits and service latency with a fixture backend. [2 RPS](results/fixture/load-2.json) · [6 RPS](results/fixture/load-6.json) · [12 RPS](results/fixture/load-12.json) · [24 RPS](results/fixture/load-24.json)
 
 Provisional fixture targets are 99% eligible-request availability over seven days and p95 under 150 ms over five minutes at roughly 5 RPS. The latency ceiling is about three times the warmed v1 p95. The availability target allows one failure per 100 eligible requests against a baseline of 132/132 successes. The list-price objective is under $0.22 per 1,000 successes with a $0.065/min spike alert at the design rate. A full seven-day window and live targets remain unverified. Responses are non-streaming, so TTFT is inapplicable.
 
@@ -112,7 +114,7 @@ Native FastAPI instrumentation and the custom request span both traced the same 
 
 The redaction stretch goal covered email addresses and US-style telephone numbers before inference. On five positive and five negative synthetic examples, all five positives were redacted and no negative controls changed. Across 10,000 calls, p95 overhead was 4 µs. Names, addresses, account IDs and international phone formats are outside this measurement. [Redaction evidence](results/fixture/redaction.json)
 
-One 140.9 ms failover request captured in Phoenix spent 6.7 ms and 4.8 ms on failed primary attempts and 75.4 ms on the successful secondary call. The remaining 54 ms included backoff and request handling. Each attempt shares the request trace ID. [Trace exported from Phoenix](results/fixture/phoenix-trace.json)
+One 146.5 ms failover request captured in Phoenix spent 13.5 ms and 5.7 ms on failed primary attempts and 64.2 ms on the successful secondary call. The remaining 63.1 ms included backoff and request handling. The API returned the same trace ID that Phoenix recorded for all three attempts. [Trace exported from Phoenix](results/fixture/phoenix-trace.json)
 
 ## Attribution
 

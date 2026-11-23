@@ -1,0 +1,35 @@
+rule_files: [alerts.yaml]
+evaluation_interval: 1m
+tests:
+  - name: sustained failures and costly requests page the operator
+    interval: 1m
+    input_series:
+      - series: 'triage_requests_total{cohort="stable",outcome="ok"}'
+        values: '0+50x65'
+      - series: 'triage_requests_total{cohort="stable",outcome="schema_fail"}'
+        values: '0+10x65'
+      - series: 'triage_cost_usd_total{cohort="stable"}'
+        values: '0+0.10x65'
+    alert_rule_test:
+      - eval_time: 65m
+        alertname: TriageFastBurn
+        exp_alerts:
+          - exp_annotations:
+              summary: Eligible request failures exceed the error budget burn threshold.
+      - eval_time: 65m
+        alertname: TriageCostSpike
+        exp_alerts:
+          - exp_annotations:
+              summary: Priced usage exceeds 6.5 cents per minute.
+  - name: healthy service with pre-admission rejects stays within budget
+    interval: 1m
+    input_series:
+      - series: 'triage_requests_total{cohort="stable",outcome="ok"}'
+        values: '0+60x65'
+      - series: 'triage_requests_total{cohort="unassigned",outcome="client_rate_limit"}'
+        values: '0+30x65'
+      - series: 'triage_cost_usd_total{cohort="stable"}'
+        values: '0+0.02x65'
+    alert_rule_test:
+      - {eval_time: 65m, alertname: TriageFastBurn, exp_alerts: []}
+      - {eval_time: 65m, alertname: TriageCostSpike, exp_alerts: []}

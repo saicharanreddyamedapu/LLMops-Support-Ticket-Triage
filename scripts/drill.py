@@ -112,8 +112,8 @@ def run():
                 delta=snapshot(c)-start
                 stats={name:cohort_stats(delta,times,name) for name,times in samples.items()}
                 reasons=breaches(**stats)
-                if "p95_ms" not in reasons:
-                    raise RuntimeError("latency drill did not trip threshold")
+                if not reasons:
+                    raise RuntimeError("canary drill did not trip a threshold")
                 weight(0)
                 start=snapshot(c)
                 recovered=[ticket(c) for _ in range(30)]

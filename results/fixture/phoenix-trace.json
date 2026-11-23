@@ -1,25 +1,25 @@
 {
   "mode": "fixture",
   "transport": "Service -> Collector -> Phoenix",
-  "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
+  "trace_id": "c7da6a246593fab1dc86cfceab485d63",
   "spans": [
     {
-      "id": "U3BhbjoxMzQz",
+      "id": "U3BhbjozMDY3",
       "name": "POST /triage",
       "context": {
-        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
-        "span_id": "61f2f0daf19770a4"
+        "trace_id": "c7da6a246593fab1dc86cfceab485d63",
+        "span_id": "bce87760aea09ab6"
       },
       "span_kind": "CHAIN",
       "parent_id": null,
-      "start_time": "2026-11-23T19:18:49.163783+00:00",
-      "end_time": "2026-11-23T19:18:49.304674+00:00",
+      "start_time": "2026-11-23T19:41:13.196197+00:00",
+      "end_time": "2026-11-23T19:41:13.342708+00:00",
       "status_code": "OK",
       "status_message": "",
       "attributes": {
-        "app.git_sha": "21d7edf899517763adff1f113010170afde192ac",
+        "app.git_sha": "7a165a26d65534e80b5abb9193b7ef3f1bf12ad4",
         "app.mode": "fixture",
-        "app.duration_ms": 140.58,
+        "app.duration_ms": 146.31,
         "app.outcome": "ok",
         "app.cohort": "stable",
         "app.model": "fixture/anthropic/claude-haiku-4-5-20251001",
@@ -28,32 +28,32 @@
       "events": [
         {
           "name": "retry",
-          "timestamp": "2026-11-23T19:18:49.176515+00:00",
+          "timestamp": "2026-11-23T19:41:13.215239+00:00",
           "attributes": {
-            "delay_s": 0.045370390978148774
+            "delay_s": 0.055109270044829184
           }
         },
         {
           "name": "failover",
-          "timestamp": "2026-11-23T19:18:49.228042+00:00",
+          "timestamp": "2026-11-23T19:41:13.277776+00:00",
           "attributes": {
             "model": "anthropic/claude-haiku-4-5-20251001"
           }
         }
       ],
-      "duration_ms": 140.891
+      "duration_ms": 146.511
     },
     {
-      "id": "U3BhbjoxMzQw",
+      "id": "U3BhbjozMDY0",
       "name": "chat openai/gpt-4.1-mini-2025-04-14",
       "context": {
-        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
-        "span_id": "1c383f7dcd6fd360"
+        "trace_id": "c7da6a246593fab1dc86cfceab485d63",
+        "span_id": "1df0f0b0c7bed067"
       },
       "span_kind": "LLM",
-      "parent_id": "61f2f0daf19770a4",
-      "start_time": "2026-11-23T19:18:49.169663+00:00",
-      "end_time": "2026-11-23T19:18:49.176404+00:00",
+      "parent_id": "bce87760aea09ab6",
+      "start_time": "2026-11-23T19:41:13.201611+00:00",
+      "end_time": "2026-11-23T19:41:13.215125+00:00",
       "status_code": "ERROR",
       "status_message": "provider_5xx",
       "attributes": {
@@ -66,19 +66,19 @@
         "app.prompt_version": "v1"
       },
       "events": [],
-      "duration_ms": 6.741
+      "duration_ms": 13.514
     },
     {
-      "id": "U3BhbjoxMzQx",
+      "id": "U3BhbjozMDY1",
       "name": "chat openai/gpt-4.1-mini-2025-04-14",
       "context": {
-        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
-        "span_id": "025d095e49128743"
+        "trace_id": "c7da6a246593fab1dc86cfceab485d63",
+        "span_id": "2e7e81142d2e7a25"
       },
       "span_kind": "LLM",
-      "parent_id": "61f2f0daf19770a4",
-      "start_time": "2026-11-23T19:18:49.223116+00:00",
-      "end_time": "2026-11-23T19:18:49.227923+00:00",
+      "parent_id": "bce87760aea09ab6",
+      "start_time": "2026-11-23T19:41:13.272026+00:00",
+      "end_time": "2026-11-23T19:41:13.277706+00:00",
       "status_code": "ERROR",
       "status_message": "provider_5xx",
       "attributes": {
@@ -91,19 +91,19 @@
         "app.prompt_version": "v1"
       },
       "events": [],
-      "duration_ms": 4.8069999999999995
+      "duration_ms": 5.68
     },
     {
-      "id": "U3BhbjoxMzQy",
+      "id": "U3BhbjozMDY2",
       "name": "chat anthropic/claude-haiku-4-5-20251001",
       "context": {
-        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
-        "span_id": "72f627c89bfd4de8"
+        "trace_id": "c7da6a246593fab1dc86cfceab485d63",
+        "span_id": "2f052ebde4e05440"
       },
       "span_kind": "LLM",
-      "parent_id": "61f2f0daf19770a4",
-      "start_time": "2026-11-23T19:18:49.228141+00:00",
-      "end_time": "2026-11-23T19:18:49.303494+00:00",
+      "parent_id": "bce87760aea09ab6",
+      "start_time": "2026-11-23T19:41:13.277861+00:00",
+      "end_time": "2026-11-23T19:41:13.342102+00:00",
       "status_code": "OK",
       "status_message": "",
       "attributes": {
@@ -121,7 +121,7 @@
         "app.prompt_version": "v1"
       },
       "events": [],
-      "duration_ms": 75.35300000000001
+      "duration_ms": 64.241
     }
   ]
 }

@@ -12,7 +12,8 @@ def weight(percent):
     if not 0 <= percent <= 100:
         raise ValueError("percent outside 0..100")
     with tempfile.NamedTemporaryFile(mode="w", dir=path.parent, delete=False) as f:
-        json.dump(dict(cfg, percent=percent),f)
+        json.dump(dict(cfg, percent=percent), f, indent=2)
+        f.write("\n")
     try:
         os.chmod(f.name, stat.S_IMODE(path.stat().st_mode))
         os.replace(f.name,path)

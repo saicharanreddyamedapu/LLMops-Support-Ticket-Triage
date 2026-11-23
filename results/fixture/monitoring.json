@@ -4,7 +4,7 @@
   "series": {
     "Request rate": 1,
     "Request latency (s)": 1,
-    "Errors by class (requests/s)": 1,
+    "Request errors (%) and upstream failures per 100 requests": 1,
     "Secondary responses (%)": 1,
     "Priced usage (USD/min)": 1,
     "Availability & remaining 7-day budget (%)": 1,

@@ -204,11 +204,23 @@ def test_live_gate_requires_labels_and_complete_usage():
     assert compare(base, dict(base, draft_reply_judge=.7))[0]
 
 
+@pytest.mark.parametrize(("metric", "value"), [
+    ("availability", .90), ("first_pass", .95), ("p95_ms", 80), ("priced_usd_per_request", .0002),
+])
+def test_canary_decision(metric, value):
+    from scripts.drill import breaches
+    stable = dict(n=30, availability=1, first_pass=1, p95_ms=50, priced_usd_per_request=.00015)
+    assert breaches(stable, dict(stable, **{metric:value})) == [metric]
+    with pytest.raises(ValueError, match="insufficient"):
+        breaches(stable, dict(stable, n=24))
+
+
 def test_provider_http_adapters_with_loopback_servers(monkeypatch):
     from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
     from threading import Thread
 
     paths = []
+    primary_status = 429
     answer = json.dumps(dict(category="ORDER", product="storefront", priority="normal",
                              summary="Order tracking", draft_reply="Please check the order page."))
     class Upstream(BaseHTTPRequestHandler):
@@ -216,9 +228,16 @@ def test_provider_http_adapters_with_loopback_servers(monkeypatch):
             paths.append(self.path)
             payload = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
             if "chat/completions" in self.path:
-                self.send_response(429)
-                self.send_header("Retry-After", "90")
-                body = {"error":{"message":"fixture busy","type":"rate_limit_error"}}
+                self.send_response(primary_status)
+                if primary_status == 200:
+                    body = {"id":"chat_test","object":"chat.completion","created":1,"model":payload["model"],
+                            "choices":[{"index":0,"message":{"role":"assistant","content":answer},"finish_reason":"stop"}],
+                            "usage":{"prompt_tokens":30,"completion_tokens":24,"total_tokens":54}}
+                elif primary_status == 429:
+                    self.send_header("Retry-After", "90")
+                    body = {"error":{"message":"fixture busy","type":"rate_limit_error"}}
+                else:
+                    body = {"error":{"message":"invalid request","type":"invalid_request_error"}}
             else:
                 self.send_response(200)
                 body = {"type":"message","id":"msg_test","model":payload["model"],"role":"assistant",
@@ -247,6 +266,17 @@ def test_provider_http_adapters_with_loopback_servers(monkeypatch):
             assert response.is_success, (response.json(), paths)
             assert response.json()["fallback"] and response.json()["model"].startswith("claude-")
             assert len(paths) == 2 and "chat/completions" in paths[0] and "/messages" in paths[1]
+            gateway.breaker.states.clear()
+            paths.clear()
+            primary_status = 400
+            assert post().json()["error"] == "provider_request"
+            assert paths == ["/v1/chat/completions"]
+            primary_status = 200
+            assert post().json()["fallback"] is False
+            monkeypatch.setenv("LIVE_BUDGET_USD","0")
+            paths.clear()
+            assert post().json()["error"] == "budget"
+            assert paths == []
         finally:
             server.shutdown()
             thread.join()
