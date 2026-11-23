@@ -3,14 +3,15 @@
   "dashboard": "triage",
   "series": {
     "Request rate": 1,
-    "Request latency (s)": 1,
+    "Request latency (s)": 4,
     "Request errors (%) and upstream failures per 100 requests": 1,
     "Secondary responses (%)": 1,
     "Priced usage (USD/min)": 1,
-    "Availability & remaining 7-day budget (%)": 1,
+    "Availability & remaining 7-day budget (%)": 2,
     "First-output schema validity (%)": 2,
     "Token throughput": 2
   },
+  "metrics_target": "http://collector:8889/metrics",
   "alerts": [
     "TriageFastBurn",
     "TriageCostSpike"

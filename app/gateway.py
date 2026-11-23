@@ -27,8 +27,8 @@ for logger_name in ("LiteLLM", "LiteLLM Proxy", "LiteLLM Router", "httpx", "http
 
 TOKENIZER = Tokenizer.from_file(str(Path(find_spec("litellm").origin).parent / "litellm_core_utils/tokenizers/anthropic_tokenizer.json"))
 PII = re.compile(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}|(?<!\d)(?:\+?1[ .-]?)?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}(?!\d)")
-CALL_TIMEOUT = 3.0
-DEADLINE = 9.0
+CALL_TIMEOUT = 90.0 if settings.MODE == "local" else 3.0
+DEADLINE = 180.0 if settings.MODE == "local" else 9.0
 
 
 def retry_delay(value):
@@ -114,6 +114,8 @@ async def dispatch(model, messages, config, cohort, secondary=False):
         tout = len(TOKENIZER.encode(output).ids)
         kwargs.update(mock_response={"model": "fixture/" + model, "choices": [{"index":0, "message":{"role":"assistant","content":output}, "finish_reason":"stop"}],
                                      "usage":{"prompt_tokens":tin,"completion_tokens":tout,"total_tokens":tin+tout}}, api_key="fixture")
+    elif mode == "local":
+        kwargs["api_base"] = "http://127.0.0.1:11434"
     else:
         row = storage.reserve(price(model, upper, params["max_tokens"]))
     try:
@@ -122,7 +124,7 @@ async def dispatch(model, messages, config, cohort, secondary=False):
         usage = reply.usage
         value = dict(text=reply.choices[0].message.content or "", model=reply.model or "unavailable",
                      tin=usage.prompt_tokens, tout=usage.completion_tokens, finish=reply.choices[0].finish_reason or "unknown")
-        cost = price(model, value["tin"], value["tout"])
+        cost = 0 if mode == "local" else price(model, value["tin"], value["tout"])
         if row is not None:
             storage.settle(row, cost)
             if os.getenv("RECORD_REPLAY") == "1":
@@ -159,7 +161,7 @@ async def call(model, messages, config, cohort, secondary):
 
 async def route(messages, cfg, cohort, root, single):
     last = Fault("circuit_open", 503)
-    roles = ("primary",) if single else ("primary", "secondary")
+    roles = ("primary",) if single or settings.MODE == "local" else ("primary", "secondary")
     for role in roles:
         model = cfg[role]
         secondary = role == "secondary"

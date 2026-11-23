@@ -2,6 +2,8 @@
 
 ## Initial checks
 
+The Collector scrapes the API's Prometheus endpoint every two seconds and publishes those series on its internal port 8889. Prometheus scrapes `collector:8889`. If the target is healthy but a panel is empty, inspect the Collector's upstream scrape errors and verify that the API itself exposes the expected series.
+
 Run `docker compose ps`, then open `http://127.0.0.1:8765/readyz`, `http://127.0.0.1:19090/targets`, the [Grafana dashboard](http://127.0.0.1:13000/d/triage) and [Phoenix](http://127.0.0.1:16006). The configured service runs one worker. Rate limits and breakers are process-local. A shared rate limiter and replicated budget ledger are prerequisites for multi-host operation.
 
 Use the request timestamp, prompt version, model and Git revision to correlate symptoms. Copy only sanitized request metadata. Trace IDs identify single requests. A ready result verifies configuration. Provider availability requires a successful call that reports the serving model.

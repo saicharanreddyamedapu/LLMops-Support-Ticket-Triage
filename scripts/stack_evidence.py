@@ -75,14 +75,19 @@ def capture(c):
             page.screenshot(path="results/fixture/grafana-load.png",full_page=True)
             browser.close()
         rules=c.get(PROM+"/api/v1/rules").json()["data"]["groups"]
+        targets=c.get(PROM+"/api/v1/targets").json()["data"]["activeTargets"]
+        collector_url="http://collector:8889/metrics"
+        assert any(t["scrapeUrl"]==collector_url and t["health"]=="up" for t in targets)
         checks={}
         for panel in board["panels"]:
-            expr=panel["targets"][0]["expr"]
-            data=c.get(PROM+"/api/v1/query",params={"query":expr}).json()
-            assert data["status"]=="success"
-            checks[panel["title"]]=len(data["data"]["result"])
-        assert checks["Request rate"]>0 and checks["Secondary responses (%)"]>0
-        write("results/fixture/monitoring.json",dict(mode="fixture",dashboard=board["uid"],series=checks,
+            series=0
+            for target in panel["targets"]:
+                data=c.get(PROM+"/api/v1/query",params={"query":target["expr"]}).json()
+                assert data["status"]=="success"
+                series+=len(data["data"]["result"])
+            checks[panel["title"]]=series
+        assert all(checks.values()) and not errors
+        write("results/fixture/monitoring.json",dict(mode="fixture",dashboard=board["uid"],series=checks,metrics_target=collector_url,
              alerts=[r["name"] for group in rules for r in group["rules"] if r["type"]=="alerting"],sender_errors=errors))
     finally:
         stop.set()

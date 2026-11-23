@@ -1,4 +1,15 @@
 receivers:
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: triage
+          scrape_interval: 2s
+          static_configs:
+            - targets: ["api:8000"]
+          metric_relabel_configs:
+            - source_labels: [__name__]
+              regex: "triage_.*"
+              action: keep
   otlp:
     protocols:
       http:
@@ -7,10 +18,15 @@ processors:
   batch:
     timeout: 1s
 exporters:
+  prometheus:
+    endpoint: 0.0.0.0:8889
   otlphttp/phoenix:
     endpoint: http://phoenix:6006
 service:
   pipelines:
+    metrics:
+      receivers: [prometheus]
+      exporters: [prometheus]
     traces:
       receivers: [otlp]
       processors: [batch]

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG = json.loads((ROOT / "config/catalog.json").read_text())
 PRICES = json.loads((ROOT / "config/prices.json").read_text())["models"]
 MODE = os.getenv("TRIAGE_MODE", "fixture")
-if MODE not in {"live", "fixture", "replay"}:
+if MODE not in {"live", "fixture", "replay", "local"}:
     raise ValueError("invalid TRIAGE_MODE")
 
 
@@ -35,6 +35,12 @@ def prompt(version):
         raise ValueError("invalid prompt registry")
     if any(p[k] not in PRICES for k in ("primary", "secondary")) or not 1 <= p["params"]["max_tokens"] <= 512:
         raise ValueError("missing price or unsafe output cap")
+    if MODE == "local":
+        from .schema import Triage
+        local = yaml.safe_load((ROOT / "prompts/local.yaml").read_text())
+        p.update(primary=local["model"], secondary=local["model"], local_digest=local["digest"])
+        p["params"].update(local["params"])
+        p["params"]["response_format"] = {"type":"json_schema", "json_schema":{"name":"triage","schema":Triage.model_json_schema()}}
     return p
 
 

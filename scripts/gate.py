@@ -12,14 +12,22 @@ def compare(base, candidate):
     for key in ("mode","method","dataset_digest","revision","split","n","reviewed","cache"):
         if base[key] != candidate[key]:
             raise ValueError("incomparable "+key)
-    if base["split"] != "test" or base["n"] <= 0 or base["mode"] not in ("live","fixture"):
+    for key, default in (("priority_source","human"), ("provisional_digest",None)):
+        if base.get(key, default) != candidate.get(key, default):
+            raise ValueError("incomparable "+key)
+    if base["split"] != "test" or base["n"] <= 0 or base["mode"] not in ("local","live","fixture"):
         raise ValueError("requires held-out non-replayed measurements")
     metrics = METRICS.copy()
-    if base["mode"] == "live":
+    if base["mode"] == "local":
+        for key in ("model_digest","judge_model"):
+            if not base.get(key) or base[key] != candidate.get(key):
+                raise ValueError("incomparable local "+key)
+    if base["mode"] in ("live","local"):
         for report in (base, candidate):
             if report.get("unknown_usage_attempts") != 0:
                 raise ValueError("live cost comparison requires complete usage")
-            if report.get("human_review_total", 0) < 200 or report["reviewed"] <= 0:
+            if base["mode"] == "live" and (report.get("priority_source","human") != "human" or
+                    report.get("human_review_total", 0) < 200 or report["reviewed"] <= 0):
                 raise ValueError("live gate requires 200 human priority reviews and held-out labels")
             if report.get("judge_errors") != 0 or not report.get("judge_n") or report["judge_n"] != round(report["availability"] * report["n"]):
                 raise ValueError("live gate requires reply grades for every successful request")
@@ -41,6 +49,8 @@ def compare(base, candidate):
     rows.append(f"\nMode {base['mode']}, n={base['n']}.")
     if base["mode"] == "fixture":
         rows.append("Human-reviewed live provider evidence remains pending.")
+    if base.get("priority_source") == "assistant-rubric-v1":
+        rows.append("Priority uses provisional assistant annotations. Reply grades come from the local model.")
     return rejected,"\n".join(rows)
 
 

@@ -35,7 +35,7 @@ flowchart LR
     G --> H[Anthropic secondary]
     G --> F[Offline fixture or development replay]
     A --> T[OpenTelemetry Collector] --> X[Phoenix]
-    A --> M[Prometheus] --> D[Grafana]
+    T --> M[Prometheus] --> D[Grafana]
     CI[GitHub Actions tests and held-out gate] --> I[Image]
     I --> S[Configured staging]
 ```

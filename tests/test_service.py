@@ -146,6 +146,51 @@ def test_frozen_split():
     rows,_=reviews()
     dev,test=({r["id"] for r in rows if r["split"]==s} for s in ("dev","test"))
     assert len(test)==len(dev)==132 and not dev & test
+    from scripts.dataset import provisional_priorities
+    labels,digest=provisional_priorities(rows)
+    assert set(labels) == dev | test and len(digest) == 64
+
+
+def test_queue_refresh_preserves_reviews_and_compatible_fingerprint(tmp_path, monkeypatch):
+    import csv
+    from scripts import dataset
+    baseline = json.loads(settings.ROOT.joinpath("results/fixture/current.json").read_text())
+    rows, labels = dataset.reviews()
+    if not labels:
+        assert dataset.dataset_digest() == baseline["dataset_digest"]
+    monkeypatch.setattr(dataset, "QUEUE", tmp_path / "queue.csv")
+    dataset.refresh_queue(rows)
+    with dataset.QUEUE.open(newline="", encoding="utf8") as f:
+        records = list(csv.DictReader(f))
+    records[0].update(priority="low", reviewer="unit test", rationale="synthetic check")
+    with dataset.QUEUE.open("w", newline="", encoding="utf8") as f:
+        writer = csv.DictWriter(f, fieldnames=list(records[0]))
+        writer.writeheader()
+        writer.writerows(records)
+    before = dataset.dataset_digest()
+    dataset.refresh_queue(rows)
+    assert dataset.dataset_digest() == before
+    assert dataset.reviews()[1] == {rows[0]["id"]:"low"}
+
+
+def test_local_dispatch_uses_only_loopback(monkeypatch):
+    monkeypatch.setattr(settings,"MODE","local")
+    settings.prompt.cache_clear()
+    try:
+        cfg = settings.prompt("v1")
+        seen = []
+        async def completion(**kwargs):
+            seen.append(kwargs)
+            raise TimeoutError()
+        monkeypatch.setattr(gateway.litellm,"acompletion",completion)
+        with pytest.raises(TimeoutError):
+            asyncio.run(gateway.dispatch(cfg["primary"], [{"role":"user","content":"test"}],cfg,"stable"))
+        assert seen[0]["api_base"] == "http://127.0.0.1:11434"
+        assert seen[0]["model"] == "ollama_chat/qwen3.5:9b" and seen[0]["think"] is False
+        enum = seen[0]["response_format"]["json_schema"]["schema"]["properties"]["category"]["enum"]
+        assert "ACCOUNT" in enum and "ACCOUNT/SUBSCRIPTION/CANCEL" not in enum
+    finally:
+        settings.prompt.cache_clear()
 
 
 def test_gate_rejects_incomparable_and_degraded():
@@ -199,6 +244,9 @@ def test_live_gate_requires_labels_and_complete_usage():
     with pytest.raises(ValueError, match="priority reviews"):
         compare(base, base)
     base.update(human_review_total=200, reviewed=100, priority=.8, judge_n=base["n"], draft_reply_judge=.9)
+    with pytest.raises(ValueError, match="priority reviews"):
+        provisional = dict(base, priority_source="assistant-rubric-v1")
+        compare(provisional, provisional)
     with pytest.raises(ValueError, match="complete usage"):
         compare(base, dict(base, unknown_usage_attempts=1))
     assert compare(base, dict(base, draft_reply_judge=.7))[0]

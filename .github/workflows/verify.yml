@@ -26,7 +26,9 @@ jobs:
         working-directory: candidate
       - name: Measure main on this runner
         working-directory: base
-        run: uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["stable"])')" --output ../base.json
+        run: |
+          uv run --frozen python -m scripts.prepare_tokenizers
+          uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["stable"])')" --output ../base.json
       - name: Measure candidate on the same held-out split
         working-directory: candidate
         run: uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["candidate"])')" --output ../candidate.json

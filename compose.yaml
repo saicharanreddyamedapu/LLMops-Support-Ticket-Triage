@@ -29,8 +29,9 @@ services:
     environment:
       PHOENIX_WORKING_DIR: /mnt/data
   collector:
-    image: otel/opentelemetry-collector:0.136.0
-    volumes: ["./ops/collector.yaml:/etc/otelcol/config.yaml:ro"]
+    image: otel/opentelemetry-collector-contrib:0.136.0
+    command: ["--config=/etc/collector.yaml"]
+    volumes: ["./ops/collector.yaml:/etc/collector.yaml:ro"]
   prometheus:
     image: prom/prometheus:v3.6.0
     volumes: ["./ops/prometheus.yaml:/etc/prometheus/prometheus.yml:ro","./ops/alerts.yaml:/etc/prometheus/alerts.yaml:ro"]
