@@ -149,7 +149,9 @@ async def run(args, temp):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--mode",choices=["fixture","live","replay","local"],default="fixture")
-    p.add_argument("--version",default="v2")
+    versions = p.add_mutually_exclusive_group()
+    versions.add_argument("--version")
+    versions.add_argument("--role",choices=["stable","candidate"],help="Use the version configured for the rollout role")
     p.add_argument("--split",choices=["dev","test"],default="test")
     p.add_argument("--dev-per-category",type=int,help="First N frozen examples per category on the dev split")
     p.add_argument("--output")
@@ -157,6 +159,11 @@ def main():
     p.add_argument("--judge",action="store_true")
     p.add_argument("--provisional-priority",action="store_true",help="Score separately against identified assistant annotations")
     a = p.parse_args()
+    if a.role:
+        a.version = json.loads(Path("config/rollout.json").read_text())[a.role]
+    a.version = a.version or "v2"
+    if a.outputs:
+        a.outputs = a.outputs.replace("{version}", a.version)
     if a.judge and a.mode not in ("live","local"):
         p.error("--judge requires a real model in local or live mode")
     if a.outputs and a.mode not in ("fixture","local"):

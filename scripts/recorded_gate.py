@@ -7,6 +7,8 @@ import sys
 from contextlib import chdir
 from pathlib import Path
 
+import yaml
+
 from app.schema import Served
 from scripts.dataset import dataset_digest, provisional_priorities, reviews
 from scripts.gate import compare
@@ -61,6 +63,8 @@ def measured(checkout, role, path):
     inputs = ["app/schema.py","app/gateway.py","app/settings.py","prompts/local.yaml",
               "prompts/judge.yaml",f"prompts/triage/{version}.yaml","data/sample.jsonl",
               "data/reviews.csv","data/provisional-priorities.csv","config/catalog.json","uv.lock"]
+    if yaml.safe_load((root/f"prompts/triage/{version}.yaml").read_text()).get("product_from_category"):
+        inputs.append("app/main.py")
     changed = subprocess.run(["git","-C",str(root),"diff","--name-only",rev,"--",*inputs],
                              check=True,capture_output=True,text=True).stdout.strip()
     if changed:

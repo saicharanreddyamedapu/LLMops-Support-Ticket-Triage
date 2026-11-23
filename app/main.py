@@ -130,5 +130,7 @@ async def triage(ticket: Ticket, request: Request):
     except Fault as exc:
         request.state.outcome = exc.code
         return error(exc.code, exc.status, cfg["version"], exc.retry_after)
+    if cfg.get("product_from_category"):
+        result["product"] = settings.CATALOG[result["category"]]
     request.state.model, request.state.outcome = result["model"], "ok"
     return result

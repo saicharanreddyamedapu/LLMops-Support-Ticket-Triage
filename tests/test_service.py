@@ -57,6 +57,17 @@ def test_rate_limit_per_client(monkeypatch):
     assert post().status_code == 429 and post(key="second-client").is_success
 
 
+def test_catalog_product_uses_only_the_predicted_category(monkeypatch):
+    from app import fixture
+    async def inconsistent(text, version):
+        return json.dumps(dict(category="ORDER", product="billing", priority="normal",
+                               summary="Order status", draft_reply="Check your order page."))
+    monkeypatch.setattr(fixture, "answer", inconsistent)
+    for version,expected in (("v3","billing"),("v4","storefront")):
+        monkeypatch.setattr(settings,"choose",lambda: ("stable",settings.prompt(version)))
+        assert post("Where is my invoice?").json()["product"] == expected
+
+
 @pytest.mark.parametrize("fault,status,calls", [("repair",200,2),("invalid",502,2),("primary_down",200,3)])
 def test_fault_paths(fault,status,calls,tmp_path):
     (tmp_path/"fault.json").write_text(json.dumps({fault:True}))
