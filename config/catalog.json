@@ -1,0 +1,13 @@
+{
+  "ACCOUNT": "membership",
+  "ORDER": "storefront",
+  "REFUND": "billing",
+  "INVOICE": "billing",
+  "CONTACT": "support",
+  "PAYMENT": "billing",
+  "FEEDBACK": "support",
+  "DELIVERY": "fulfillment",
+  "SHIPPING": "fulfillment",
+  "SUBSCRIPTION": "membership",
+  "CANCEL": "membership"
+}

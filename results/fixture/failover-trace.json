@@ -1,0 +1,101 @@
+{
+  "mode": "fixture",
+  "transport": "OTLP HTTP protobuf to local receiver",
+  "spans": [
+    {
+      "name": "chat openai/gpt-4.1-mini-2025-04-14",
+      "trace_id": "4e8791edba5560b47cc6567c34563d01",
+      "span_id": "491532fec55a2b58",
+      "parent": "f245d6199c75f004",
+      "start_ns": 1795461275120336900,
+      "duration_ms": 6.0016,
+      "status": "STATUS_CODE_ERROR",
+      "attrs": {
+        "gen_ai.operation.name": "chat",
+        "gen_ai.provider.name": "openai",
+        "gen_ai.request.model": "openai/gpt-4.1-mini-2025-04-14",
+        "app.prompt_version": "v1",
+        "app.mode": "fixture",
+        "openinference.span.kind": "LLM",
+        "app.secondary": false,
+        "error.type": "provider_5xx"
+      },
+      "events": []
+    },
+    {
+      "name": "chat openai/gpt-4.1-mini-2025-04-14",
+      "trace_id": "4e8791edba5560b47cc6567c34563d01",
+      "span_id": "fc60ebab50fb8ff3",
+      "parent": "f245d6199c75f004",
+      "start_ns": 1795461275169243100,
+      "duration_ms": 0.9967,
+      "status": "STATUS_CODE_ERROR",
+      "attrs": {
+        "gen_ai.operation.name": "chat",
+        "gen_ai.provider.name": "openai",
+        "gen_ai.request.model": "openai/gpt-4.1-mini-2025-04-14",
+        "app.prompt_version": "v1",
+        "app.mode": "fixture",
+        "openinference.span.kind": "LLM",
+        "app.secondary": false,
+        "error.type": "provider_5xx"
+      },
+      "events": []
+    },
+    {
+      "name": "chat anthropic/claude-haiku-4-5-20251001",
+      "trace_id": "4e8791edba5560b47cc6567c34563d01",
+      "span_id": "9e10398d2d81a6c2",
+      "parent": "f245d6199c75f004",
+      "start_ns": 1795461275171254000,
+      "duration_ms": 477.1486,
+      "status": "STATUS_CODE_OK",
+      "attrs": {
+        "gen_ai.operation.name": "chat",
+        "gen_ai.provider.name": "anthropic",
+        "gen_ai.request.model": "anthropic/claude-haiku-4-5-20251001",
+        "app.prompt_version": "v1",
+        "app.mode": "fixture",
+        "openinference.span.kind": "LLM",
+        "app.secondary": true,
+        "gen_ai.response.model": "fixture/anthropic/claude-haiku-4-5-20251001",
+        "gen_ai.usage.input_tokens": 182,
+        "gen_ai.usage.output_tokens": 50,
+        "gen_ai.response.finish_reasons": [
+          "stop"
+        ]
+      },
+      "events": []
+    },
+    {
+      "name": "POST /triage",
+      "trace_id": "4e8791edba5560b47cc6567c34563d01",
+      "span_id": "f245d6199c75f004",
+      "parent": "",
+      "start_ns": 1795461275111821000,
+      "duration_ms": 595.9129,
+      "status": "STATUS_CODE_OK",
+      "attrs": {
+        "openinference.span.kind": "CHAIN",
+        "app.prompt_version": "v1",
+        "app.model": "fixture/anthropic/claude-haiku-4-5-20251001",
+        "app.git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+        "app.cohort": "stable",
+        "app.outcome": "ok",
+        "app.duration_ms": 593.0,
+        "app.mode": "fixture"
+      },
+      "events": [
+        "retry",
+        "failover"
+      ]
+    }
+  ],
+  "response": {
+    "model": "fixture/anthropic/claude-haiku-4-5-20251001",
+    "first_pass": true,
+    "fallback": true,
+    "prompt_version": "v1",
+    "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277"
+  }
+}

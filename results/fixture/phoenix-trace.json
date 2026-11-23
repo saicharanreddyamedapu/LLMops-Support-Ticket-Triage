@@ -1,0 +1,127 @@
+{
+  "mode": "fixture",
+  "transport": "Service -> Collector -> Phoenix",
+  "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
+  "spans": [
+    {
+      "id": "U3BhbjoxMzQz",
+      "name": "POST /triage",
+      "context": {
+        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
+        "span_id": "61f2f0daf19770a4"
+      },
+      "span_kind": "CHAIN",
+      "parent_id": null,
+      "start_time": "2026-11-23T19:18:49.163783+00:00",
+      "end_time": "2026-11-23T19:18:49.304674+00:00",
+      "status_code": "OK",
+      "status_message": "",
+      "attributes": {
+        "app.git_sha": "21d7edf899517763adff1f113010170afde192ac",
+        "app.mode": "fixture",
+        "app.duration_ms": 140.58,
+        "app.outcome": "ok",
+        "app.cohort": "stable",
+        "app.model": "fixture/anthropic/claude-haiku-4-5-20251001",
+        "app.prompt_version": "v1"
+      },
+      "events": [
+        {
+          "name": "retry",
+          "timestamp": "2026-11-23T19:18:49.176515+00:00",
+          "attributes": {
+            "delay_s": 0.045370390978148774
+          }
+        },
+        {
+          "name": "failover",
+          "timestamp": "2026-11-23T19:18:49.228042+00:00",
+          "attributes": {
+            "model": "anthropic/claude-haiku-4-5-20251001"
+          }
+        }
+      ],
+      "duration_ms": 140.891
+    },
+    {
+      "id": "U3BhbjoxMzQw",
+      "name": "chat openai/gpt-4.1-mini-2025-04-14",
+      "context": {
+        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
+        "span_id": "1c383f7dcd6fd360"
+      },
+      "span_kind": "LLM",
+      "parent_id": "61f2f0daf19770a4",
+      "start_time": "2026-11-23T19:18:49.169663+00:00",
+      "end_time": "2026-11-23T19:18:49.176404+00:00",
+      "status_code": "ERROR",
+      "status_message": "provider_5xx",
+      "attributes": {
+        "error.type": "provider_5xx",
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "openai/gpt-4.1-mini-2025-04-14",
+        "gen_ai.provider.name": "openai",
+        "app.mode": "fixture",
+        "app.secondary": false,
+        "app.prompt_version": "v1"
+      },
+      "events": [],
+      "duration_ms": 6.741
+    },
+    {
+      "id": "U3BhbjoxMzQx",
+      "name": "chat openai/gpt-4.1-mini-2025-04-14",
+      "context": {
+        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
+        "span_id": "025d095e49128743"
+      },
+      "span_kind": "LLM",
+      "parent_id": "61f2f0daf19770a4",
+      "start_time": "2026-11-23T19:18:49.223116+00:00",
+      "end_time": "2026-11-23T19:18:49.227923+00:00",
+      "status_code": "ERROR",
+      "status_message": "provider_5xx",
+      "attributes": {
+        "error.type": "provider_5xx",
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "openai/gpt-4.1-mini-2025-04-14",
+        "gen_ai.provider.name": "openai",
+        "app.mode": "fixture",
+        "app.secondary": false,
+        "app.prompt_version": "v1"
+      },
+      "events": [],
+      "duration_ms": 4.8069999999999995
+    },
+    {
+      "id": "U3BhbjoxMzQy",
+      "name": "chat anthropic/claude-haiku-4-5-20251001",
+      "context": {
+        "trace_id": "504eaf97bb2c6b37a30b96ea554f464c",
+        "span_id": "72f627c89bfd4de8"
+      },
+      "span_kind": "LLM",
+      "parent_id": "61f2f0daf19770a4",
+      "start_time": "2026-11-23T19:18:49.228141+00:00",
+      "end_time": "2026-11-23T19:18:49.303494+00:00",
+      "status_code": "OK",
+      "status_message": "",
+      "attributes": {
+        "gen_ai.provider.name": "anthropic",
+        "gen_ai.response.model": "fixture/anthropic/claude-haiku-4-5-20251001",
+        "gen_ai.response.finish_reasons": [
+          "stop"
+        ],
+        "gen_ai.usage.input_tokens": 186,
+        "gen_ai.usage.output_tokens": 53,
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "anthropic/claude-haiku-4-5-20251001",
+        "app.mode": "fixture",
+        "app.secondary": true,
+        "app.prompt_version": "v1"
+      },
+      "events": [],
+      "duration_ms": 75.35300000000001
+    }
+  ]
+}

@@ -1,0 +1,2246 @@
+[
+  {
+    "id": "00132e1b3e22f39d325f2588775ffc968b478693245ec814e440e60b6adf507f",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "can I close a {{Account Category}} account?",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0021ece7dfabb762150683577a98100d716209da6ab77d410238c2e8c86bf37a",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "how to use the freemium profile?",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00260a7a84cccbfdf54ec5c5a6a3b2485b3c5657a8514babce88b0c063e6924c",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "i try to change my personal info",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "004361be55f7259a276016f1d638835037391d3934028cd134de7e264bcda647",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "can I reset the PIN of my user profile?",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00688e7fcbbb0f8dfb3e5e3590629dab1b4706588acebdb30cb75565045f5530",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "wanna change  to the freemium account help me",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "006c3b4bc5c556945b3c5d9ee053806775ee62ae40ff7b2c36fdab785c22879c",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "new pro account",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00772440fbf79140fc6e7898f515a4f06b5ee5417d496811717a95b017803cf0",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "problems with {{Account Category}} account terminations",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00a7a9ce3a43068962aad38f50fde2b8780544b81a9769a20eea0e9f7a7b8d79",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "help me recovering my user profile access key",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00d28a603cbb38d4bf2f0e78629e39b4e514e7dc428624606863bb311592089a",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "i need assistance to retrieve the pwd of my user profile",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00fa709cbb76cc544ce9a8fd5c79899f2c261c169b31ed84a11ae6a540edf3f5",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "I want to retrieve my fucking user profile access key",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "010d750f8319fe073d8636f646ca87cf17a75c7c841d7f8675fa66e1afe01b7f",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "change info on freemium account",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01357daa5bf0afadfa0b203bc093e1896f61ece3d1f0e7f7c341078a8b19e386",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "editing information on gold account",
+      "draft_reply": "I can help with your account request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0040083b44cac31209bf37d6bb0426f472ecdbd273259bdbde6e8a977c20202b",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "where do i check the withdrawal fees",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0067d9c351cb2b00cbb088ddaeb4ab3f8e7e501f59577dd35fe143bc2e19e333",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "withrdawal penalty",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00c40c9bb2ca5bb92123edde790115eefaf1daca57d0a46326cbf39e1a890336",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I want help to see the cancellation charges",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00d966483f99dde51196c881b83be56b4b19cadb2079be708ba965440a492035",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "need help seeing the termination chaeges",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0167ddaf6806e39c8463825892aa68f1895d45f16d8e8280e77671ba5fd1c0fb",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "I don't know how I can see the early exit penalties",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01e59732792603b81b44c6bb9b72a6ff7531871a97bd6a4613e6dbe7204063b0",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "show early exit penalty",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02bf43c116be06a9d00e5b201ac2cd119a32b15442bce543cb7645ad76b5b47d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "are there early termination penalties",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "031e4a4676d4aa941bd137b725a65ade8aa035c6854f6bfd263752b117be7a21",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "can you show me the termination fees?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "035c8484fa0351c68a7be2599d8524ecd9a3c3f10f73697becef0e6ad6e6c2ae",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I need to check the cancellation penalties, can you help me?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "038fd7fbe3c801864f99e1d73eebb71841501c21b4319ea89f26c46ced9968f9",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "I do not know how I can see the termination fee",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "04521a2e1aceb32a88c92ca9a0484172c208a532af9654942275ddd44394deeb",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I'd like tro check the withdrawal fees",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "04a97053edc0dd88a1f9b076b96a5e7b9e257b687de32453e28236ffeedd6631",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "can ushow me the withdrawal penalties",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "003882764ed5491effe22c77bb12c36af7e86040f84058e37a5dacd3290465c4",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "could I contact an operator?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00784ddcdc64fcff52ea0fedaa6f45dae1f63413a47e820b8f1e8de4aa4d60a6",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "you are not being helpful, speak to an assistant",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00e633415e2d94ea0263a4c4e589d78a0db0af0c4c199953c1ff414742325e81",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "need to see at what time i can contact customer service",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01233690f53773af82db6f426eb2d0ba271b6f543dc585136f3150229b518004",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "help to get in touch with customer support",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01650f3c701e2f5ca75052d552f5f76ace212107599ed44e50e16e970e341a3d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "can you help me calling customer service?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01b04aa02a58c7aa0cb5257be09ad3993b5b297464727457e101d3dd984a754f",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I need help to check what hours I can call customer support",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01f2eff698d5735cf108b76352b6699508c007e6cf8bb5b3c4ad39d391bd06d7",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "you aren't helpful at all, how could I contact someone?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01fbc7cad5d2980f5840fa5403d849600ef645e1600b8d9dc395efdc40d2cc01",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "were to see at what time I can contact customer service?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02491a3fffcb20407375c9b2a5d9e41c161ea8dd878e3a27025da29ba7527b22",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I don't understand you, can you help me talk with an agent?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "027cd2be6323c74726a0e5fc790eab4319ad17b8d18cb72535788a2db4b3473d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "help me seeing at what time I can call customer assistance",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02b31ee6f58ef5f2d009dbdaaa4faa8d113d8f47227d2d1a819af26e00e013a9",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "see at what time i can call customer support",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "035032dac6fd8ba31c64701f22713309db9b8fa6426d3a75906510a057ed4061",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "i dont understand ucould i contact a bloody live aent",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0021cbe0f7008dd8908e59f2d45c4fa350a284335135100d1c405ef6aaa9c963",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "checking the shipment options",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00f2197e8f12fd22e28e13da3d44a8e731fd9e7a9570ca5211b2f9549eb2359e",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I need assistance to check when will my product arrive",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02849d01e850c18744892f98d465886ced11ca385b24a00ffb0750feef761a5b",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "i want help seeign when will my product arrive",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02c5e0619d9796b8e81c7c8194cbe254271719d259c6a3f82331fbef8043b916",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I have to check when my product is going to arrive",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02e4e249de308dfa5b70370fbdd2040702fa703729c9d7789ffff829ae5dee94",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "help checking what shipment methods i can choose",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02f72543be60a814f80268d81e1433ac43bdd454619dc608a92db3a10e5d901e",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "where can i see the methods for shipping",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "03603a7d7e50b7a72fa853cd4240fa906cd678c5075aa627e0debf141655039e",
+    "output": {
+      "category": "DELIVERY",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "i have got to see the delivery methods how do i do it",
+      "draft_reply": "I can help with your delivery request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0389600b9e63edccfc29ec062ea44e8aecbbc17c2d6b660695827040189b953b",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "find information about the methods for shipment",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "03fddbb0c6e27242489bd1b63604da514f6e1c02d3f9539218381e057afc28b6",
+    "output": {
+      "category": "ORDER",
+      "priority": "low",
+      "product": "storefront",
+      "summary": "can you help me see how soon can I expect the order?",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "04db4aa53acf03c3ffd8e2b0f68fa9f4a2dc4f117f9a9000d2f128471751174f",
+    "output": {
+      "category": "ORDER",
+      "priority": "low",
+      "product": "storefront",
+      "summary": "I need to see how soon can I expect my purchase",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "050810e24033c2b01d4a0eb030482e0c56a829416d2b039035c73025f4ac1985",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "help seeing the shipment methods",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "053fe000169bb0c06a11f5311baf899be3cc9a03988fbc0d5940284dcab56255",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "I want assistance checking when my order is going to arrive",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00134eb6ce492cfccd0756a04fb63496d406fae8712bce798832f20546f3560b",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "I don't know how I could file a goddamn customer claim",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "005bf15e02148763c0831be67ea209c7ccaf4e1b73700a9d74022ddac5b0dc45",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "low",
+      "product": "support",
+      "summary": "I don't know how I can leave a review",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0092abb74b50331a2108296af44d09da658dec05d84db5248df2f215c9475144",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "low",
+      "product": "support",
+      "summary": "want assistance to leave feedback for ur products",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00a90e07b12d47d3d71e7a0d32b215caa7b5a1b641fdf719b44431b68486f564",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "want help to file a customer claim against ur company",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "013cce58b7be96fff23ef7ba4cb165571b2ad791384631e4731451080252530d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I need assistance making a customer claim",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0178d164e07af7538214559006dd1e22dc81d19de5092e88317dcdec47312a18",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "normal",
+      "product": "support",
+      "summary": "where to file a customer complaint against ur business",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01964552a6a0b4b6a25afac18862c6a423c97208fbe3a25794dce1c81615f501",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "uhave a way to leave an opinion for ur products",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01b63182e45eda8450516eed9844271b1b00c4c2c3294c1ed06d35f58a99b7e2",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "low",
+      "product": "support",
+      "summary": "i want assistance to leave some feedback for ur company",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02064bd3ffd94980cf621571de47c8a58687494ecacc82c83bcc8352fdc8b412",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "low",
+      "product": "support",
+      "summary": "how do i submit my feedback for ur products",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0247dc96489e0158a8b4519f482a75a99b371a074b37b248d31d20de92f53e1c",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I want assistance to make an customer reclamation",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "026a3b6f03a8707e390bf5750b45ba161f9c9703c9778c2868751e6c98930ac1",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "low",
+      "product": "support",
+      "summary": "I'm trying to send my feedback for ur company",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "028b9077c0635fa7eaf6b6841e45208ca913e532da3375b313063720c03900fc",
+    "output": {
+      "category": "FEEDBACK",
+      "priority": "low",
+      "product": "support",
+      "summary": "do you have an e-mail to send feedback about your company?",
+      "draft_reply": "I can help with your feedback request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "009c06d431ff6cb9491a341ff67bd58c00ae9add1729e3785ad14c729519dee9",
+    "output": {
+      "category": "INVOICE",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "get invoice #37777",
+      "draft_reply": "I can help with your invoice request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00aad238a3ba3dafd1b6833f410489f24fc99d94671d8dabac4d02065a9a5b5f",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "wanna give an quick look at my bill #37777 i need assistance",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00ff986fd67a6042be84242edf6137fd93cb78a1ff3d0b696088105bb58ccc14",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I do not know what I need to do to download bill #12588",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01380f03fbba28901512d31958b14767e7a38459a34700826f2f150027611526",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "can you help me downloading my bill #85632?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01634600dd95aa7f07c7c96474efbb3c4de101a30b379e2b7bf8cce60e89d840",
+    "output": {
+      "category": "INVOICE",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "need assistance looking for the invoice from {{Person Name}}",
+      "draft_reply": "I can help with your invoice request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0189c17e8aa14454c18b8f9e68cfe622aababf04fd1da7aff24cf8f7b816d35f",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "I haveto locate my bills from {{Person Name}}, how to do it?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01dac83496f83c704b629357435a7d7d04b29a578c03c0cab53d419dec9cb96e",
+    "output": {
+      "category": "INVOICE",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "i need assistance downloading my invoices from {{Person Name}}",
+      "draft_reply": "I can help with your invoice request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02145ce358c84580113303058ef88a90bcf873e56ea19b418dd1c24f091c39d2",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "can you help me get the bills from {{Person Name}}?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0229eaa7a8ad5747a2f7ead82b1a5d19688fa0ebcf0bde57e335930eea2979c8",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I need help downloading my bill #00108",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02416acaf8d0232d2bf207fcc9fae4ceabfc66d29d83136099f74980a61b6372",
+    "output": {
+      "category": "INVOICE",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I want help downloading the invoice #00108",
+      "draft_reply": "I can help with your invoice request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0251191f0ba64f4ef8ccee4f371f58a5cee7ae716bfedf16ea3430c795dba3a3",
+    "output": {
+      "category": "INVOICE",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I want to see my invoice #37777, I need assistance",
+      "draft_reply": "I can help with your invoice request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0261bf7de511a93d362fed38de01cd7c8bca3e749aca6c892e4596a30c12a3be",
+    "output": {
+      "category": "INVOICE",
+      "priority": "low",
+      "product": "billing",
+      "summary": "I don't know how I can download my invoice #00108",
+      "draft_reply": "I can help with your invoice request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0080cd96cc815198efe160747906b6d08b1c44eb89c7e5d49d47bf27e16d1d3e",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "I need assistajce to remove something from order {{Order Number}}",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00830cb3bc2cc0beee10432e565ce77798c175a937fb8703561c2d72e27537df",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "swap an article of order {{Order Number}}",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00b3ce2b0eeaa333947631b54ae4650b2c5e9e0ead6820b54f18be2b59c8b75e",
+    "output": {
+      "category": "ORDER",
+      "priority": "low",
+      "product": "storefront",
+      "summary": "I do not know how I can purchase a few of your article",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00edf284497aa8273a2af743e454c4fb3939358b56efe427fd9a75345919ad93",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "assistance to remove an item from order {{Order Number}}",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00f8fc8ca197c2b4c5fe2a0f2840b48069f03759fe79411f0483aa4b5e63ae56",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "assistanceto buy several items",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "012b6e21023951cabc2707282e6a978db93c1a54922f52d8f7ca3329762eb935",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "can you help me see purchase {{Order Number}} current status?",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "017a6addf7ebe45729217f571ba15d9ecc5c51f832338f43143729f29c084260",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "i want assistance earning several products",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01c146dd87a2a6a7376679d044a0fc5191c2de599d657d2e4f52ba8e95bd378e",
+    "output": {
+      "category": "DELIVERY",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "i dont know how i can check the eta of my last delivery",
+      "draft_reply": "I can help with your delivery request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01d9f056b9435a85895a770e0e06be12084fcd8e20cf373229503ea6f2e96eb8",
+    "output": {
+      "category": "ORDER",
+      "priority": "low",
+      "product": "storefront",
+      "summary": "how do i purchase an item",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01df96fc932f54526861c1192d940dfdc8d7167b8b18c27be3549d7f706f7393",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "help with deleting some items from my last order",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01f3f1a58945d7808e3fb921513a446fcfac8cd3c17870930b91dc21b96d8703",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I want assiostance to acquire an article",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01ff3461e9912e680e14a4c6ecb24697513536c53a94966dd15feb6255213ed8",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "I have to correct order {{Order Number}}, can you help me?",
+      "draft_reply": "I can help with your order request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "004791a89f1a85458c24dad50ffe258e8b05ad2eb3476df013609ff34140eaf2",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "low",
+      "product": "billing",
+      "summary": "how do I notify of payment problems?",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "006566f39911ddb8f1df3dfd2641652af5fb8cf90e2d2b7cd4cdb8e79bb8281c",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "help me listing your available payment methods",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0086b243ed86df8446bf6da35e5bb59681cbf54f9594e7044793de78a7e51d4b",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "assistance to see the accepted payment options",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00c763a30c5662232b4f9d2f41f0b80ebb7a32d57f275dfa9ae4ca32865a4d1c",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "is it possible to see your payment options?",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "012f7fe59450a8cb4aed03809b3d71c5c90430d0137ae1f9367a2a543b656b34",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I want help notifying of an issue with payments",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "020c53f06570a73705e0235360e8e667b0e158400136dbd32df36d9c0d3e2b41",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I do not know what I have to do to list your payment methods",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02d828a021c49a297dc0c92120aafeec3adbc6e3bf5f9a01ac6daa3198ffa42d",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "is it possible to report issues with online payment?",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "030f1293449955722d25037e567b2538581f0a421e7e4d8fe1a04b52cc88c353",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I need assistance solving payment errors",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0334e344ba1213be72078d22152bf808304257ae649f590cc0581aff4a3d79e8",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I need assistance notifying of a trouble with online payment",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "03c258c0c10a8d5a823e37ac55f9bac4b4edc6daaa1400818ddf6abd93eea0a1",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I need assistance to see what payment methods are available",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "03cf6f7ec2d1c1bbbd3edae7868a7c42849b8e4d64779f2e5ae2a894e38a9e49",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "i need assistance to checkur payment modalities",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "03e6cb0615dd1acc1d2f17f38bc4e6366c5ef69d63f6fab8298f463b1706c53b",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "where do I check the payment modalities?",
+      "draft_reply": "I can help with your payment request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0011120ad0f2a1cbcc87223993f807a8004b169f63367172dbba381de938c015",
+    "output": {
+      "category": "REFUND",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "check in which cases can I ask for a refund",
+      "draft_reply": "I can help with your refund request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "003efaf912deda65ac7227b625e2a872f7cb1e6f0d649d2c9b6644159e66732d",
+    "output": {
+      "category": "REFUND",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "can huelp me check ur refund policy",
+      "draft_reply": "I can help with your refund request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0051b523f01a2690137f6e45f853b420866a1338c4b0982026bbe5e75237d186",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I ned help checking the rebate current status",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "006304f77371df98bff11cc188bb93a7c4814e224bb9cd6c5855adfd31232276",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "assistance to see the restitution status",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "008210a6f9fb429ee9aeb742fd8dcac43dfb75d7527b420e46d17950196778c0",
+    "output": {
+      "category": "REFUND",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "is it possible to receive fucking refunds of my money?",
+      "draft_reply": "I can help with your refund request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00fb24a8c243d3a1a18009185a04522b29aa98d9546259bb60abcb0438093ac7",
+    "output": {
+      "category": "REFUND",
+      "priority": "low",
+      "product": "billing",
+      "summary": "how could I check your money back policy?",
+      "draft_reply": "I can help with your refund request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0140820872772271d567beab89912b6c9063b3ee1b83dbaa65d0d221e6651c0f",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I have to receive a rebate of my money",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0161912f485a735f09d4e48744c929b5e4023983b9fc017f20b984af6bedbffa",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "i do not know how i can obtain a restitution of my money",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0176bffe47240db96c480bc6087bbdb50cc84222e5e1f64f39458dbe5626af8d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "I need help getting a rebate of my money",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01a2e4615c43e798e01aa746c0b1841f46c2d6987f86b531187787ad205bb386",
+    "output": {
+      "category": "REFUND",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "I expect an reimbursement of {{Currency Symbol}}{{Refund Amount}}",
+      "draft_reply": "I can help with your refund request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01d21941729336369aa4e880e2426e17394c35ed58d0f62349faca155febbb91",
+    "output": {
+      "category": "REFUND",
+      "priority": "low",
+      "product": "billing",
+      "summary": "can you show me in what cases can I ask to be refunded?",
+      "draft_reply": "I can help with your refund request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0231d6925a9025384d4bbadbc0ea121920c1739f7e905da8ee137eaccaeb9664",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "can uhelp em to ask for rebates of money",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0043da6e6d2831592fdc78bd68d7954cf3d1b4e72820f4ea8673d49bb1be86df",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "I have entered a wrong goddamn address, how could I edit it?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "009530bb52523022d177c9c898eb302bd0bed45d9b3d38f112927457aa9a96ce",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "I would like to set the shipping address up, I need help",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "00c8c80683a779b470bfb9e71346174c44051117a6a425c39b190f990179dd9a",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "the address changed, can you help me change it?",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "011735eab56d17f15ec84db4f261f7e6cb0414bfdd15cbdba4e1eff67c1052c8",
+    "output": {
+      "category": "DELIVERY",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "I want assistance to enter a damn different delivery address",
+      "draft_reply": "I can help with your delivery request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "013fc1857ece23c0c0d28ebdcbef0ccb837c615e9269ece55aff1ff59dbf4434",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "the shipping address is not valid",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0149f84c6f5b2660d4239f866b05e074980e1ef581f42dd255e62586b3736f0a",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "I have to update my shipping address",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0185e55bcb3b82a1a4bf29a755881744700fa0040d2dfcbeb0245553a04a7ccf",
+    "output": {
+      "category": "DELIVERY",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "where can i find information about a delivery address change",
+      "draft_reply": "I can help with your delivery request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "019bb3f57634405314ae37894eb1ee2b247f484ab27e640dcb102fa159b226d5",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "I do not know what to do to edit the shipping address",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01b1698e9821f6717fe4282f5ff4293e634d69176e330f9ef51408cc65ca7f10",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "I am looking for information about an address modification",
+      "draft_reply": "I can help with your contact request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01c19f91062dd458720c7562fce6618ac30acefda103c349e2c9c0504cb6870d",
+    "output": {
+      "category": "DELIVERY",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "i need supports trying to modify my delivery address",
+      "draft_reply": "I can help with your delivery request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01d35c02aea476448067e7152a1b8d7da693f6a302b5750a640b9d78c3fe7eb6",
+    "output": {
+      "category": "DELIVERY",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "need help to set my delivery address up",
+      "draft_reply": "I can help with your delivery request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "01e79d64360074d299e9ee8f44a6166da7e7251ea624a4b622e0283f3d7f6246",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "i cant set up my new shipping address",
+      "draft_reply": "I can help with your shipping request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "007258263651dc217c376396b3048bd1c10821ef34f251d3308d62202565fa28",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "is it possible to cancel the newsletter subscription",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0140748a8009577608d276ebadeac7f761d5f89c85cb3b1477b6297a5acec319",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "icant cancel my subscription to ur corporate newsletter",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "02dbcf1ac25ca2a6813f94e62bc63c892add926f5b6c1fdc904a1babdbbb669b",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "I have to unsubscribe to the company newsletter, I need help",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "03a2d28aef35459082ed91ff723d8663f104ed261eaabd3005d41ae3f84056c3",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "can you help me to unsubscribe to your corporate newsletter?",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0423f0680d14c645106f28354574c0f4299cc87eef51ef22befebb227a771e09",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "low",
+      "product": "membership",
+      "summary": "how do I check the status of my newsletter subscription?",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "04c394490598b35c77a37c37e226a01d27b2b70e24e43cb0921f72313eb00943",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "want help canceling the corporate newsletter subscription",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0540764046c815b2c7c596fefdb36eb4f283696e07827c92ad53bd609d6abd96",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "tell me about canceling the newsletter subscription",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "062c5361d9635b1993a1c4b5fc1c0eb52409fa26fb7c9ae236d9fa4dd878779e",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "receive your corporate newsletter",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "06aece8d901ece3fcf31f5ed3a3d7c9c0c949dfcebe2df939b4accd2a3eb6164",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "assistance to unsubscribe from the company newsletter",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0725eb462646532bb712900f2b99850915962978f591bef42b5900a9c7029eb8",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "I want help cancelling my subscription to the newsletter",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "08abdec15da578e1cfecf6f3aa0d40594354171b4ef403e5da13c79c1e1de67d",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "I would like to cancel the subscription to the newsletter",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  },
+  {
+    "id": "0908d655fb5dc26f750c6d6f9aeca5003e2d6361dc8716839a9fdef87ffff0c6",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "help me to sign up to the corporate newsletter",
+      "draft_reply": "I can help with your subscription request. Could you share the relevant details?",
+      "prompt_version": "v2",
+      "model": "fixture/openai/gpt-4.1-mini-2025-04-14",
+      "git_sha": "cf53fcc250f83ed2188e753e82da3821cb383277",
+      "cohort": "stable",
+      "mode": "fixture",
+      "first_pass": true,
+      "fallback": false
+    }
+  }
+]

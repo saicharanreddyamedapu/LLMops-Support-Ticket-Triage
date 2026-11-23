@@ -1,0 +1,213 @@
+{
+  "uid": "triage",
+  "title": "Support ticket triage",
+  "schemaVersion": 40,
+  "refresh": "5s",
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Request rate",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(triage_requests_total[30s]))",
+          "legendFormat": "requests/s"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Request latency (s)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.5,sum by(le)(rate(triage_latency_seconds_bucket[30s])))",
+          "legendFormat": "p50"
+        },
+        {
+          "refId": "B",
+          "expr": "histogram_quantile(0.95,sum by(le)(rate(triage_latency_seconds_bucket[30s])))",
+          "legendFormat": "p95"
+        },
+        {
+          "refId": "C",
+          "expr": "histogram_quantile(0.99,sum by(le)(rate(triage_latency_seconds_bucket[30s])))",
+          "legendFormat": "p99"
+        },
+        {
+          "refId": "D",
+          "expr": "vector(0.15)",
+          "legendFormat": "fixture SLO"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Errors by class (requests/s)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 7,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(outcome)(rate(triage_requests_total{outcome!=\"ok\"}[30s]))",
+          "legendFormat": "{{outcome}}"
+        },
+        {
+          "refId": "B",
+          "expr": "sum by(kind)(rate(triage_call_errors_total[30s]))",
+          "legendFormat": "upstream {{kind}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Secondary responses (%)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 7,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum(rate(triage_fallback_total[30s])) / sum(rate(triage_requests_total[30s]))",
+          "legendFormat": "fallback"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Priced usage (USD/min)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 14,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "60 * sum(rate(triage_cost_usd_total[30s]))",
+          "legendFormat": "standard rate"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Availability & remaining 7-day budget (%)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 14,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum(increase(triage_requests_total{outcome=\"ok\"}[7d])) / sum(increase(triage_requests_total{cohort!=\"unassigned\"}[7d]))",
+          "legendFormat": "availability"
+        },
+        {
+          "refId": "B",
+          "expr": "100 * (1 - (1 - sum(increase(triage_requests_total{outcome=\"ok\"}[7d]))/sum(increase(triage_requests_total{cohort!=\"unassigned\"}[7d])))/0.01)",
+          "legendFormat": "remaining"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "First-output schema validity (%)",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 21,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum by(cohort)(rate(triage_first_schema_total{valid=\"true\"}[30s])) / sum by(cohort)(rate(triage_first_schema_total[30s]))",
+          "legendFormat": "{{cohort}}"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Token throughput",
+      "type": "timeseries",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prom"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 21,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum by(direction)(rate(triage_tokens_total[30s]))",
+          "legendFormat": "{{direction}}"
+        }
+      ]
+    }
+  ]
+}

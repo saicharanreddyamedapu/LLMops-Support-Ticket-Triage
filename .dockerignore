@@ -1,0 +1,14 @@
+**
+!pyproject.toml
+!uv.lock
+!app/
+!app/*.py
+!prompts/
+!prompts/**/
+!prompts/**/*.yaml
+!prompts/*.yaml
+!config/
+!config/canary.json
+!config/catalog.json
+!config/prices.json
+!config/rollout.json

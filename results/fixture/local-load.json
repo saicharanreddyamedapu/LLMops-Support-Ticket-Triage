@@ -1,0 +1,60 @@
+{
+  "mode": "fixture",
+  "driver": "Python HTTPX open-loop, 1 client, Windows Uvicorn",
+  "stages": [
+    {
+      "target_rps": 2,
+      "n": 30,
+      "elapsed_s": 15,
+      "achieved_rps": 2.0,
+      "status": {
+        "200": 30
+      },
+      "all_p50_ms": 37.89209999376908,
+      "all_p95_ms": 52.48620000202209,
+      "all_p99_ms": 52.7085000067018,
+      "success_p95_ms": 52.48620000202209
+    },
+    {
+      "target_rps": 6,
+      "n": 90,
+      "elapsed_s": 15,
+      "achieved_rps": 6.0,
+      "status": {
+        "200": 90
+      },
+      "all_p50_ms": 37.47400001157075,
+      "all_p95_ms": 51.99559999164194,
+      "all_p99_ms": 55.12410000665113,
+      "success_p95_ms": 51.99559999164194
+    },
+    {
+      "target_rps": 12,
+      "n": 180,
+      "elapsed_s": 15,
+      "achieved_rps": 12.0,
+      "status": {
+        "200": 171,
+        "429": 9
+      },
+      "all_p50_ms": 37.64749999390915,
+      "all_p95_ms": 54.64200000278652,
+      "all_p99_ms": 59.959599981084466,
+      "success_p95_ms": 54.67850004788488
+    },
+    {
+      "target_rps": 24,
+      "n": 360,
+      "elapsed_s": 15,
+      "achieved_rps": 24.0,
+      "status": {
+        "200": 180,
+        "429": 180
+      },
+      "all_p50_ms": 15.637100033927709,
+      "all_p95_ms": 58.57059999834746,
+      "all_p99_ms": 62.530499999411404,
+      "success_p95_ms": 59.786300000268966
+    }
+  ]
+}

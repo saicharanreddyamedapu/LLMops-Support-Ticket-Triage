@@ -1,0 +1,47 @@
+{
+  "mode": "fixture",
+  "timestamp": "2026-11-23T19:14:33.165290+00:00",
+  "offline_gate": "results/fixture/gate.md",
+  "percent": 10,
+  "versions": {
+    "v1": 237,
+    "v2": 25
+  },
+  "before": {
+    "stable": {
+      "n": 237.0,
+      "availability": 1.0,
+      "first_pass": 1.0,
+      "p95_ms": 56.58400000538677,
+      "priced_usd_per_request": 0.0001572000000000003
+    },
+    "candidate": {
+      "n": 25.0,
+      "availability": 1.0,
+      "first_pass": 1.0,
+      "p95_ms": 244.80380001477897,
+      "priced_usd_per_request": 0.00013720000000000006
+    }
+  },
+  "breaches": [
+    "p95_ms"
+  ],
+  "rollback_percent": 0,
+  "recovered_versions": {
+    "v1": 30
+  },
+  "after": {
+    "n": 30.0,
+    "availability": 1.0,
+    "first_pass": 1.0,
+    "p95_ms": 53.05659997975454,
+    "priced_usd_per_request": 0.00015720000000000317
+  },
+  "policy": {
+    "minimum_per_cohort": 25,
+    "min_availability": 0.99,
+    "min_schema_valid": 0.99,
+    "max_p95_ratio": 1.5,
+    "max_cost_ratio": 1.15
+  }
+}

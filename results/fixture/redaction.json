@@ -1,0 +1,10 @@
+{
+  "mode": "local synthetic",
+  "positives": 5,
+  "negatives": 5,
+  "fully_redacted": 5,
+  "false_positives": 0,
+  "calls": 10000,
+  "p50_us": 1.4,
+  "p95_us": 4.0
+}

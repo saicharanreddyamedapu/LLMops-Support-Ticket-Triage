@@ -1,0 +1,78 @@
+name: Held-out release gate
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 2 * * *"
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with: {path: candidate, persist-credentials: false}
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha || 'main' }}
+          path: base
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+        with: {version: '0.13.8'}
+      - run: uv python install 3.12.16
+      - run: uv sync --frozen && uv run --frozen python -m pytest -q
+        working-directory: candidate
+      - name: Measure main on this runner
+        working-directory: base
+        run: uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["stable"])')" --output ../base.json
+      - name: Measure candidate on the same held-out split
+        working-directory: candidate
+        run: uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["candidate"])')" --output ../candidate.json
+      - name: Evaluate thresholds and publish comparison
+        working-directory: base
+        shell: bash
+        run: |
+          set -o pipefail
+          uv run --frozen python -m scripts.gate ../base.json ../candidate.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: measurements
+          path: |
+            base.json
+            candidate.json
+  release:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.ENABLE_STAGING == 'true'
+    runs-on: ubuntu-24.04
+    environment: staging
+    permissions: {contents: read, packages: write}
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - name: Build and publish exact revision
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:$GITHUB_SHA"
+          echo "$TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker build --build-arg GIT_SHA="$GITHUB_SHA" -t "$IMAGE" .
+          docker push "$IMAGE"
+          echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
+      - name: Deploy revision to configured Render image service
+        env:
+          SERVICE: ${{ vars.RENDER_SERVICE_ID }}
+          TOKEN: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          set -eu
+          test -n "$SERVICE" && test -n "$TOKEN"
+          api="https://api.render.com/v1/services/$SERVICE/deploys"
+          id=$(curl -fsS -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d "$(jq -nc --arg img "$IMAGE" '{imageUrl:$img}')" "$api" | jq -er .id)
+          for i in $(seq 1 60); do
+            state=$(curl -fsS -H "Authorization: Bearer $TOKEN" "$api/$id" | jq -er .status)
+            case "$state" in live) exit 0;; *failed|canceled|deactivated) exit 1;; esac
+            sleep 10
+          done
+          exit 1

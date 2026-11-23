@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-24",
+  "unit": "USD per million uncached standard text tokens",
+  "models": {
+    "openai/gpt-4.1-mini-2025-04-14": [
+      0.4,
+      1.6
+    ],
+    "anthropic/claude-haiku-4-5-20251001": [
+      1,
+      5
+    ]
+  },
+  "sources": [
+    "https://developers.openai.com/api/docs/models/gpt-4.1-mini",
+    "https://platform.claude.com/docs/en/about-claude/pricing"
+  ]
+}
