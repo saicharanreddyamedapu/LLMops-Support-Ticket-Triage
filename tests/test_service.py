@@ -24,6 +24,7 @@ observe.provider.add_span_processor(SimpleSpanProcessor(spans))
 def isolate(monkeypatch,tmp_path):
     from scripts.common import write
     monkeypatch.setattr(settings,"MODE","fixture")
+    settings.prompt.cache_clear()
     monkeypatch.setenv("TRIAGE_KEYS","test-client,second-client")
     monkeypatch.setenv("ROLLOUT_PATH",str(tmp_path/"rollout.json"))
     write(tmp_path/"rollout.json",{"stable":"v1","candidate":"v2","percent":0})
@@ -32,6 +33,8 @@ def isolate(monkeypatch,tmp_path):
     gateway.breaker.states.clear()
     windows.clear()
     spans.clear()
+    yield
+    settings.prompt.cache_clear()
 
 
 def post(ticket="check my refund", key="test-client"):
@@ -151,6 +154,16 @@ def test_frozen_split():
     assert set(labels) == dev | test and len(digest) == 64
 
 
+def test_recorded_quality_disagrees_with_altered_score():
+    from scripts.recorded_gate import verify_scores
+    root = settings.ROOT
+    measured = json.loads((root/"results/baseline.json").read_text())
+    verify_scores(root, measured)
+    incorrect = dict(measured, category=measured["category"]-.1)
+    with pytest.raises(ValueError, match="per-ticket scores"):
+        verify_scores(root, incorrect)
+
+
 def test_queue_refresh_preserves_reviews_and_compatible_fingerprint(tmp_path, monkeypatch):
     import csv
     from scripts import dataset
@@ -191,6 +204,14 @@ def test_local_dispatch_uses_only_loopback(monkeypatch):
         assert "ACCOUNT" in enum and "ACCOUNT/SUBSCRIPTION/CANCEL" not in enum
     finally:
         settings.prompt.cache_clear()
+
+
+def test_local_readiness_requires_the_pinned_weights(monkeypatch):
+    monkeypatch.setattr(settings,"MODE","local")
+    monkeypatch.setattr("app.main.local_model_ready",lambda cfg: False)
+    assert client.get("/readyz").status_code == 503
+    monkeypatch.setattr("app.main.local_model_ready",lambda cfg: True)
+    assert client.get("/readyz").json() == {"status":"ready","mode":"local"}
 
 
 def test_gate_rejects_incomparable_and_degraded():

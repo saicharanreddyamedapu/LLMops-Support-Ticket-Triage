@@ -6,6 +6,7 @@ import os
 import time
 from collections import defaultdict, deque
 
+import httpx
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
@@ -52,6 +53,15 @@ def health():
     return {"status":"ok"}
 
 
+def local_model_ready(config):
+    with httpx.Client(trust_env=False, timeout=2) as client:
+        response = client.get("http://127.0.0.1:11434/api/tags")
+        response.raise_for_status()
+        name = config["primary"].split("/", 1)[1]
+        return any(m.get("name") == name and m.get("digest") == config["local_digest"]
+                   for m in response.json()["models"])
+
+
 @app.get("/readyz")
 def ready():
     try:
@@ -59,13 +69,15 @@ def ready():
         r = settings.rollout()
         for role in ("stable","candidate"):
             settings.prompt(r[role])
+        if settings.MODE == "local" and not local_model_ready(settings.prompt(r["stable"])):
+            raise ValueError("pinned local model unavailable")
         if int(os.getenv("CLIENT_RPS", "12")) < 1:
             raise ValueError("invalid client rate limit")
         if settings.MODE == "live":
             budget = float(os.getenv("LIVE_BUDGET_USD", "0"))
             if not math.isfinite(budget) or budget <= 0 or not all(os.getenv(k) for k in ("OPENAI_API_KEY","ANTHROPIC_API_KEY")):
                 raise ValueError("live configuration")
-    except (OSError, ValueError, KeyError):
+    except (OSError, ValueError, KeyError, httpx.HTTPError):
         return error("configuration", 503)
     return {"status":"ready", "mode":settings.MODE}
 

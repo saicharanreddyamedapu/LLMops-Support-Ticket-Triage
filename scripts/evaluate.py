@@ -6,6 +6,7 @@ import os
 import re
 import tempfile
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -52,12 +53,6 @@ async def run(args, temp):
     from app.main import app
     if args.mode == "local":
         cfg = settings.prompt(args.version)
-        async with httpx.AsyncClient(trust_env=False) as local:
-            response = await local.get("http://127.0.0.1:11434/api/tags")
-            response.raise_for_status()
-            if not any(m["name"] == cfg["primary"].split("/",1)[1] and m["digest"] == cfg["local_digest"]
-                       for m in response.json()["models"]):
-                raise SystemExit("Pinned local model is unavailable")
         os.environ.setdefault("TRIAGE_KEYS", "local-evaluation")
     rows, labels = reviews()
     human_review_total = len(labels)
@@ -65,6 +60,14 @@ async def run(args, temp):
     if args.provisional_priority:
         labels, provisional_digest = provisional_priorities(rows)
     cases = [r for r in rows if r["split"] == args.split]
+    if args.dev_per_category:
+        seen = Counter()
+        selected = []
+        for row in cases:
+            if seen[row["category"]] < args.dev_per_category:
+                selected.append(row)
+                seen[row["category"]] += 1
+        cases = selected
     records, durations = [], []
     correct = dict(category=0, product=0, priority=0)
     reviewed = sum(r["id"] in labels for r in cases)
@@ -122,6 +125,8 @@ async def run(args, temp):
                   input_tokens=tin,output_tokens=tout,unknown_usage_attempts=unknown,priced_usd=cost,priced_usd_per_request=cost/n,
                   priced_usd_per_1000_success=cost*1000/ok if ok else None, monthly_usd_at_100k=100000*cost/n,
                   provider_spend_usd=0 if args.mode!="live" else None)
+    if args.dev_per_category:
+        result["dev_per_category"] = args.dev_per_category
     if args.mode == "local":
         result.update(model_digest=cfg["local_digest"], judge_model=cfg["secondary"] if args.judge else None,
                       cost_scope="provider fees only; local hardware and electricity excluded",
@@ -130,7 +135,14 @@ async def run(args, temp):
     write(args.output or f"results/{args.mode}/current.json", result)
     if args.outputs:
         write(args.outputs,records)
-    print(" | ".join(f"{k}={v:.5g}" if isinstance(v,float) else f"{k}={v}" for k,v in result.items()))
+    print(f"{args.mode} / {args.version} / {n} {args.split} tickets / priority source {result['priority_source']}")
+    print("| Measure | Value |\n|---|---:|")
+    for key in ("category","priority","product","summary_grounding","draft_reply_judge","first_pass",
+                "availability","p50_ms","p95_ms","p99_ms","input_tokens","output_tokens",
+                "priced_usd_per_request","priced_usd_per_1000_success","provider_spend_usd"):
+        value = result[key]
+        display = "unmeasured" if value is None else format(value, ".7g")
+        print(f"| {key} | {display} |")
     return result
 
 
@@ -139,6 +151,7 @@ def main():
     p.add_argument("--mode",choices=["fixture","live","replay","local"],default="fixture")
     p.add_argument("--version",default="v2")
     p.add_argument("--split",choices=["dev","test"],default="test")
+    p.add_argument("--dev-per-category",type=int,help="First N frozen examples per category on the dev split")
     p.add_argument("--output")
     p.add_argument("--outputs")
     p.add_argument("--judge",action="store_true")
@@ -148,6 +161,8 @@ def main():
         p.error("--judge requires a real model in local or live mode")
     if a.outputs and a.mode not in ("fixture","local"):
         p.error("--outputs is for offline evaluations on the public sample")
+    if a.dev_per_category is not None and (a.split != "dev" or not 1 <= a.dev_per_category <= 12):
+        p.error("--dev-per-category requires the dev split and a count from 1 to 12")
     with tempfile.TemporaryDirectory() as temp:
         asyncio.run(run(a,Path(temp)))
 

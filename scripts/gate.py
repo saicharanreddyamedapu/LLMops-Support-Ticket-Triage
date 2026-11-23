@@ -50,7 +50,9 @@ def compare(base, candidate):
     if base["mode"] == "fixture":
         rows.append("Human-reviewed live provider evidence remains pending.")
     if base.get("priority_source") == "assistant-rubric-v1":
-        rows.append("Priority uses provisional assistant annotations. Reply grades come from the local model.")
+        rows.append("Priority uses provisional assistant annotations.")
+    if base["mode"] == "local":
+        rows.append("Reply grades come from the local model.")
     return rejected,"\n".join(rows)
 
 
