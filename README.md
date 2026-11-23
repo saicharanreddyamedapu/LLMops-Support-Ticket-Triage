@@ -6,7 +6,7 @@ A FastAPI service that classifies support tickets, drafts replies and records wh
 
 ![Project Grafana dashboard during local fixture traffic](results/fixture/grafana-load.png)
 
-**Provider spend was $0.** The public Bitext tickets are real inputs to this benchmark. Model responses come from a deterministic provider double routed through LiteLLM. These results measure service behavior and modeled unit cost. Human-reviewed priority accuracy, provider quality, live latency and billed usage are pending.
+**Actual API spend was $0.** All 132 held-out Bitext tickets succeeded using simulated model responses. At the documented provider rates, the shorter prompt cost an estimated **$0.000144 per ticket**, or **14.4¢ per 1,000 successful tickets**, down from **16.4¢** with the baseline prompt. The project’s estimated cost target is **under $0.22 per 1,000 successful tickets**. [Evaluation results](results/fixture/current.json)
 
 ## Run locally
 
