@@ -1,6 +1,9 @@
 """Fixture-only canary drill against a running Compose API; restores original config."""
 import json
 import os
+import subprocess
+import sys
+import tempfile
 import time
 from collections import Counter
 from contextlib import contextmanager
@@ -12,6 +15,7 @@ from prometheus_client.parser import text_string_to_metric_families
 
 from scripts.common import quantile, write
 from scripts.rollout import weight
+from scripts.gate import compare
 
 URL = os.getenv("DRILL_URL", "http://127.0.0.1:8765")
 FAULT = Path(os.getenv("FIXTURE_FAULT_FILE", "config/fixture-fault.json"))
@@ -64,15 +68,30 @@ def ticket(c):
     r=c.post("/triage",json={"text":"Please help me track my order."})
     ms=(time.perf_counter()-start)*1000
     value=r.json()
+    if "X-Triage-Cohort" in r.headers:
+        value["cohort"] = r.headers["X-Triage-Cohort"]
     time.sleep(.085)
     return value,ms
 
 
+def verify_gate(rollout):
+    reports = []
+    with tempfile.TemporaryDirectory() as directory:
+        for role in ("stable", "candidate"):
+            output = Path(directory) / (role + ".json")
+            subprocess.run([sys.executable, "-m", "scripts.evaluate", "--mode", "fixture",
+                            "--version", rollout[role], "--output", str(output)], check=True)
+            reports.append(json.loads(output.read_text()))
+    failed, table = compare(*reports)
+    if failed:
+        raise RuntimeError("offline gate rejected rollout\n" + table)
+    return dict(base=reports[0], candidate=reports[1], comparison=table)
+
+
 def run():
-    original=json.loads(Path(os.getenv("ROLLOUT_PATH","config/rollout.json")).read_text())["percent"]
-    gate=Path("results/fixture/gate.md").read_text()
-    if "REJECT" in gate or "|p95_ms|" not in gate:
-        raise RuntimeError("candidate must pass offline gate")
+    rollout=json.loads(Path(os.getenv("ROLLOUT_PATH","config/rollout.json")).read_text())
+    original=rollout["percent"]
+    gate=verify_gate(rollout)
     with httpx.Client(base_url=URL,headers={"Authorization":"Bearer fixture-demo"}) as c:
         assert c.get("/readyz").json()["mode"]=="fixture"
         try:
@@ -84,6 +103,8 @@ def run():
                 for _ in range(900):
                     item,ms=ticket(c)
                     if "cohort" in item:
+                        if item["prompt_version"] != rollout[item["cohort"]]:
+                            raise RuntimeError("serving version differs from evaluated rollout")
                         samples[item["cohort"]].append(ms)
                         versions[item["prompt_version"]] += 1
                     if min(map(len,samples.values()))>=POLICY["minimum_per_cohort"]:
@@ -96,12 +117,12 @@ def run():
                 weight(0)
                 start=snapshot(c)
                 recovered=[ticket(c) for _ in range(30)]
-                assert all(v.get("cohort")=="stable" and v["prompt_version"]=="v1" for v,_ in recovered)
+                assert all(v.get("cohort")=="stable" and v.get("prompt_version")==rollout["stable"] and "error" not in v for v,_ in recovered)
                 recovery=cohort_stats(snapshot(c)-start,[t for _,t in recovered],"stable")
                 assert recovery["availability"]==1 and recovery["p95_ms"] <= stats["stable"]["p95_ms"]*POLICY["max_p95_ratio"]
                 write("results/fixture/canary.json",dict(mode="fixture",timestamp=datetime.now(timezone.utc).isoformat(),
-                      offline_gate="results/fixture/gate.md", percent=10, versions=versions, before=stats,breaches=reasons,
-                      rollback_percent=0,recovered_versions={"v1":30},after=recovery, policy=POLICY))
+                      offline_gate=gate, percent=10, versions=versions, before=stats,breaches=reasons,
+                      rollback_percent=0,recovered_versions={rollout["stable"]:30},after=recovery, policy=POLICY))
         finally:
             weight(original)
 

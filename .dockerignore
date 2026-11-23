@@ -3,6 +3,8 @@
 !uv.lock
 !app/
 !app/*.py
+!scripts/
+!scripts/prepare_tokenizers.py
 !prompts/
 !prompts/**/
 !prompts/**/*.yaml

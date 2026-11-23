@@ -5,6 +5,7 @@ eval:
 	uv run --frozen python -m scripts.evaluate
 
 test:
+	uv run --frozen python -m scripts.prepare_tokenizers
 	uv run --frozen python -m pytest -q
 
 rollback:

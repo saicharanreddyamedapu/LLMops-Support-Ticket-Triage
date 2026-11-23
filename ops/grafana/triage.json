@@ -69,7 +69,7 @@
     },
     {
       "id": 3,
-      "title": "Errors by class (requests/s)",
+      "title": "Request errors (%) and upstream failures per 100 requests",
       "type": "timeseries",
       "datasource": {
         "type": "prometheus",
@@ -84,12 +84,12 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by(outcome)(rate(triage_requests_total{outcome!=\"ok\"}[30s]))",
+          "expr": "100 * sum by(outcome)(rate(triage_requests_total{outcome!=\"ok\"}[30s])) / scalar(sum(rate(triage_requests_total[30s])))",
           "legendFormat": "{{outcome}}"
         },
         {
           "refId": "B",
-          "expr": "sum by(kind)(rate(triage_call_errors_total[30s]))",
+          "expr": "100 * sum by(kind)(rate(triage_call_errors_total[30s])) / scalar(sum(rate(triage_requests_total[30s])))",
           "legendFormat": "upstream {{kind}}"
         }
       ]

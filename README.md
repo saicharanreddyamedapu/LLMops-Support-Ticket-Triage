@@ -48,6 +48,7 @@ Use Python 3.12 and uv. Run these from the repository root. On Windows use `pyth
 
 ```shell
 uv sync --frozen
+uv run --frozen python -m scripts.prepare_tokenizers
 uv run --frozen python -m pytest -q
 uv run --frozen python -m scripts.evaluate --version v1 --output .local/base.json
 uv run --frozen python -m scripts.evaluate --version v2 --output .local/candidate.json
@@ -55,6 +56,8 @@ uv run --frozen python -m scripts.gate .local/base.json .local/candidate.json
 ```
 
 `make eval` runs the full held-out fixture evaluation. Each result includes the data digest, run mode, timestamp, model, prompt and source revision. The [baseline](results/baseline.json), [candidate](results/fixture/current.json) and [per-ticket outputs](results/fixture/outputs.json) are included.
+
+Python setup downloads checksum-verified token tables once. Docker includes them in the image. The adapter integration test sends an OpenAI-format request to a local server returning HTTP 429, then verifies the Anthropic-format request and successful response. This exercises the SDK adapters without provider accounts or charges.
 
 The frozen sample contains 132 dev and 132 held-out tickets across 11 categories. Category uses exact match to the upstream label. Product uses exact match to the project-defined category-to-product mapping. Priority becomes scorable only after human review. Summary uses a lexical grounding proxy: at least half of its distinct word tokens must appear in the ticket. The fixture often echoes the ticket, so 100% on this check offers little evidence of summary quality. Only draft_reply has an optional live judge. [Data provenance and priority rubric](data/README.md)
 

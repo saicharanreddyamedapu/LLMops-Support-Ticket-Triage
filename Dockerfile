@@ -4,6 +4,9 @@ COPY --from=uv /uv /usr/local/bin/uv
 WORKDIR /service
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev --no-install-project
+ENV CUSTOM_TIKTOKEN_CACHE_DIR=/service/tokenizers
+COPY scripts/prepare_tokenizers.py scripts/prepare_tokenizers.py
+RUN .venv/bin/python scripts/prepare_tokenizers.py
 COPY app app
 COPY prompts prompts
 COPY config config

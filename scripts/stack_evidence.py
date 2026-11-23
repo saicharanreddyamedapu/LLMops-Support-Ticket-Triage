@@ -20,12 +20,12 @@ PROM="http://127.0.0.1:19090"
 def issue(c):
     r=c.post(API+"/triage",json={"text":"I have a question about my refund."},headers={"Authorization":"Bearer fixture-demo"})
     r.raise_for_status()
-    return r.json()
+    return r.json(), r.headers["X-Trace-Id"]
 
 
 def phoenix(c):
     with injected(primary_down=True):
-        result=issue(c)
+        result, trace_id=issue(c)
         assert result["fallback"] and result["mode"]=="fixture"
         for _ in range(15):
             time.sleep(.25)
@@ -35,7 +35,7 @@ def phoenix(c):
         response.raise_for_status()
         spans=response.json()["data"]
         for root in spans:
-            if not any(e["name"]=="retry" for e in root["events"]):
+            if root["context"]["trace_id"] != trace_id or not any(e["name"]=="retry" for e in root["events"]):
                 continue
             calls=sorted([s for s in spans if s["parent_id"]==root["context"]["span_id"]],key=lambda s:s["start_time"])
             if len(calls)!=3 or not calls[-1]["attributes"].get("app.secondary") or calls[-1]["status_code"]!="OK":

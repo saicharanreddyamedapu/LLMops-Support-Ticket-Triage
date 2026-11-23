@@ -1,6 +1,7 @@
 import hmac
 import json
 import logging
+import math
 import os
 import time
 from collections import defaultdict, deque
@@ -58,9 +59,12 @@ def ready():
         r = settings.rollout()
         for role in ("stable","candidate"):
             settings.prompt(r[role])
-        if settings.MODE == "live" and (not all(os.getenv(k) for k in ("OPENAI_API_KEY","ANTHROPIC_API_KEY")) or
-                                        float(os.getenv("LIVE_BUDGET_USD","0")) <= 0):
-            raise ValueError("live configuration")
+        if int(os.getenv("CLIENT_RPS", "12")) < 1:
+            raise ValueError("invalid client rate limit")
+        if settings.MODE == "live":
+            budget = float(os.getenv("LIVE_BUDGET_USD", "0"))
+            if not math.isfinite(budget) or budget <= 0 or not all(os.getenv(k) for k in ("OPENAI_API_KEY","ANTHROPIC_API_KEY")):
+                raise ValueError("live configuration")
     except (OSError, ValueError, KeyError):
         return error("configuration", 503)
     return {"status":"ready", "mode":settings.MODE}
@@ -86,6 +90,7 @@ async def instrument(request: Request, call_next):
             version = cfg["version"]
             request.state.routing = (cohort, cfg, span)
             response = await call_next(request)
+            response.headers["X-Triage-Cohort"] = cohort
             outcome = getattr(request.state, "outcome", "invalid_request")
             model = getattr(request.state, "model", model)
         except Fault as exc:
@@ -100,6 +105,7 @@ async def instrument(request: Request, call_next):
         obs.LAT.labels(cohort).observe(duration)
         span.set_attributes({"app."+k:v for k,v in attrs.items()})
         span.set_status(Status(StatusCode.OK if outcome == "ok" else StatusCode.ERROR))
+        response.headers["X-Trace-Id"] = format(span.get_span_context().trace_id, "032x")
         log.info(json.dumps(attrs))
         return response
 

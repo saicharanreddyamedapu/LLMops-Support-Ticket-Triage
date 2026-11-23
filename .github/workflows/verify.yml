@@ -16,13 +16,13 @@ jobs:
         with: {path: candidate, persist-credentials: false}
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.sha || 'main' }}
+          ref: ${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || github.sha }}
           path: base
           persist-credentials: false
       - uses: astral-sh/setup-uv@v6
         with: {version: '0.13.8'}
       - run: uv python install 3.12.16
-      - run: uv sync --frozen && uv run --frozen python -m pytest -q
+      - run: uv sync --frozen && uv run --frozen python -m scripts.prepare_tokenizers && uv run --frozen python -m pytest -q
         working-directory: candidate
       - name: Measure main on this runner
         working-directory: base

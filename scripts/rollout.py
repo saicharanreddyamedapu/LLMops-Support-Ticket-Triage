@@ -1,5 +1,6 @@
 import json
 import os
+import stat
 import sys
 import tempfile
 from pathlib import Path
@@ -12,7 +13,11 @@ def weight(percent):
         raise ValueError("percent outside 0..100")
     with tempfile.NamedTemporaryFile(mode="w", dir=path.parent, delete=False) as f:
         json.dump(dict(cfg, percent=percent),f)
-    os.replace(f.name,path)
+    try:
+        os.chmod(f.name, stat.S_IMODE(path.stat().st_mode))
+        os.replace(f.name,path)
+    finally:
+        Path(f.name).unlink(missing_ok=True)
     return percent
 
 

@@ -155,3 +155,98 @@ def test_gate_rejects_incomparable_and_degraded():
         assert compare(base,dict(base,**{key:.96 if key in ("product","category") else 1.2*base[key]}))[0]
     with pytest.raises(ValueError):
         compare(base,dict(base,dataset_digest="b"))
+
+
+def test_rollout_preserves_file_mode_and_other_fields(tmp_path):
+    from scripts.rollout import weight
+    path = tmp_path / "rollout.json"
+    path.chmod(0o644)
+    mode = path.stat().st_mode
+    weight(75)
+    assert path.stat().st_mode == mode
+    assert json.loads(path.read_text()) == {"stable":"v1","candidate":"v2","percent":75}
+
+
+def test_readiness_rejects_nonfinite_budget(monkeypatch):
+    monkeypatch.setattr(settings, "MODE", "live")
+    for key in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY"):
+        monkeypatch.setenv(key, "dummy")
+    monkeypatch.setenv("LIVE_BUDGET_USD", "nan")
+    assert client.get("/readyz").status_code == 503
+
+
+def test_error_is_attributed_to_admitted_cohort(tmp_path):
+    (tmp_path / "fault.json").write_text('{"invalid":true}')
+    response = post()
+    assert response.status_code == 502 and response.headers["X-Triage-Cohort"] == "stable"
+
+
+def test_late_success_preserves_concurrent_retry_after(monkeypatch):
+    cfg = settings.prompt("v1")
+    async def overlapping_call(model, *args):
+        gateway.breaker.failure(model, 120)
+        return {"model":model}
+    monkeypatch.setattr(gateway, "call", overlapping_call)
+    with observe.tracer.start_as_current_span("test") as span:
+        asyncio.run(gateway.route([], cfg, "stable", span, single=True))
+    gateway.breaker.failure(cfg["primary"], 1)
+    assert gateway.breaker.states[cfg["primary"]][1] > time.monotonic() + 110
+
+
+def test_live_gate_requires_labels_and_complete_usage():
+    base = json.loads(settings.ROOT.joinpath("results/fixture/baseline.json").read_text())
+    base.update(mode="live", unknown_usage_attempts=0)
+    with pytest.raises(ValueError, match="priority reviews"):
+        compare(base, base)
+    base.update(human_review_total=200, reviewed=100, priority=.8, judge_n=base["n"], draft_reply_judge=.9)
+    with pytest.raises(ValueError, match="complete usage"):
+        compare(base, dict(base, unknown_usage_attempts=1))
+    assert compare(base, dict(base, draft_reply_judge=.7))[0]
+
+
+def test_provider_http_adapters_with_loopback_servers(monkeypatch):
+    from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+    from threading import Thread
+
+    paths = []
+    answer = json.dumps(dict(category="ORDER", product="storefront", priority="normal",
+                             summary="Order tracking", draft_reply="Please check the order page."))
+    class Upstream(BaseHTTPRequestHandler):
+        def do_POST(self):
+            paths.append(self.path)
+            payload = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+            if "chat/completions" in self.path:
+                self.send_response(429)
+                self.send_header("Retry-After", "90")
+                body = {"error":{"message":"fixture busy","type":"rate_limit_error"}}
+            else:
+                self.send_response(200)
+                body = {"type":"message","id":"msg_test","model":payload["model"],"role":"assistant",
+                        "content":[{"type":"text","text":answer}],"stop_reason":"end_turn",
+                        "usage":{"input_tokens":30,"output_tokens":24}}
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(body).encode())
+
+        def log_message(self, *args):
+            pass
+
+    with ThreadingHTTPServer(("127.0.0.1", 0), Upstream) as server:
+        thread = Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        complete = gateway.litellm.acompletion
+        async def use_loopback(**kwargs):
+            origin = f"http://127.0.0.1:{server.server_port}"
+            base = origin + "/v1" if kwargs["model"].startswith("openai/") else origin
+            return await complete(**kwargs, api_base=base, api_key="test-local-only")
+        monkeypatch.setattr(gateway.litellm, "acompletion", use_loopback)
+        monkeypatch.setattr(settings, "MODE", "live")
+        monkeypatch.setenv("LIVE_BUDGET_USD", "0.01")  # Isolated test ledger and loopback providers
+        try:
+            response = post()
+            assert response.is_success, (response.json(), paths)
+            assert response.json()["fallback"] and response.json()["model"].startswith("claude-")
+            assert len(paths) == 2 and "chat/completions" in paths[0] and "/messages" in paths[1]
+        finally:
+            server.shutdown()
+            thread.join()

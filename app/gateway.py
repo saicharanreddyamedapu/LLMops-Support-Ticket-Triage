@@ -11,6 +11,7 @@ from importlib.util import find_spec
 from pathlib import Path
 
 os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "True")
+os.environ.setdefault("CUSTOM_TIKTOKEN_CACHE_DIR", str(Path(".local/tokenizers").resolve()))
 import litellm
 from opentelemetry.trace import Status, StatusCode
 from pydantic import ValidationError
@@ -71,10 +72,10 @@ class Breaker:
         return True
 
     def failure(self, model, wait):
-        count = self.states.get(model, (0, 0))[0] + 1
-        self.states[model] = (count, time.monotonic() + max(5, wait))
-        if wait:
-            self.states[model] = (max(count, 2), time.monotonic() + wait)
+        count, until = self.states.get(model, (0, 0))
+        now = time.monotonic()
+        keep_until = until if count >= 2 else 0
+        self.states[model] = (max(count + 1, 2 if wait else 1), max(keep_until, now + (wait or 5)))
 
 
 breaker = Breaker()
@@ -168,9 +169,13 @@ async def route(messages, cfg, cohort, root, single):
         if secondary:
             root.add_event("failover", {"model":model})
         for attempt in range(2):
+            if attempt and not breaker.available(model):
+                break
+            admitted = breaker.states.get(model)
             try:
                 value = await call(model, messages, cfg, cohort, secondary)
-                breaker.states.pop(model, None)
+                if breaker.states.get(model) == admitted:
+                    breaker.states.pop(model, None)
                 return value, secondary
             except Fault as exc:
                 last = exc
