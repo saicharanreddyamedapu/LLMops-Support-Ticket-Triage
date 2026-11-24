@@ -18,7 +18,7 @@ from . import gateway, observe as obs, settings
 from .schema import Failure, Fault, Served, Ticket
 
 # This service owns the sanitized request span and its child model attempts.
-app = FastAPI(title="Support ticket triage", version="1.0",
+app = FastAPI(title="LLMops Support Ticket Triage", version="1.0",
               telemetry={"tracing":False, "operation_spans":False, "metrics":False, "logs":False})
 log = logging.getLogger("uvicorn.error")
 windows = defaultdict(deque)
