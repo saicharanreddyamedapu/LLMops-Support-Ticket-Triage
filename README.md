@@ -172,7 +172,7 @@ The redaction stretch goal covered email addresses and US-style telephone number
 
 One 111.8 ms failover request captured in Phoenix spent 12.8 ms and 3.0 ms on failed primary attempts and 37.5 ms on the successful secondary call. The remaining 58.5 ms included backoff and request handling. The API returned the same trace ID that Phoenix recorded for all three attempts. [Trace exported from Phoenix](results/fixture/phoenix-trace.json)
 
-## Project 01 acceptance
+## Project verification
 
 The [point-by-point review](REFERENCE_REVIEW.md) maps each relevant requirement to evidence and records the open items. The prospective Qwen availability window runs from 24 November to 1 December 2026 at 11:54 IST.
 
@@ -187,8 +187,8 @@ The [point-by-point review](REFERENCE_REVIEW.md) maps each relevant requirement 
 |M6 · Capacity and cost|[Fixture peak stage](results/fixture/load-24.json), [Qwen peak stage](results/local/load-1.json), [fixture unit cost](results/fixture/current.json)|Increasing-rate HTTP load measured against both services. The fixture sweep reached admission 429s. The laptop Qwen sweep demonstrated latency degradation within the limiter.|
 |M7 · Operations|[Runbook](RUNBOOK.md), [incident report](postmortems/001-duplicate-request-spans.md)|Procedures cover both alerts, rollback, recovery and the two-provider drill.|
 
-The selected stretch goal is [PII redaction with paired latency measurements](results/fixture/redaction.json). Project 02, Project 03 and the optional vLLM deployment track have separate requirements.
+The selected stretch goal is [PII redaction with paired latency measurements](results/fixture/redaction.json).
 
 ## Attribution
 
-Adapted from Rasswanth's [pinned Project 01 brief](https://github.com/rasswanth-lyzr/ship-ai-projects/tree/d4f58085b38f24ebec4ce37c4f432359259fa196), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This implementation adds a reproducible fixture transport, a review queue, tests, dashboards and measured local operations drills. The Bitext sample carries its own [data attribution and license](data/README.md).
+The Bitext sample carries its own [data attribution and license](data/README.md).

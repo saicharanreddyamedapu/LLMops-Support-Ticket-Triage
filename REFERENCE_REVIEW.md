@@ -1,13 +1,13 @@
-# Project 01 reference review
+# Support ticket triage verification
 
-The upstream default branch and the audited revision both pointed to `d4f58085b38f24ebec4ce37c4f432359259fa196` on 24 November 2026. The upstream tree contains a shared README, resources, license, three project briefs and three example images. Project 01's brief contains its architecture. The selected workload is A (ticket triage) and the selected deployment track is A (API providers). [Upstream brief](https://github.com/rasswanth-lyzr/ship-ai-projects/blob/d4f58085b38f24ebec4ce37c4f432359259fa196/projects/01-llm-ops/BRIEF.md)
+This document maps the ticket triage service to its implementation and verification evidence.
 
 |Reference item|Implementation and verification|Verdict|
 |---|---|---|
 |Shared rules · ground truth, comparison, sample size, failure reporting|The README compares the same 132 test tickets across frozen prompt versions and describes the tracing incident and release rejections.|Verified with the label limitation below.|
 |Shared rules · reproducibility, gateway, budget and caching|Compose starts the service, LiteLLM handles inference, and an opt-in development cache supports replay. Real evaluations bypass replay. Hosted credentials are absent and the live budget is zero.|Local execution verified. Provider-side spend limits require provider accounts.|
 |Workload A · required fields and dataset|Pydantic validates category, priority, product, summary and draft reply. Frozen Bitext rows supply category and reference text. The project catalog defines product. Only the draft reply receives a model grade.|Verified.|
-|Workload A · 200 hand-labeled priorities|264 assistant annotations include source, rationale and ticket ID. The agreed project scope uses these provisional annotations. The separate human review queue contains zero completed reviews.|AI labeling complete. Upstream human-review requirement open.|
+|Workload A · 200 hand-labeled priorities|264 assistant annotations include source, rationale and ticket ID. The agreed project scope uses these provisional annotations. The separate human review queue contains zero completed reviews.|AI labeling complete. Human review outstanding.|
 |Track A · two providers|OpenAI and Anthropic use distinct LiteLLM adapters. Local HTTP adapter tests cover real request formats, errors and secondary success. Real Qwen inference is independently verified on the laptop.|External two-provider availability and failover remain unverified.|
 |Architecture · request path and monitoring|Authenticated FastAPI, prompt registry and gateway feed model attempts. OTel Collector sends traces to Phoenix and exposes metrics to Prometheus. Grafana has eight panels and per-instance queries.|Measured locally. See the saved Qwen trace, screenshot and monitoring report.|
 |M0 · baseline and split|264 unique tickets are split into 132 dev and 132 test. Qwen development screens and held-out reports are stored separately. Make targets print metrics and save the baseline.|Verified. Reply self-grades have no independent calibration.|
@@ -26,13 +26,12 @@ The upstream default branch and the audited revision both pointed to `d4f58085b3
 |Artifacts and red flags|README headline comparisons, Mermaid diagram, results, dashboard JSON, screenshot, failed check, runbook, postmortem and video are present. Secret scans covered the separate publishable repository.|Artifact links are in the README.|
 |Stretch and interview topics|PII redaction was selected and measured with paired timings. The README and runbook cover distribution shift, rate limits, unit cost, rollback and latency tails. A self-host break-even figure would require measured hosting costs.|Other stretch options and the alternative workloads/tracks are elective.|
 
-The resources page supplies further reading and alternative tools. It does not add a second product to this implementation. [Upstream LLMOps resources](https://github.com/rasswanth-lyzr/ship-ai-projects/blob/d4f58085b38f24ebec4ce37c4f432359259fa196/RESOURCES.md#llm-ops)
 
 ## Architecture and acceptance checks
 
 On 24 November, the same-day v1 baseline measured 2.657 s p95 before the changes and 2.522 s after them on the same 132 tickets. Both runs produced 132 first-pass valid responses, 58 correct categories, 119 correct products and 72 priorities matching the provisional annotations. The same model graded 102 of 132 replies as passing. The release comparison against the original accepted v1 also passed. Both configured roles refer to the same v1 measurement on main. [Current baseline](results/baseline.json) · [Release comparison](results/local/gate.md) · [Preserved original baseline](results/local/original-v1/baseline.json)
 
-|Upstream point|Check from the project root|Evidence and boundary|
+|Verification item|Check from the project root|Evidence and boundary|
 |---|---|---|
 |M0 · usable baseline command|Run `make eval` with the pinned Ollama weights present. Check the stable role, 132 test IDs, field scores, first-pass validity, p50/p95, usage and fees in the output.|[Baseline](results/baseline.json). `make eval-fixture` exercises the deterministic transport.|
 |M1 · service identity|Send an authenticated ticket and inspect the typed output and identity headers. Check readiness, rejected inputs, rate limits and metadata in `tests/test_service.py`.|[API](app/main.py), [models](app/schema.py), [version registry](prompts/triage), [container build](Dockerfile). `make demo` passes the checkout SHA to the image.|
@@ -44,4 +43,4 @@ On 24 November, the same-day v1 baseline measured 2.657 s p95 before the changes
 |M6 · capacity and unit economics|Read the status counts and latency quantiles for each offered rate, compare token counts before and after trimming, and recompute the 1,000-success cost from the published sample.|[Load and cost tables](README.md#load-and-slos), [pricing](config/prices.json), [k6 driver](ops/load.js). Qwen's measured provider fee was zero. Local power and equipment costs were not measured.|
 |M7 · pager handoff and incident|Follow the first checks, mitigation and recovery instructions for each alert. Inspect the incident timeline and regression test for duplicate request spans.|[Runbook](RUNBOOK.md), [postmortem](postmortems/001-duplicate-request-spans.md).|
 
-The upstream example dashboard is illustrative. The committed screenshot uses traffic from the local model. TTFT applies to streaming, while this service returns a single validated JSON object. The chosen stretch goal measures PII redaction latency. The self-hosted GPU track, alternative workloads and other stretch goals are elective. [Load screenshot](results/local/grafana-load.png) · [PII experiment](results/fixture/redaction.json)
+The committed screenshot uses traffic from the local model. TTFT applies to streaming, while this service returns a single validated JSON object. The chosen stretch goal measures PII redaction latency. The self-hosted GPU track, alternative workloads and other stretch goals are elective. [Load screenshot](results/local/grafana-load.png) · [PII experiment](results/fixture/redaction.json)
