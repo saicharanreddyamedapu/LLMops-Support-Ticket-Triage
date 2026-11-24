@@ -47,7 +47,8 @@ async def judge(row, reply, cfg):
 
 
 async def run(args, temp):
-    os.environ.update(TRIAGE_MODE=args.mode, CLIENT_RPS="10000", SINGLE_PROVIDER="1", ROLLOUT_PATH=str(temp/"rollout.json"))
+    os.environ.update(TRIAGE_MODE=args.mode, CLIENT_RPS="10000", SINGLE_PROVIDER="1",
+                      RECORD_REPLAY="0", ROLLOUT_PATH=str(temp/"rollout.json"))
     write(temp/"rollout.json", {"stable":args.version,"candidate":args.version,"percent":0})
     from app import settings
     from app.main import app

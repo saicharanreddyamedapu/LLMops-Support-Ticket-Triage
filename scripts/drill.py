@@ -1,4 +1,4 @@
-"""Fixture-only canary drill against a running Compose API; restores original config."""
+"""Exercise a gated version change on an isolated loopback fixture service."""
 import json
 import os
 import subprocess
@@ -17,22 +17,22 @@ from scripts.common import quantile, write
 from scripts.rollout import weight
 from scripts.gate import compare
 
-URL = os.getenv("DRILL_URL", "http://127.0.0.1:8765")
-FAULT = Path(os.getenv("FIXTURE_FAULT_FILE", "config/fixture-fault.json"))
+DRILL_ROLLOUT = {"stable": "v1", "candidate": "v2", "percent": 0}
 POLICY = json.loads(Path("config/canary.json").read_text())
 
 
 @contextmanager
 def injected(**faults):
-    if FAULT.exists():
+    path = Path(os.getenv("FIXTURE_FAULT_FILE", "config/fixture-fault.json"))
+    if path.exists():
         raise RuntimeError("existing fault configuration present; inspect before running")
-    tmp = FAULT.with_suffix(".tmp")
+    tmp = path.with_suffix(".tmp")
     write(tmp,faults)
-    tmp.replace(FAULT)
+    tmp.replace(path)
     try:
         yield
     finally:
-        FAULT.unlink(missing_ok=True)
+        path.unlink(missing_ok=True)
 
 
 def snapshot(c):
@@ -75,12 +75,14 @@ def ticket(c):
 
 
 def verify_gate(rollout):
+    if rollout["stable"] == rollout["candidate"]:
+        raise ValueError("canary requires two distinct prompt versions")
     reports = []
     with tempfile.TemporaryDirectory() as directory:
         for role in ("stable", "candidate"):
             output = Path(directory) / (role + ".json")
             subprocess.run([sys.executable, "-m", "scripts.evaluate", "--mode", "fixture",
-                            "--version", rollout[role], "--output", str(output)], check=True)
+                            "--version", rollout[role], "--provisional-priority", "--output", str(output)], check=True)
             reports.append(json.loads(output.read_text()))
     failed, table = compare(*reports)
     if failed:
@@ -88,11 +90,11 @@ def verify_gate(rollout):
     return dict(base=reports[0], candidate=reports[1], comparison=table)
 
 
-def run():
-    rollout=json.loads(Path(os.getenv("ROLLOUT_PATH","config/rollout.json")).read_text())
+def exercise(url):
+    rollout=json.loads(Path(os.environ["ROLLOUT_PATH"]).read_text())
     original=rollout["percent"]
     gate=verify_gate(rollout)
-    with httpx.Client(base_url=URL,headers={"Authorization":"Bearer fixture-demo"}) as c:
+    with httpx.Client(base_url=url,headers={"Authorization":"Bearer fixture-demo"},trust_env=False) as c:
         assert c.get("/readyz").json()["mode"]=="fixture"
         try:
             weight(10)
@@ -120,7 +122,7 @@ def run():
                 assert all(v.get("cohort")=="stable" and v.get("prompt_version")==rollout["stable"] and "error" not in v for v,_ in recovered)
                 recovery=cohort_stats(snapshot(c)-start,[t for _,t in recovered],"stable")
                 assert recovery["availability"]==1 and recovery["p95_ms"] <= stats["stable"]["p95_ms"]*POLICY["max_p95_ratio"]
-                write("results/fixture/canary.json",dict(mode="fixture",timestamp=datetime.now(timezone.utc).isoformat(),
+                write(".local/canary.json",dict(mode="fixture",timestamp=datetime.now(timezone.utc).isoformat(),
                       offline_gate=gate, percent=10, versions=versions, before=stats,breaches=reasons,
                       rollback_percent=0,recovered_versions={rollout["stable"]:30},after=recovery, policy=POLICY))
         finally:
@@ -128,4 +130,7 @@ def run():
 
 
 if __name__=="__main__":
-    run()
+    from scripts.local_lab import service
+    with service(DRILL_ROLLOUT) as (url, _):
+        exercise(url)
+    print("Rollback verified. Report saved to .local/canary.json")

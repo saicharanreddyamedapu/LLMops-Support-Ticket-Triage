@@ -1,0 +1,2378 @@
+[
+  {
+    "id": "00132e1b3e22f39d325f2588775ffc968b478693245ec814e440e60b6adf507f",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is asking how to close their account.",
+      "draft_reply": "Hello, I can certainly help you with closing your account. Please confirm which specific account category you are referring to so I can guide you through the correct steps.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0021ece7dfabb762150683577a98100d716209da6ab77d410238c2e8c86bf37a",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "The customer is asking for instructions on how to utilize their freemium profile features.",
+      "draft_reply": "Hello! To help you get started with your freemium profile, please check the 'Features' section in your account dashboard or visit our Help Center guide titled 'Understanding Freemium Benefits'. Let us know if you need further assistance!",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00260a7a84cccbfdf54ec5c5a6a3b2485b3c5657a8514babce88b0c063e6924c",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is attempting to update their personal information within their account.",
+      "draft_reply": "Hello, I understand you would like to change your personal details. Please provide the specific information you wish to update so I can guide you through the process or verify your identity.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "004361be55f7259a276016f1d638835037391d3934028cd134de7e264bcda647",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting assistance to reset their user profile PIN.",
+      "draft_reply": "Hello, I can certainly help you reset your PIN. Please verify your identity by providing the email address associated with your account, and we will proceed with the reset instructions.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00688e7fcbbb0f8dfb3e5e3590629dab1b4706588acebdb30cb75565045f5530",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer wants to downgrade their current account to a freemium plan.",
+      "draft_reply": "Hello, I can help you switch your account to the freemium plan. Please confirm which specific freemium tier you would like to select so I can process the change for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "006c3b4bc5c556945b3c5d9ee053806775ee62ae40ff7b2c36fdab785c22879c",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is inquiring about setting up a new Pro account.",
+      "draft_reply": "Hello! We can certainly help you get started with your new Pro account. Please provide the email address you would like to use, and we will guide you through the registration process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00772440fbf79140fc6e7898f515a4f06b5ee5417d496811717a95b017803cf0",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is experiencing issues regarding the termination of their account.",
+      "draft_reply": "Hello, we understand you are having trouble with your account termination. Could you please provide more specific details about the error message or the step where the process failed so we can assist you further?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00a7a9ce3a43068962aad38f50fde2b8780544b81a9769a20eea0e9f7a7b8d79",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "high",
+      "product": "membership",
+      "summary": "The customer is requesting assistance to recover their user profile access key.",
+      "draft_reply": "Hello, I understand you need help recovering your user profile access key. Please verify your identity by providing the email address associated with your account so we can securely reset your access.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00d28a603cbb38d4bf2f0e78629e39b4e514e7dc428624606863bb311592089a",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting assistance to retrieve their password for their user profile.",
+      "draft_reply": "Hello, I understand you need help retrieving your password. Please check your email inbox for a link to reset it, or let me know if you need further guidance on the recovery process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00fa709cbb76cc544ce9a8fd5c79899f2c261c169b31ed84a11ae6a540edf3f5",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "high",
+      "product": "membership",
+      "summary": "The customer is urgently requesting their user profile access key but is expressing frustration.",
+      "draft_reply": "Hello, I understand you need your user profile access key. We will look into retrieving that for you right away.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "010d750f8319fe073d8636f646ca87cf17a75c7c841d7f8675fa66e1afe01b7f",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer wants to update information on their freemium account.",
+      "draft_reply": "Hello, we can help you update your account details. Please provide the specific information you would like to change so we can assist you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01357daa5bf0afadfa0b203bc093e1896f61ece3d1f0e7f7c341078a8b19e386",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is attempting to edit information associated with their Gold account.",
+      "draft_reply": "Hello, we have received your request regarding the update of your Gold account details. Our team will review your inquiry and assist you shortly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0040083b44cac31209bf37d6bb0426f472ecdbd273259bdbde6e8a977c20202b",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is asking for information on where to locate details regarding withdrawal fees.",
+      "draft_reply": "Hello, you can find the current withdrawal fee schedule in our Billing section under 'Fees & Charges' or by visiting the specific page linked in your account dashboard. Please let us know if you need further assistance.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0067d9c351cb2b00cbb088ddaeb4ab3f8e7e501f59577dd35fe143bc2e19e333",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is inquiring about a withdrawal penalty associated with their account.",
+      "draft_reply": "Hello, I understand you have questions regarding the withdrawal penalty on your account. Could you please provide your account email or user ID so I can look into the specific details of your request?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00c40c9bb2ca5bb92123edde790115eefaf1daca57d0a46326cbf39e1a890336",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting information regarding cancellation charges for their account.",
+      "draft_reply": "Hello, I can certainly help you with your cancellation charges. Please provide your account email or user ID so I can look up the specific details for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00d966483f99dde51196c881b83be56b4b19cadb2079be708ba965440a492035",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting information regarding termination charges for their account.",
+      "draft_reply": "Hello, I can certainly help you locate your termination charges. Please allow me a moment to pull up your account details and the specific fees associated with closing your membership.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0167ddaf6806e39c8463825892aa68f1895d45f16d8e8280e77671ba5fd1c0fb",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is unable to locate information regarding early exit penalties for their account.",
+      "draft_reply": "Hello, I understand you are looking for details on early exit penalties. Please check your account dashboard under the 'Billing' or 'Membership Terms' section, or reply with your account ID so I can provide the specific penalty structure for your plan.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01e59732792603b81b44c6bb9b72a6ff7531871a97bd6a4613e6dbe7204063b0",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting information regarding the early exit penalty for their membership.",
+      "draft_reply": "Hello, I can certainly help you with details about our early exit penalty policy. Could you please provide your account number or email address so I can look up your specific plan terms?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "02bf43c116be06a9d00e5b201ac2cd119a32b15442bce543cb7645ad76b5b47d",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is asking about the existence of early termination penalties for their account.",
+      "draft_reply": "Hello, I can certainly help you with that. Could you please provide your account email or user ID so I can look up your specific contract terms and penalty details?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "031e4a4676d4aa941bd137b725a65ade8aa035c6854f6bfd263752b117be7a21",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting information regarding termination fees for their account.",
+      "draft_reply": "Hello, I can certainly help you with that. Please allow me a moment to locate the specific termination fee details applicable to your plan.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "035c8484fa0351c68a7be2599d8524ecd9a3c3f10f73697becef0e6ad6e6c2ae",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting information regarding cancellation penalties for their account.",
+      "draft_reply": "Hello, I can certainly help you check the details about your cancellation penalties. Please provide your account email or user ID so I can look this up for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "038fd7fbe3c801864f99e1d73eebb71841501c21b4319ea89f26c46ced9968f9",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is unable to locate information regarding their termination fee.",
+      "draft_reply": "Hello, I understand you are looking for details about your termination fee. Please allow me a moment to check our records and guide you on where to find this specific billing information.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "04521a2e1aceb32a88c92ca9a0484172c208a532af9654942275ddd44394deeb",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer wants to verify the fees associated with their withdrawals.",
+      "draft_reply": "Hello, I can certainly help you check your withdrawal fees. Please provide the specific transaction ID or date range you are interested in so I can look into this for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "04a97053edc0dd88a1f9b076b96a5e7b9e257b687de32453e28236ffeedd6631",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information regarding withdrawal penalties.",
+      "draft_reply": "Hello, I can certainly help you with that. Could you please specify which account or service you are referring to so I can provide the correct penalty details?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "003882764ed5491effe22c77bb12c36af7e86040f84058e37a5dacd3290465c4",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is requesting to speak with a live operator.",
+      "draft_reply": "Hello, I understand you would like to contact an operator. Please let me know if there is a specific issue you need assistance with so I can connect you or provide the necessary support.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00784ddcdc64fcff52ea0fedaa6f45dae1f63413a47e820b8f1e8de4aa4d60a6",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is expressing dissatisfaction with the current interaction and requests to speak with a different assistant.",
+      "draft_reply": "I understand you would like to speak with another assistant. I will note your request and transfer you to a colleague who can better assist you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00e633415e2d94ea0263a4c4e589d78a0db0af0c4c199953c1ff414742325e81",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is inquiring about the available hours or specific times to reach customer service.",
+      "draft_reply": "Hello! Customer support is typically available during our standard business hours. You can also find real-time chat options on our website if you prefer immediate assistance.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "01233690f53773af82db6f426eb2d0ba271b6f543dc585136f3150229b518004",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "You are requesting assistance to establish contact with our customer support team.",
+      "draft_reply": "Hello, we can certainly help you get in touch with our support team. Please provide your account email or order number so we can connect you directly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "01650f3c701e2f5ca75052d552f5f76ace212107599ed44e50e16e970e341a3d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is requesting assistance to place a call to the customer service team.",
+      "draft_reply": "Hello! I can certainly help you connect with our support team. Would you like me to provide the phone number for our customer service line, or would you prefer to start a live chat here?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01b04aa02a58c7aa0cb5257be09ad3993b5b297464727457e101d3dd984a754f",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking for the operating hours of the customer support team.",
+      "draft_reply": "Hello! You can reach our customer support team during their standard business hours. Please check our website or contact form for the specific schedule that best fits your needs.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "01f2eff698d5735cf108b76352b6699508c007e6cf8bb5b3c4ad39d391bd06d7",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is expressing frustration with the lack of helpfulness and is requesting information on how to contact a support representative.",
+      "draft_reply": "We apologize for your frustration. To assist you further, please reply directly to this ticket or use our live chat feature available at the bottom of our website.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01fbc7cad5d2980f5840fa5403d849600ef645e1600b8d9dc395efdc40d2cc01",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking for the available hours or times to contact customer service.",
+      "draft_reply": "Hello! You can reach our support team during our standard business hours. Please check our website for specific time zones and availability, or feel free to submit a ticket if you need immediate assistance outside those times.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02491a3fffcb20407375c9b2a5d9e41c161ea8dd878e3a27025da29ba7527b22",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "The customer is requesting to speak with a live support agent as they are unable to understand the current automated response.",
+      "draft_reply": "Hello! I understand you'd like to speak with an agent. I can certainly help connect you or provide further assistance once we clarify your specific concern.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "027cd2be6323c74726a0e5fc790eab4319ad17b8d18cb72535788a2db4b3473d",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking for the operating hours or availability to contact customer assistance.",
+      "draft_reply": "Hello! Customer support is available Monday through Friday from 9 AM to 8 PM EST. You can also reach us via live chat on our website at any time during these hours.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02b31ee6f58ef5f2d009dbdaaa4faa8d113d8f47227d2d1a819af26e00e013a9",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is inquiring about the available hours to contact customer support.",
+      "draft_reply": "Hello! You can reach our customer support team during our standard business hours. Would you like me to provide those specific times or help you with anything else?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "035032dac6fd8ba31c64701f22713309db9b8fa6426d3a75906510a057ed4061",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "The customer is frustrated with the lack of access to a live agent and requests immediate assistance from a human representative.",
+      "draft_reply": "Hello, I understand your frustration. We are happy to connect you with a live agent as soon as possible. Please hold on while we locate an available representative for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0021cbe0f7008dd8908e59f2d45c4fa350a284335135100d1c405ef6aaa9c963",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is inquiring about available shipping options.",
+      "draft_reply": "Hello, I can certainly help you with your question regarding shipment options. Could you please specify which product or order you are referring to so I can provide the most accurate details?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00f2197e8f12fd22e28e13da3d44a8e731fd9e7a9570ca5211b2f9549eb2359e",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is inquiring about the expected arrival date for their order.",
+      "draft_reply": "Hello, I can certainly help you check the status of your shipment. Could you please provide your order number so I can look into it for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02849d01e850c18744892f98d465886ced11ca385b24a00ffb0750feef761a5b",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is inquiring about the estimated arrival date for their order.",
+      "draft_reply": "Hello! I can certainly help you track your shipment. Could you please provide your order number so I can look up the current status and expected delivery date for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02c5e0619d9796b8e81c7c8194cbe254271719d259c6a3f82331fbef8043b916",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer wants to know the estimated arrival date for their order.",
+      "draft_reply": "Hello, I can help you check your delivery status. Could you please provide your order number so I can look up the tracking information for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02e4e249de308dfa5b70370fbdd2040702fa703729c9d7789ffff829ae5dee94",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "The customer is asking for information regarding the available shipping methods they can select.",
+      "draft_reply": "Hello! I can certainly help you with that. Could you please provide your destination address or order number so I can check which specific shipment options are available for your location?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02f72543be60a814f80268d81e1433ac43bdd454619dc608a92db3a10e5d901e",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "The customer is asking how to view available shipping methods.",
+      "draft_reply": "Hello! You can view the available shipping methods during the checkout process or by checking your account's order settings. Is there anything else I can help you with?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "03603a7d7e50b7a72fa853cd4240fa906cd678c5075aa627e0debf141655039e",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "The customer is asking for instructions on how to view available delivery methods.",
+      "draft_reply": "Hello! To see the delivery methods, please navigate to your account settings or checkout page where shipping options are typically listed. If you need further assistance locating this information, feel free to ask.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0389600b9e63edccfc29ec062ea44e8aecbbc17c2d6b660695827040189b953b",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "low",
+      "product": "fulfillment",
+      "summary": "The customer is requesting information regarding available shipping methods.",
+      "draft_reply": "Hello, I can certainly help you find details about our shipping options. Please let me know if you would like specific rates or delivery times for your location.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "03fddbb0c6e27242489bd1b63604da514f6e1c02d3f9539218381e057afc28b6",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is inquiring about the expected delivery date for their recent order.",
+      "draft_reply": "Hello! I can certainly help you with that. Could you please provide your order number so I can check the current shipping status and estimated arrival time for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "04db4aa53acf03c3ffd8e2b0f68fa9f4a2dc4f117f9a9000d2f128471751174f",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is inquiring about the expected delivery timeline for their recent purchase.",
+      "draft_reply": "Hello, I understand you are looking forward to receiving your order. To provide an accurate estimate, could you please share your order number so I can check its current status?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "050810e24033c2b01d4a0eb030482e0c56a829416d2b039035c73025f4ac1985",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is requesting information regarding available shipping methods.",
+      "draft_reply": "Hello, I can certainly help you with that. Could you please provide the order number or your shipping address so I can check the specific options available for your delivery?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "053fe000169bb0c06a11f5311baf899be3cc9a03988fbc0d5940284dcab56255",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer wants to know the estimated arrival date for their order.",
+      "draft_reply": "Hello! I can certainly help you check the status of your order. Could you please provide your order number so I can look into it for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00134eb6ce492cfccd0756a04fb63496d406fae8712bce798832f20546f3560b",
+    "output": {
+      "category": "CONTACT",
+      "priority": "normal",
+      "product": "support",
+      "summary": "The customer is frustrated and unable to locate the process or link to file a customer claim.",
+      "draft_reply": "Hello, I understand your frustration. To help you file a claim, please visit our Help Center and navigate to the 'Claims' section, or reply with your order number so I can guide you directly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "005bf15e02148763c0831be67ea209c7ccaf4e1b73700a9d74022ddac5b0dc45",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking for instructions on how to submit a product review.",
+      "draft_reply": "Hello! To leave a review, please navigate to the order page where you purchased the item and click the 'Write a Review' button. If you cannot find it there, feel free to reply with more details so I can guide you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0092abb74b50331a2108296af44d09da658dec05d84db5248df2f215c9475144",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer wants to provide feedback regarding our products.",
+      "draft_reply": "Hello! Thank you for your interest in sharing your thoughts. Please let us know what specific aspects of our products you would like to discuss, and we will be happy to listen.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00a90e07b12d47d3d71e7a0d32b215caa7b5a1b641fdf719b44431b68486f564",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting assistance with filing a formal claim against the company.",
+      "draft_reply": "Hello, I can certainly help you file a customer claim. Please provide the details of your issue so we can begin the process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "013cce58b7be96fff23ef7ba4cb165571b2ad791384631e4731451080252530d",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting assistance to file a claim related to their account.",
+      "draft_reply": "Hello, I can certainly help you with your customer claim. Could you please provide the specific details of the incident or the order number associated with the claim so I can assist you further?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0178d164e07af7538214559006dd1e22dc81d19de5092e88317dcdec47312a18",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking for the location or method to file a formal complaint regarding our business.",
+      "draft_reply": "Hello, you can file a customer complaint by visiting our official Feedback Center page linked in your account settings or by replying directly to this ticket with your specific concerns.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01964552a6a0b4b6a25afac18862c6a423c97208fbe3a25794dce1c81615f501",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is inquiring about the process or availability of leaving feedback or opinions regarding our products.",
+      "draft_reply": "Hello! Yes, you can leave your opinion by visiting our Feedback page linked in your account settings. We appreciate your input and will review it to help us improve.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01b63182e45eda8450516eed9844271b1b00c4c2c3294c1ed06d35f58a99b7e2",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer wants to provide feedback about the company.",
+      "draft_reply": "Thank you for your interest in sharing your thoughts. Please let us know if you would like to submit your feedback via our online form or email, and we will be happy to direct you there.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02064bd3ffd94980cf621571de47c8a58687494ecacc82c83bcc8352fdc8b412",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking how to submit feedback regarding our products.",
+      "draft_reply": "Hello! To submit your feedback, please visit our dedicated feedback portal at [Link] or reply directly to this ticket with your comments. We appreciate you taking the time to share your thoughts.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0247dc96489e0158a8b4519f482a75a99b371a074b37b248d31d20de92f53e1c",
+    "output": {
+      "category": "SUBSCRIPTION",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting assistance with filing a claim or complaint regarding their account.",
+      "draft_reply": "Hello, I understand you would like help filing a customer claim. Could you please provide more specific details about the issue so I can direct your request to the appropriate team?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "026a3b6f03a8707e390bf5750b45ba161f9c9703c9778c2868751e6c98930ac1",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer wants to submit feedback regarding the company.",
+      "draft_reply": "Thank you for your interest in sharing your feedback. Please use our official feedback form at [link] or reply directly with your comments, and a support agent will review them shortly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "028b9077c0635fa7eaf6b6841e45208ca913e532da3375b313063720c03900fc",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is asking if there is a way to send feedback via email.",
+      "draft_reply": "Yes, you can send your feedback directly to our support team at [insert-email-address]. We appreciate your input and will review it promptly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "009c06d431ff6cb9491a341ff67bd58c00ae9add1729e3785ad14c729519dee9",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting a copy of invoice number 37777.",
+      "draft_reply": "Hello, I can help you retrieve your invoice. Please provide the email address associated with your account so I can locate and send you invoice #37777.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00aad238a3ba3dafd1b6833f410489f24fc99d94671d8dabac4d02065a9a5b5f",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting to review their invoice for bill number 37777 and needs assistance.",
+      "draft_reply": "Hello, I can certainly help you with your billing inquiry. Could you please confirm the email address associated with this account so I can securely pull up the details for bill #37777?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00ff986fd67a6042be84242edf6137fd93cb78a1ff3d0b696088105bb58ccc14",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is unable to locate the download link or instructions for their specific invoice (bill #12588).",
+      "draft_reply": "Hello, I understand you are looking for your invoice. Please provide your email address associated with the account, and I will send a direct copy of bill #12588 to that inbox immediately.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01380f03fbba28901512d31958b14767e7a38459a34700826f2f150027611526",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting assistance to download their invoice for bill number 85632.",
+      "draft_reply": "Hello! I can certainly help you locate and download your invoice for bill #85632. Please allow me a moment to retrieve that document for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "01634600dd95aa7f07c7c96474efbb3c4de101a30b379e2b7bf8cce60e89d840",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "You are requesting an invoice for {{Person Name}}.",
+      "draft_reply": "Hello, I can help you locate the invoice for {{Person Name}}. Please provide the specific date range or order number associated with this request so I can retrieve it for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0189c17e8aa14454c18b8f9e68cfe622aababf04fd1da7aff24cf8f7b816d35f",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer needs assistance locating their billing history for the account associated with {{Person Name}}.",
+      "draft_reply": "Hello, I can help you find your bills. Please provide the email address or account ID linked to {{Person Name}}, and I will guide you on how to access your invoice history.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01dac83496f83c704b629357435a7d7d04b29a578c03c0cab53d419dec9cb96e",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer needs help accessing and downloading their invoices.",
+      "draft_reply": "Hello, I can certainly assist you with downloading your invoices. Please provide the specific time period or order numbers you need, and I will guide you on how to retrieve them.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02145ce358c84580113303058ef88a90bcf873e56ea19b418dd1c24f091c39d2",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "You are requesting access to billing documents for an account associated with {{Person Name}}.",
+      "draft_reply": "Hello! I can certainly help you locate those bills. Could you please provide the email address or account number linked to {{Person Name}} so I can pull up the correct records for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0229eaa7a8ad5747a2f7ead82b1a5d19688fa0ebcf0bde57e335930eea2979c8",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting assistance to download their invoice for bill number 00108.",
+      "draft_reply": "Hello, I can help you locate and download your invoice. Please provide the email address associated with your account so I can retrieve bill #00108 for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02416acaf8d0232d2bf207fcc9fae4ceabfc66d29d83136099f74980a61b6372",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting assistance to download their invoice with reference number #00108.",
+      "draft_reply": "Hello, I can certainly help you locate and download your invoice #00108. Please allow me a moment to retrieve that document for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0251191f0ba64f4ef8ccee4f371f58a5cee7ae716bfedf16ea3430c795dba3a3",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting to view their invoice with the number #37777.",
+      "draft_reply": "Hello, I can help you locate your invoice. Could you please confirm the email address associated with your account so I can retrieve the correct document for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0261bf7de511a93d362fed38de01cd7c8bca3e749aca6c892e4596a30c12a3be",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is unable to locate or download their invoice with the number #00108.",
+      "draft_reply": "Hello, I understand you are looking for your invoice #00108. Please provide the email address associated with your account so I can resend a copy of that specific invoice directly to you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0080cd96cc815198efe160747906b6d08b1c44eb89c7e5d49d47bf27e16d1d3e",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer is requesting assistance to remove an item from their order.",
+      "draft_reply": "Hello, I can help you with removing an item from your order. Please confirm the specific item you wish to remove so I can assist you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00830cb3bc2cc0beee10432e565ce77798c175a937fb8703561c2d72e27537df",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer wants to swap an item from their order with Order Number.",
+      "draft_reply": "Hello, we can help you swap an article from your order. Please confirm the specific item you wish to exchange and the replacement you prefer so we can process this request for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00b3ce2b0eeaa333947631b54ae4650b2c5e9e0ead6820b54f18be2b59c8b75e",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer is asking for instructions on how to purchase articles from the store.",
+      "draft_reply": "Hello! To help you purchase our articles, please visit our official storefront at [Insert Link] where you can browse and complete your order securely.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "00edf284497aa8273a2af743e454c4fb3939358b56efe427fd9a75345919ad93",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer is requesting assistance to remove a specific item from their order.",
+      "draft_reply": "Hello, I understand you would like to remove an item from your order {{Order Number}}. Please note that once an order is placed, items generally cannot be removed directly; however, if the item has not yet been processed for shipping, our team can attempt to cancel it. Could you please confirm which item you wish to remove and provide any relevant details?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00f8fc8ca197c2b4c5fe2a0f2840b48069f03759fe79411f0483aa4b5e63ae56",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer is seeking assistance with purchasing multiple items.",
+      "draft_reply": "Hello, we can certainly help you complete your purchase. Please provide the specific items or link to the cart you are trying to checkout so we can assist you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "012b6e21023951cabc2707282e6a978db93c1a54922f52d8f7ca3329762eb935",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer is requesting the current status of a specific purchase using an order number.",
+      "draft_reply": "Hello! I can certainly help you check the status of your purchase. Please provide the Order Number so I can look that up for you right away.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "017a6addf7ebe45729217f571ba15d9ecc5c51f832338f43143729f29c084260",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is requesting assistance with earning multiple products, likely referring to a rewards or points program.",
+      "draft_reply": "Hello! I can certainly help you understand how to earn more products through our rewards program. Could you please specify which products or points tiers you are interested in?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01c146dd87a2a6a7376679d044a0fc5191c2de599d657d2e4f52ba8e95bd378e",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is unable to locate or view the estimated time of arrival (ETA) for their most recent order delivery.",
+      "draft_reply": "Hello, I understand you are looking for the ETA on your last delivery. Please check your email inbox for a shipping confirmation that includes tracking details, or reply with your order number so I can look up the current status for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01d9f056b9435a85895a770e0e06be12084fcd8e20cf373229503ea6f2e96eb8",
+    "output": {
+      "category": "ORDER",
+      "priority": "low",
+      "product": "storefront",
+      "summary": "The customer is asking for instructions on how to purchase an item.",
+      "draft_reply": "Hello! To purchase an item, please navigate to the product page and click the 'Add to Cart' button, then proceed to checkout. Is there anything else you need help with?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01df96fc932f54526861c1192d940dfdc8d7167b8b18c27be3549d7f706f7393",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer wants to remove specific items from their most recent order.",
+      "draft_reply": "Hello, I can help you with your order. Please note that once an order is placed, items generally cannot be deleted directly; however, we can process a partial refund for the unwanted items or arrange a return if they have already been shipped.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01f3f1a58945d7808e3fb921513a446fcfac8cd3c17870930b91dc21b96d8703",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer is requesting assistance to purchase or obtain a specific article.",
+      "draft_reply": "Hello, I can certainly help you acquire that article. Could you please provide the name of the item and any relevant details so I can guide you through the process?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01ff3461e9912e680e14a4c6ecb24697513536c53a94966dd15feb6255213ed8",
+    "output": {
+      "category": "ORDER",
+      "priority": "normal",
+      "product": "storefront",
+      "summary": "The customer needs assistance correcting a specific order.",
+      "draft_reply": "Hello, I can certainly help you correct your order. Please provide the Order Number and details about the correction you need to make so I can assist you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "004791a89f1a85458c24dad50ffe258e8b05ad2eb3476df013609ff34140eaf2",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is asking how to report or notify the support team about issues with their payment.",
+      "draft_reply": "Hello, you can notify us of payment problems by replying directly to this ticket or contacting our billing support team. Please include your account email and a description of the issue so we can assist you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "006566f39911ddb8f1df3dfd2641652af5fb8cf90e2d2b7cd4cdb8e79bb8281c",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting a list of available payment methods.",
+      "draft_reply": "Hello! We currently accept major credit cards, debit cards, and PayPal. Would you like more details on how to use any of these options?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0086b243ed86df8446bf6da35e5bb59681cbf54f9594e7044793de78a7e51d4b",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information regarding the available payment methods for their account.",
+      "draft_reply": "Hello, I can certainly help you with that. Our accepted payment options include major credit cards, debit cards, and digital wallets. Would you like a detailed list or assistance setting up a specific method?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00c763a30c5662232b4f9d2f41f0b80ebb7a32d57f275dfa9ae4ca32865a4d1c",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is inquiring about the available payment methods for their account.",
+      "draft_reply": "Hello! Yes, you can view our supported payment options directly on the checkout page or within your account settings under 'Billing'. Is there a specific payment method you were hoping to use?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "012f7fe59450a8cb4aed03809b3d71c5c90430d0137ae1f9367a2a543b656b34",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting assistance regarding a payment issue.",
+      "draft_reply": "Hello, we can certainly help you with your payment concern. Could you please provide more specific details about the issue so we can assist you further?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "020c53f06570a73705e0235360e8e667b0e158400136dbd32df36d9c0d3e2b41",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is unsure how to add or view available payment methods in their account.",
+      "draft_reply": "Hello! To list your payment methods, please navigate to your Account Settings and select the 'Payment Methods' section. If you need further assistance with adding a specific card, let us know.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "02d828a021c49a297dc0c92120aafeec3adbc6e3bf5f9a01ac6daa3198ffa42d",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is inquiring about the process for reporting issues related to online payments.",
+      "draft_reply": "Yes, you can report online payment issues. Please provide details such as the transaction ID and the specific error message you received so we can assist you further.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "030f1293449955722d25037e567b2538581f0a421e7e4d8fe1a04b52cc88c353",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is experiencing issues with payments and requires assistance resolving these errors.",
+      "draft_reply": "Hello, we understand you are facing payment errors. Our billing team will review your transaction details to identify the cause of the issue.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0334e344ba1213be72078d22152bf808304257ae649f590cc0581aff4a3d79e8",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "high",
+      "product": "billing",
+      "summary": "The customer is reporting an issue with their online payment and needs assistance resolving it.",
+      "draft_reply": "Hello, we understand you are experiencing trouble with your online payment. Our billing team will review your transaction details to help resolve this issue.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "03c258c0c10a8d5a823e37ac55f9bac4b4edc6daaa1400818ddf6abd93eea0a1",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information regarding the available payment methods for their account.",
+      "draft_reply": "Hello, I can certainly help you with that. Please let me know if you would like to see the list of supported payment options or if you need assistance updating your current payment method.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "03cf6f7ec2d1c1bbbd3edae7868a7c42849b8e4d64779f2e5ae2a894e38a9e49",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information regarding available payment methods.",
+      "draft_reply": "Hello, I can certainly help you with that. Could you please specify which payment modalities you would like to check or if you are looking for a specific option?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "03e6cb0615dd1acc1d2f17f38bc4e6366c5ef69d63f6fab8298f463b1706c53b",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "low",
+      "product": "billing",
+      "summary": "The customer is asking for information on how to view available payment methods.",
+      "draft_reply": "Hello! You can check the available payment modalities by visiting your account settings under the Billing or Payment section. If you need further assistance, please let us know.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0011120ad0f2a1cbcc87223993f807a8004b169f63367172dbba381de938c015",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is asking about the specific conditions or cases under which they are eligible to request a refund.",
+      "draft_reply": "Hello, I can certainly help clarify our refund policy. Please note that refunds are typically available within 30 days of purchase for unused items or if there was an error on our part. Could you please share more details about your specific situation so I can provide accurate guidance?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "003efaf912deda65ac7227b625e2a872f7cb1e6f0d649d2c9b6644159e66732d",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information about the refund policy.",
+      "draft_reply": "Hello! I can certainly help you with that. Could you please provide more details about your specific situation, such as the order number or the date of purchase, so I can guide you on how to proceed?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0051b523f01a2690137f6e45f853b420866a1338c4b0982026bbe5e75237d186",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information regarding the current status of their rebate.",
+      "draft_reply": "Hello, I can certainly help you check your rebate status. Please provide your account email or order number so I can look this up for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "006304f77371df98bff11cc188bb93a7c4814e224bb9cd6c5855adfd31232276",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting an update on the status of a refund.",
+      "draft_reply": "Hello, I understand you would like to check the status of your refund. Our billing team will review your request and provide you with an update shortly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "008210a6f9fb429ee9aeb742fd8dcac43dfb75d7527b420e46d17950196778c0",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "high",
+      "product": "billing",
+      "summary": "The customer is urgently requesting a refund for their payment.",
+      "draft_reply": "Hello, we understand your frustration regarding the refund. Please provide your order number so we can immediately review your transaction and initiate the refund process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00fb24a8c243d3a1a18009185a04522b29aa98d9546259bb60abcb0438093ac7",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is asking how to find information about our money-back policy.",
+      "draft_reply": "Hello! You can view our full money-back policy on the Billing page of your account or by visiting our Help Center. Would you like a direct link to that page?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0140820872772271d567beab89912b6c9063b3ee1b83dbaa65d0d221e6651c0f",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting a refund or rebate for their money.",
+      "draft_reply": "Hello, we understand you are seeking a refund. Please provide your order number and the reason for the request so we can review your case.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0161912f485a735f09d4e48744c929b5e4023983b9fc017f20b984af6bedbffa",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "high",
+      "product": "billing",
+      "summary": "The customer is requesting a refund for a payment they believe should be restituted.",
+      "draft_reply": "Hello, I understand you are looking to obtain a refund. To assist you with this request, please provide the transaction ID or order number associated with the charge so we can review your case.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0176bffe47240db96c480bc6087bbdb50cc84222e5e1f64f39458dbe5626af8d",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting a refund or rebate for their money.",
+      "draft_reply": "Hello, I understand you are looking to receive a refund. Could you please provide the order number and details regarding the transaction so I can assist you further?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01a2e4615c43e798e01aa746c0b1841f46c2d6987f86b531187787ad205bb386",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "high",
+      "product": "billing",
+      "summary": "The customer is requesting a refund for the specified amount.",
+      "draft_reply": "Hello, we have received your request for a reimbursement of {{Currency Symbol}}{{Refund Amount}}. Our billing team will review this transaction and get back to you shortly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01d21941729336369aa4e880e2426e17394c35ed58d0f62349faca155febbb91",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting information regarding the specific conditions under which a refund can be issued.",
+      "draft_reply": "Hello, I can certainly help with that. Refunds are typically available for items returned within our return window, defective products, or unauthorized charges. Would you like me to provide the full details of our refund policy?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0231d6925a9025384d4bbadbc0ea121920c1739f7e905da8ee137eaccaeb9664",
+    "output": {
+      "category": "PAYMENT",
+      "priority": "normal",
+      "product": "billing",
+      "summary": "The customer is requesting assistance with obtaining a monetary rebate.",
+      "draft_reply": "Hello, I can certainly help you with your request for a rebate. Could you please provide the specific transaction details or the reason for the rebate so I can look into this for you?",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0043da6e6d2831592fdc78bd68d7954cf3d1b4e72820f4ea8673d49bb1be86df",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs to update their shipping address after entering an incorrect one.",
+      "draft_reply": "Hello, I understand you need to correct your shipping address. Please let me know which order this applies to so I can guide you on the next steps to update it.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "009530bb52523022d177c9c898eb302bd0bed45d9b3d38f112927457aa9a96ce",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs assistance setting up their shipping address.",
+      "draft_reply": "Hello! I can certainly help you set up your shipping address. Please provide the details you would like to add, and I will guide you through the process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "00c8c80683a779b470bfb9e71346174c44051117a6a425c39b190f990179dd9a",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs assistance updating their shipping address.",
+      "draft_reply": "Hello, I can certainly help you update your shipping address. Please provide the new address details so I can process this change for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "011735eab56d17f15ec84db4f261f7e6cb0414bfdd15cbdba4e1eff67c1052c8",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs help updating their delivery address for an order.",
+      "draft_reply": "Hello, I understand you need assistance entering a different delivery address. Please provide your order number and the new address details so I can guide you through the update process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "013fc1857ece23c0c0d28ebdcbef0ccb837c615e9269ece55aff1ff59dbf4434",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "Your order cannot be processed because the shipping address provided is invalid.",
+      "draft_reply": "Hello, we noticed that the shipping address on your order is invalid. Please verify and update your delivery details so we can proceed with your shipment.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0149f84c6f5b2660d4239f866b05e074980e1ef581f42dd255e62586b3736f0a",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs to update their shipping address.",
+      "draft_reply": "Hello, I can help you update your shipping address. Please provide the new address details so I can process this change for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0185e55bcb3b82a1a4bf29a755881744700fa0040d2dfcbeb0245553a04a7ccf",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is asking how to locate or update their delivery address for an order.",
+      "draft_reply": "Hello! To change your delivery address, please log in to your account and navigate to the 'Order History' section. If the order has already shipped, you may need to contact our support team directly with your order number so we can attempt to intercept it.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "019bb3f57634405314ae37894eb1ee2b247f484ab27e640dcb102fa159b226d5",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs assistance editing their shipping address.",
+      "draft_reply": "Hello, I can help you update your shipping address. Please provide the new address details so I can process this change for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "01b1698e9821f6717fe4282f5ff4293e634d69176e330f9ef51408cc65ca7f10",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer is requesting information regarding how to modify their shipping address.",
+      "draft_reply": "Hello, I can help you with updating your shipping address. Please provide the order number or email associated with the account so I can guide you through the process.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01c19f91062dd458720c7562fce6618ac30acefda103c349e2c9c0504cb6870d",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs assistance modifying their delivery address.",
+      "draft_reply": "Hello, I understand you need to update your delivery address. Please provide the new address details so I can verify if this change is possible for your current order.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01d35c02aea476448067e7152a1b8d7da693f6a302b5750a640b9d78c3fe7eb6",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "The customer needs assistance updating their delivery address in their account.",
+      "draft_reply": "Hello! I can help you update your delivery address. Please provide the new address details, and I will guide you through the process to ensure it is saved correctly.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "01e79d64360074d299e9ee8f44a6166da7e7251ea624a4b622e0283f3d7f6246",
+    "output": {
+      "category": "SHIPPING",
+      "priority": "normal",
+      "product": "fulfillment",
+      "summary": "You are unable to update your shipping address in your account.",
+      "draft_reply": "Hello, I understand you're having trouble setting up your new shipping address. To help resolve this, please try accessing the 'Address Book' section of your account settings and selecting 'Add New Address' to enter the details manually.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "007258263651dc217c376396b3048bd1c10821ef34f251d3308d62202565fa28",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "The customer is asking how to unsubscribe from their newsletter.",
+      "draft_reply": "Hello! Yes, it is possible to cancel your newsletter subscription. You can do this by visiting your account settings and selecting the 'Notifications' or 'Email Preferences' section to toggle off newsletter updates.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0140748a8009577608d276ebadeac7f761d5f89c85cb3b1477b6297a5acec319",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer is unable to cancel their corporate newsletter subscription.",
+      "draft_reply": "Hello, I understand you are having trouble canceling your corporate newsletter subscription. We can help you with that right away; please confirm which email address is associated with the subscription so we can process the cancellation for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "02dbcf1ac25ca2a6813f94e62bc63c892add926f5b6c1fdc904a1babdbbb669b",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer requests assistance with unsubscribing from the company newsletter.",
+      "draft_reply": "Hello, I can certainly help you unsubscribe from our newsletter. Please confirm your email address so I can process this request for you immediately.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "03a2d28aef35459082ed91ff723d8663f104ed261eaabd3005d41ae3f84056c3",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer requests assistance in unsubscribing from the corporate newsletter.",
+      "draft_reply": "Hello, I can certainly help you unsubscribe from our corporate newsletter. Please confirm your email address so I can process this request for you immediately.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0423f0680d14c645106f28354574c0f4299cc87eef51ef22befebb227a771e09",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "The customer wants to know how to check the status of their newsletter subscription.",
+      "draft_reply": "Hello! To check your newsletter subscription status, please log in to your account settings and navigate to the communication preferences section. If you need further assistance locating this option, let us know.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "04c394490598b35c77a37c37e226a01d27b2b70e24e43cb0921f72313eb00943",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer wants to cancel their corporate newsletter subscription.",
+      "draft_reply": "Hello, I can certainly help you with canceling your corporate newsletter subscription. Please confirm the email address associated with the account so I can locate your subscription and process the cancellation for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0540764046c815b2c7c596fefdb36eb4f283696e07827c92ad53bd609d6abd96",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "The customer is asking for information on how to cancel their newsletter subscription.",
+      "draft_reply": "Hello! To help you cancel your newsletter subscription, please visit your account settings and look for the 'Notifications' or 'Subscriptions' section where you can toggle off the newsletter option. If you need further assistance locating this setting, let us know.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "062c5361d9635b1993a1c4b5fc1c0eb52409fa26fb7c9ae236d9fa4dd878779e",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "You are requesting to receive the corporate newsletter.",
+      "draft_reply": "Thank you for your interest in our corporate newsletter. To ensure we add you to our mailing list, please reply with your preferred email address and confirm if you would like to receive updates on company news and events.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "06aece8d901ece3fcf31f5ed3a3d7c9c0c949dfcebe2df939b4accd2a3eb6164",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer requests assistance in unsubscribing from the company newsletter.",
+      "draft_reply": "Hello, I can help you unsubscribe from our newsletter. Please confirm your email address so I can process this request for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "0725eb462646532bb712900f2b99850915962978f591bef42b5900a9c7029eb8",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "normal",
+      "product": "membership",
+      "summary": "The customer requests assistance with cancelling their newsletter subscription.",
+      "draft_reply": "Hello, I can certainly help you cancel your newsletter subscription. Please confirm which email address is associated with the account so I can process this request for you.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  },
+  {
+    "id": "08abdec15da578e1cfecf6f3aa0d40594354171b4ef403e5da13c79c1e1de67d",
+    "output": {
+      "category": "ACCOUNT",
+      "priority": "low",
+      "product": "membership",
+      "summary": "The customer wants to unsubscribe from the newsletter.",
+      "draft_reply": "Hello, I understand you would like to cancel your newsletter subscription. We can process this request for you right away.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": false
+  },
+  {
+    "id": "0908d655fb5dc26f750c6d6f9aeca5003e2d6361dc8716839a9fdef87ffff0c6",
+    "output": {
+      "category": "CONTACT",
+      "priority": "low",
+      "product": "support",
+      "summary": "The customer is requesting assistance with signing up for the corporate newsletter.",
+      "draft_reply": "Hello! I can certainly help you get signed up for our corporate newsletter. Please provide your email address, and I will add you to the list right away.",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "1832a3cb8aa66ef2a87bd7c3a17eaea7ec2ef776",
+      "cohort": "stable",
+      "mode": "local",
+      "first_pass": true,
+      "fallback": false
+    },
+    "draft_reply_pass": true
+  }
+]

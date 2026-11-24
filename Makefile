@@ -1,13 +1,18 @@
 demo:
-	docker compose up --build -d --wait
+	docker compose build --build-arg GIT_SHA=$(shell git rev-parse HEAD) api
+	docker compose up -d --wait
 
 eval:
+	uv run --frozen python -m scripts.prepare_tokenizers
+	uv run --frozen python -m scripts.evaluate --mode local --role stable --provisional-priority --judge --output .local/eval/baseline.json --outputs .local/eval/stable-outputs.json
+
+eval-fixture:
+	uv run --frozen python -m scripts.prepare_tokenizers
 	uv run --frozen python -m scripts.evaluate --role candidate --provisional-priority --output .local/fixture-eval.json
 
-eval-local:
-	uv run --frozen python -m scripts.evaluate --mode local --role stable --provisional-priority --judge --output results/baseline.json --outputs 'results/local/{version}-outputs.json'
-	uv run --frozen python -m scripts.evaluate --mode local --role candidate --provisional-priority --judge --output results/local/current.json --outputs 'results/local/{version}-outputs.json'
-	uv run --frozen python -m scripts.gate results/baseline.json results/local/current.json results/local/gate.md
+eval-local: eval
+	uv run --frozen python -m scripts.evaluate --mode local --role candidate --provisional-priority --judge --output .local/eval/current.json --outputs .local/eval/candidate-outputs.json
+	uv run --frozen python -m scripts.gate .local/eval/baseline.json .local/eval/current.json .local/eval/gate.md
 
 test:
 	uv run --frozen python -m scripts.prepare_tokenizers

@@ -228,6 +228,33 @@ def test_local_readiness_requires_the_pinned_weights(monkeypatch):
     assert client.get("/readyz").json() == {"status":"ready","mode":"local"}
 
 
+def test_local_development_recording_replays_without_provider(monkeypatch):
+    from litellm import ModelResponse
+    monkeypatch.setattr(settings, "MODE", "local")
+    monkeypatch.setenv("RECORD_REPLAY", "1")
+    async def completion(**kwargs):
+        return ModelResponse(model=kwargs["model"], choices=[{"message": {"content": "saved"}}],
+                             usage={"prompt_tokens": 3, "completion_tokens": 1, "total_tokens": 4})
+    monkeypatch.setattr(gateway.litellm, "acompletion", completion)
+    messages = [{"role": "user", "content": "synthetic ticket"}]
+    cfg = settings.prompt("v1")
+    original = asyncio.run(gateway.dispatch(cfg["primary"], messages, cfg, "stable"))
+    monkeypatch.setattr(settings, "MODE", "replay")
+    monkeypatch.setenv("REPLAY_SOURCE", "local")
+    settings.prompt.cache_clear()
+    cfg = settings.prompt("v1")
+    monkeypatch.setattr(gateway.litellm, "acompletion", lambda **kw: pytest.fail("unexpected provider call"))
+    assert asyncio.run(gateway.dispatch(cfg["primary"], messages, cfg, "stable")) == original
+    with pytest.raises(Fault, match="replay_miss"):
+        asyncio.run(gateway.dispatch(cfg["primary"], [{"role":"user","content":"another ticket"}], cfg, "stable"))
+
+
+def test_canary_refuses_identical_versions():
+    from scripts.drill import verify_gate
+    with pytest.raises(ValueError, match="distinct prompt versions"):
+        verify_gate({"stable": "v1", "candidate": "v1"})
+
+
 def test_gate_rejects_incomparable_and_degraded():
     base=dict(mode="fixture",method="test",dataset_digest="a",revision="a",split="test",n=10,reviewed=0,cache="bypass",
               category=1,product=1,priority=None,first_pass=1,availability=1,p95_ms=10,priced_usd_per_request=1)

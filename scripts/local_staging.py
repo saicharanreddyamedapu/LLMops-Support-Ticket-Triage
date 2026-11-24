@@ -71,6 +71,19 @@ def smoke(sha, port):
         return value.prompt_version
 
 
+def rollout_mount(sha):
+    directory = (STATUS.parent / "rollouts" / sha).resolve()
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / "rollout.json"
+    if not path.exists():
+        config = output("git", "show", f"{sha}:config/rollout.json")
+        tmp = path.with_suffix(".tmp")
+        tmp.write_text(config + "\n", encoding="utf-8")
+        tmp.replace(path)
+    return ["--mount", f"type=bind,source={directory},target=/rollout,readonly",
+            "--env", "ROLLOUT_PATH=/rollout/rollout.json"]
+
+
 def deploy():
     origin = output("git","remote","get-url","origin")
     parsed = urlparse(origin)
@@ -82,7 +95,8 @@ def deploy():
         raise ValueError("Invalid main revision")
     old = container(SERVICE)
     image = f"{REGISTRY}/support-ticket-triage:{sha}"
-    if old and old["State"]["Running"] and old["Config"]["Image"] == image and STATUS.exists():
+    if (old and old["State"]["Running"] and old["Config"]["Image"] == image and STATUS.exists()
+            and any(m["Destination"] == "/rollout" for m in old["Mounts"])):
         return
     run_url = successful_run(repository,sha)
     if not run_url:
@@ -102,8 +116,9 @@ def deploy():
         archive.seek(0)
         subprocess.run(["docker","build","--build-arg","GIT_SHA="+sha,"-t",image,"-"],stdin=archive,check=True)
     subprocess.run(["docker","push",image],check=True)
+    mount = rollout_mount(sha)
     # Validate before replacing the last deployed revision.
-    trial = output("docker","run","-d","--rm","--label",LABEL+"=true","-p","127.0.0.1::8000",image)
+    trial = output("docker","run","-d","--rm","--label",LABEL+"=true","-p","127.0.0.1::8000",*mount,image)
     try:
         port = int(output("docker","port",trial,"8000/tcp").rsplit(":",1)[1])
         smoke(sha,port)
@@ -119,7 +134,7 @@ def deploy():
         subprocess.run(["docker","stop",previous],check=True)
     try:
         subprocess.run(["docker","run","-d","--name",SERVICE,"--label",LABEL+"=true",
-                        "-p","127.0.0.1:8767:8000",image],check=True)
+                        "-p","127.0.0.1:8767:8000",*mount,image],check=True)
         version = smoke(sha,8767)
     except Exception:
         if container(SERVICE):

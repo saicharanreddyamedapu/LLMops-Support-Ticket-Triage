@@ -127,8 +127,8 @@ async def dispatch(model, messages, config, cohort, secondary=False):
         cost = 0 if mode == "local" else price(model, value["tin"], value["tout"])
         if row is not None:
             storage.settle(row, cost)
-            if os.getenv("RECORD_REPLAY") == "1":
-                storage.cached(key, value)
+        if mode in ("local", "live") and os.getenv("RECORD_REPLAY") == "1":
+            storage.cached(key, value)
         obs.TOK.labels(cohort,"in").inc(value["tin"])
         obs.TOK.labels(cohort,"out").inc(value["tout"])
         obs.COST.labels(cohort).inc(cost)
@@ -161,7 +161,7 @@ async def call(model, messages, config, cohort, secondary):
 
 async def route(messages, cfg, cohort, root, single):
     last = Fault("circuit_open", 503)
-    roles = ("primary",) if single or settings.MODE == "local" else ("primary", "secondary")
+    roles = ("primary",) if single or cfg["primary"] == cfg["secondary"] else ("primary", "secondary")
     for role in roles:
         model = cfg[role]
         secondary = role == "secondary"
