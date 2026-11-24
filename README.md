@@ -12,7 +12,11 @@ In the isolated canary drill, v2 passed a fresh fixture gate, then reached **242
 
 ## Run locally
 
-Install Docker with Compose. From this folder:
+Support agents can use the suggested priority to order their queue and review the draft before replying to a customer. To follow one ticket from submission to monitoring on your own computer:
+
+1. Install [Docker Desktop](https://docs.docker.com/desktop/) for your operating system, open it and wait for the engine to start. Use Linux containers on Windows. In a terminal check that `docker info` shows a Server section and `docker compose version` prints a version.
+2. With access to this private repository, use **Code → HTTPS**, clone the repository with Git, and open a terminal in the folder containing `compose.yaml`. Set the Git revision as described below before starting Compose.
+3. Start the demo with the command below. Run `docker compose ps` to check the services and confirm that the API is healthy.
 
 ```shell
 docker compose up --build -d --wait
@@ -25,6 +29,10 @@ Invoke-RestMethod http://127.0.0.1:8765/triage -Method Post -ContentType 'applic
 ```
 
 The five output fields are category, priority, product, summary and draft_reply. The response also identifies the prompt version, actual model, Git revision, cohort, first-pass schema result and fallback. Explore the [interactive API](http://127.0.0.1:8765/docs), [Grafana](http://127.0.0.1:13000/d/triage), [Phoenix](http://127.0.0.1:16006) and [Prometheus](http://127.0.0.1:19090). Run `docker compose stop` to stop this stack.
+
+4. To send the example from a browser, open the interactive API, click **Authorize**, enter `fixture-demo`, and close the dialog. Open **POST /triage → Try it out**, enter `{"text":"How can I track my order?"}` and click **Execute**. Read the draft in **Response body** and copy **x-trace-id** from **Response headers**.
+5. In **Docker Desktop → Containers**, expand **ticket-triage**. Click the **16006** port beside **phoenix**. Under **Projects**, open the project receiving the requests and select **Traces**. Open the request around the time you clicked Execute and match its trace ID. Select the child model call to see its timing.
+6. Return to Docker Desktop and click the **13000** port beside **grafana**. Open **Dashboards → Support ticket triage**, select the API instance for the demo and a time range containing your request. Send a few tickets and allow time for the metrics scrape. Start with **Request rate** and **Request latency**. The local dashboard allows anonymous viewing.
 
 ### Serve real responses with Qwen
 
@@ -43,6 +51,8 @@ Open [local readiness](http://127.0.0.1:8766/readyz) to verify the model digest.
 The host service exports traces to the Compose Collector on 14318. On Docker Desktop, set `$env:TRIAGE_METRICS_TARGET = 'host.docker.internal:8766'` and run `docker compose up -d collector` to graph the host service. The default scrape target is the Compose fixture. The 150 ms dashboard reference line comes from the fixture baseline.
 
 ## Architecture
+
+FastAPI accepts tickets and Pydantic validates their fields. Versioned YAML keeps prompt changes reviewable. LiteLLM routes calls and Ollama runs Qwen locally. Docker Compose starts the API and monitoring services together. OpenTelemetry sends request traces to Phoenix so you can inspect one ticket. Prometheus stores time-series metrics that Grafana plots across tickets. k6 generates traffic for capacity tests, and GitHub Actions compares release candidates against the stable baseline.
 
 ```mermaid
 flowchart LR
