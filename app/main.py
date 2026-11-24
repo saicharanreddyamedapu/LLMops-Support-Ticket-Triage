@@ -40,7 +40,8 @@ def authorize(request):
 
 @app.exception_handler(RequestValidationError)
 async def invalid(request, exc):
-    return error("invalid_request", 422)
+    routing = getattr(request.state, "routing", None)
+    return error("invalid_request", 422, routing[1]["version"] if routing else "unavailable")
 
 
 def error(code, status, version="unavailable", wait=0):
@@ -90,7 +91,11 @@ def metrics():
 @app.middleware("http")
 async def instrument(request: Request, call_next):
     if request.url.path != "/triage":
-        return await call_next(request)
+        response = await call_next(request)
+        response.headers["X-Triage-Prompt-Version"] = "not-used"
+        response.headers["X-Triage-Model"] = "not-used"
+        response.headers["X-Triage-Git-Sha"] = settings.revision()
+        return response
     start = time.monotonic()
     cohort = "unassigned"
     version = model = "unavailable"
@@ -118,6 +123,9 @@ async def instrument(request: Request, call_next):
         span.set_attributes({"app."+k:v for k,v in attrs.items()})
         span.set_status(Status(StatusCode.OK if outcome == "ok" else StatusCode.ERROR))
         response.headers["X-Trace-Id"] = format(span.get_span_context().trace_id, "032x")
+        response.headers["X-Triage-Prompt-Version"] = version
+        response.headers["X-Triage-Model"] = model
+        response.headers["X-Triage-Git-Sha"] = attrs["git_sha"]
         log.info(json.dumps(attrs))
         return response
 
