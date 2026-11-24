@@ -2,14 +2,14 @@ groups:
   - name: triage
     rules:
       - record: triage:burn5m
-        expr: 100 * (1 - sum(rate(triage_requests_total{outcome="ok"}[5m])) / sum(rate(triage_requests_total{cohort!="unassigned"}[5m])))
+        expr: 100 * (1 - sum by(instance)(rate(triage_requests_total{outcome="ok",cohort!="unassigned"}[5m])) / sum by(instance)(rate(triage_requests_total{cohort!="unassigned"}[5m])))
       - record: triage:burn1h
-        expr: 100 * (1 - sum(rate(triage_requests_total{outcome="ok"}[1h])) / sum(rate(triage_requests_total{cohort!="unassigned"}[1h])))
+        expr: 100 * (1 - sum by(instance)(rate(triage_requests_total{outcome="ok",cohort!="unassigned"}[1h])) / sum by(instance)(rate(triage_requests_total{cohort!="unassigned"}[1h])))
       - alert: TriageFastBurn
         expr: triage:burn5m > 14.4 and triage:burn1h > 14.4
         for: 1m
         annotations: {summary: "Eligible request failures exceed the error budget burn threshold."}
       - alert: TriageCostSpike
-        expr: sum(rate(triage_cost_usd_total[5m])) * 60 > 0.065
+        expr: sum by(instance)(rate(triage_cost_usd_total[5m])) * 60 > 0.065
         for: 2m
         annotations: {summary: "Priced usage exceeds 6.5 cents per minute."}

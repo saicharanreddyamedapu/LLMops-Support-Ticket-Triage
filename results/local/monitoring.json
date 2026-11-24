@@ -3,11 +3,11 @@
   "dashboard": "triage",
   "series": {
     "Request rate": 1,
-    "Request latency (s)": 4,
+    "Request latency (s)": 3,
     "Request errors (%) and upstream failures per 100 requests": 1,
     "Secondary responses (%)": 1,
     "Priced usage (USD/min)": 1,
-    "Availability & remaining 7-day budget (%)": 2,
+    "Observed availability & remaining 7-day budget (%)": 2,
     "First-output schema validity (%)": 2,
     "Token throughput": 2
   },

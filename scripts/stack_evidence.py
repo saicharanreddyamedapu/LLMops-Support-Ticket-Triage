@@ -56,6 +56,7 @@ def phoenix(c):
 
 
 def capture(c, mode="fixture"):
+    origin="host.docker.internal:8766" if mode=="local" else "api:8000"
     board=c.get(GRAFANA+"/api/dashboards/uid/triage").json()["dashboard"]
     stop=threading.Event()
     errors=[]
@@ -68,11 +69,20 @@ def capture(c, mode="fixture"):
     sender=threading.Thread(target=background)
     sender.start()
     try:
+        query=f'sum(rate(triage_requests_total{{instance="{origin}",outcome="ok"}}[30s]))'
+        deadline=time.monotonic()+120
+        while True:
+            data=c.get(PROM+"/api/v1/query",params={"query":query}).json()
+            if any(float(s["value"][1])>0 for s in data["data"]["result"]):
+                break
+            if errors or time.monotonic()>=deadline:
+                raise RuntimeError(f"No successful traffic observed for {origin}: {errors}")
+            time.sleep(2)
         with sync_playwright() as pw:
             options={"executable_path":os.environ["BROWSER_EXECUTABLE"]} if os.getenv("BROWSER_EXECUTABLE") else {}
             browser=pw.chromium.launch(**options)
             page=browser.new_page(viewport={"width":1540,"height":1250},device_scale_factor=1)
-            page.goto(GRAFANA+"/d/triage/support-ticket-triage?orgId=1&from=now-5m&to=now&refresh=5s&kiosk",
+            page.goto(GRAFANA+f"/d/triage/support-ticket-triage?orgId=1&var-instance={origin}&from=now-5m&to=now&refresh=5s&kiosk",
                       wait_until="domcontentloaded",timeout=60000)
             for panel in board["panels"]:
                 page.get_by_text(panel["title"],exact=True).first.wait_for(timeout=60000)
@@ -84,14 +94,13 @@ def capture(c, mode="fixture"):
         targets=c.get(PROM+"/api/v1/targets").json()["data"]["activeTargets"]
         collector_url="http://collector:8889/metrics"
         assert any(t["scrapeUrl"]==collector_url and t["health"]=="up" for t in targets)
-        origin="host.docker.internal:8766" if mode=="local" else "api:8000"
         source=c.get(PROM+"/api/v1/query",params={"query":f'sum(rate(triage_requests_total{{instance="{origin}"}}[30s]))'}).json()
         assert any(float(s["value"][1])>0 for s in source["data"]["result"]), "No traffic from the selected scrape source"
         checks={}
         for panel in board["panels"]:
             series=0
             for target in panel["targets"]:
-                data=c.get(PROM+"/api/v1/query",params={"query":target["expr"]}).json()
+                data=c.get(PROM+"/api/v1/query",params={"query":target["expr"].replace("$instance",origin)}).json()
                 assert data["status"]=="success"
                 series+=len(data["data"]["result"])
             checks[panel["title"]]=series

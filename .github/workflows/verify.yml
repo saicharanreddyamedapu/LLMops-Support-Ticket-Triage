@@ -25,6 +25,11 @@ jobs:
       - run: uv python install 3.12.16
       - run: uv sync --frozen && uv run --frozen python -m scripts.prepare_tokenizers && uv run --frozen python -m pytest -q
         working-directory: candidate
+      - name: Verify Prometheus alert behavior
+        working-directory: candidate
+        run: |
+          docker run --rm --network none --volume "$PWD/ops:/rules:ro" --workdir /rules \
+            --entrypoint /bin/promtool prom/prometheus:v3.6.0 test rules alerts.test.yaml
       - name: Measure main on this runner
         working-directory: base
         run: |

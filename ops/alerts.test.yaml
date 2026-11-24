@@ -33,3 +33,24 @@ tests:
     alert_rule_test:
       - {eval_time: 65m, alertname: TriageFastBurn, exp_alerts: []}
       - {eval_time: 65m, alertname: TriageCostSpike, exp_alerts: []}
+  - name: busy fixture cannot hide Qwen failures or combine separate cost budgets
+    interval: 1m
+    input_series:
+      - series: 'triage_requests_total{instance="api:8000",cohort="stable",outcome="ok"}'
+        values: '0+1000x65'
+      - series: 'triage_requests_total{instance="host.docker.internal:8766",cohort="stable",outcome="ok"}'
+        values: '0+40x65'
+      - series: 'triage_requests_total{instance="host.docker.internal:8766",cohort="stable",outcome="timeout"}'
+        values: '0+10x65'
+      - series: 'triage_cost_usd_total{instance="api:8000",cohort="stable"}'
+        values: '0+0.04x65'
+      - series: 'triage_cost_usd_total{instance="host.docker.internal:8766",cohort="stable"}'
+        values: '0+0.04x65'
+    alert_rule_test:
+      - eval_time: 65m
+        alertname: TriageFastBurn
+        exp_alerts:
+          - exp_labels: {instance: "host.docker.internal:8766"}
+            exp_annotations:
+              summary: Eligible request failures exceed the error budget burn threshold.
+      - {eval_time: 65m, alertname: TriageCostSpike, exp_alerts: []}

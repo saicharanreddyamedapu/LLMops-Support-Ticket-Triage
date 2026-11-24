@@ -10,6 +10,8 @@ Use the request timestamp, prompt version, model and Git revision to correlate s
 
 ## TriageFastBurn
 
+Select the alert's API instance in Grafana. Run `python -m scripts.slo_report --mode local` for the Qwen host or `--mode fixture` for Compose. Each report checks 10,080 one-minute buckets ending at the latest completed UTC minute. A bucket is observed when Prometheus has an upstream `up` sample for that API. Missing buckets or observed failed scrapes mark the history incomplete. A successful scrape samples the service at one instant. Request volumes are Prometheus counter-increase estimates and can be fractional. An idle instance can have scrape coverage and no measurable request availability.
+
 **Meaning.** The accepted-client failure ratio exceeds 14.4 times a 1% seven-day budget in both 5-minute and 1-hour windows for at least one minute. Excluded pre-admission requests still count in errors by class. Early in a new deployment, windows contain only available history.
 
 **Check.** Inspect Prometheus targets and scrape continuity, then group request outcomes and failed attempts by error class. Look at the recent version and secondary percentage. Check the provider timeout, 429, provider 5xx, invalid input and schema failure series. The rate-limit or input cap may be acting as designed. Prometheus contains the rules. Connect an Alertmanager receiver before relying on paging in staging.

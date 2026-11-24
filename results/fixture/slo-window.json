@@ -1,0 +1,16 @@
+{
+  "mode": "fixture",
+  "instance": "api:8000",
+  "target_availability": 0.99,
+  "window_days": 7,
+  "window_start_utc": "2026-11-17T06:15:00+00:00",
+  "window_end_utc": "2026-11-24T06:15:00+00:00",
+  "expected_minutes": 10080,
+  "observed_minutes": 81,
+  "missing_minutes": 9999,
+  "minutes_with_failed_scrape": 8,
+  "estimated_eligible_requests": 1398.671241821669,
+  "estimated_successful_requests": 1398.671241821669,
+  "observed_availability": 1.0,
+  "status": "incomplete_scrape_history"
+}

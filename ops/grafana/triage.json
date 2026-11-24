@@ -25,7 +25,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(rate(triage_requests_total[30s]))",
+          "expr": "sum(rate(triage_requests_total{instance=\"$instance\"}[30s]))",
           "legendFormat": "requests/s"
         }
       ]
@@ -47,22 +47,22 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "histogram_quantile(0.5,sum by(le)(rate(triage_latency_seconds_bucket[30s])))",
+          "expr": "histogram_quantile(0.5,sum by(le)(rate(triage_latency_seconds_bucket{instance=\"$instance\"}[30s])))",
           "legendFormat": "p50"
         },
         {
           "refId": "B",
-          "expr": "histogram_quantile(0.95,sum by(le)(rate(triage_latency_seconds_bucket[30s])))",
+          "expr": "histogram_quantile(0.95,sum by(le)(rate(triage_latency_seconds_bucket{instance=\"$instance\"}[30s])))",
           "legendFormat": "p95"
         },
         {
           "refId": "C",
-          "expr": "histogram_quantile(0.99,sum by(le)(rate(triage_latency_seconds_bucket[30s])))",
+          "expr": "histogram_quantile(0.99,sum by(le)(rate(triage_latency_seconds_bucket{instance=\"$instance\"}[30s])))",
           "legendFormat": "p99"
         },
         {
           "refId": "D",
-          "expr": "vector(0.15)",
+          "expr": "0.15 * max(up{job=\"triage\",instance=\"api:8000\",instance=\"$instance\"} == 1)",
           "legendFormat": "fixture SLO"
         }
       ]
@@ -84,12 +84,12 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "100 * sum by(outcome)(rate(triage_requests_total{outcome!=\"ok\"}[30s])) / scalar(sum(rate(triage_requests_total[30s])))",
+          "expr": "100 * sum by(outcome)(rate(triage_requests_total{outcome!=\"ok\",instance=\"$instance\"}[30s])) / scalar(sum(rate(triage_requests_total{instance=\"$instance\"}[30s])))",
           "legendFormat": "{{outcome}}"
         },
         {
           "refId": "B",
-          "expr": "100 * sum by(kind)(rate(triage_call_errors_total[30s])) / scalar(sum(rate(triage_requests_total[30s])))",
+          "expr": "100 * sum by(kind)(rate(triage_call_errors_total{instance=\"$instance\"}[30s])) / scalar(sum(rate(triage_requests_total{instance=\"$instance\"}[30s])))",
           "legendFormat": "upstream {{kind}}"
         }
       ]
@@ -111,7 +111,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "100 * sum(rate(triage_fallback_total[30s])) / sum(rate(triage_requests_total[30s]))",
+          "expr": "100 * sum(rate(triage_fallback_total{instance=\"$instance\"}[30s])) / sum(rate(triage_requests_total{instance=\"$instance\"}[30s]))",
           "legendFormat": "fallback"
         }
       ]
@@ -133,14 +133,15 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "60 * sum(rate(triage_cost_usd_total[30s]))",
+          "expr": "60 * sum(rate(triage_cost_usd_total{instance=\"$instance\"}[30s]))",
           "legendFormat": "standard rate"
         }
       ]
     },
     {
       "id": 6,
-      "title": "Availability & remaining 7-day budget (%)",
+      "title": "Observed availability & remaining 7-day budget (%)",
+      "description": "Uses eligible request counters from the selected API. Check the seven-day scrape coverage report before claiming the SLO was met.",
       "type": "timeseries",
       "datasource": {
         "type": "prometheus",
@@ -155,12 +156,12 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "100 * sum(increase(triage_requests_total{outcome=\"ok\"}[7d])) / sum(increase(triage_requests_total{cohort!=\"unassigned\"}[7d]))",
+          "expr": "100 * sum(increase(triage_requests_total{outcome=\"ok\",cohort!=\"unassigned\",instance=\"$instance\"}[7d])) / sum(increase(triage_requests_total{cohort!=\"unassigned\",instance=\"$instance\"}[7d]))",
           "legendFormat": "availability"
         },
         {
           "refId": "B",
-          "expr": "100 * (1 - (1 - sum(increase(triage_requests_total{outcome=\"ok\"}[7d]))/sum(increase(triage_requests_total{cohort!=\"unassigned\"}[7d])))/0.01)",
+          "expr": "100 * (1 - (1 - sum(increase(triage_requests_total{outcome=\"ok\",cohort!=\"unassigned\",instance=\"$instance\"}[7d]))/sum(increase(triage_requests_total{cohort!=\"unassigned\",instance=\"$instance\"}[7d])))/0.01)",
           "legendFormat": "remaining"
         }
       ]
@@ -182,7 +183,7 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "100 * sum by(cohort)(rate(triage_first_schema_total{valid=\"true\"}[30s])) / sum by(cohort)(rate(triage_first_schema_total[30s]))",
+          "expr": "100 * sum by(cohort)(rate(triage_first_schema_total{valid=\"true\",instance=\"$instance\"}[30s])) / sum by(cohort)(rate(triage_first_schema_total{instance=\"$instance\"}[30s]))",
           "legendFormat": "{{cohort}}"
         }
       ]
@@ -204,10 +205,29 @@
       "targets": [
         {
           "refId": "A",
-          "expr": "sum by(direction)(rate(triage_tokens_total[30s]))",
+          "expr": "sum by(direction)(rate(triage_tokens_total{instance=\"$instance\"}[30s]))",
           "legendFormat": "{{direction}}"
         }
       ]
     }
-  ]
+  ],
+  "templating": {
+    "list": [
+      {
+        "name": "instance",
+        "label": "API instance",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prom"
+        },
+        "query": "label_values(triage_requests_total, instance)",
+        "refresh": 2,
+        "multi": false,
+        "includeAll": false,
+        "options": [],
+        "current": {}
+      }
+    ]
+  }
 }

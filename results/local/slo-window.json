@@ -1,0 +1,16 @@
+{
+  "mode": "local",
+  "instance": "host.docker.internal:8766",
+  "target_availability": 0.99,
+  "window_days": 7,
+  "window_start_utc": "2026-11-17T06:15:00+00:00",
+  "window_end_utc": "2026-11-24T06:15:00+00:00",
+  "expected_minutes": 10080,
+  "observed_minutes": 16,
+  "missing_minutes": 10064,
+  "minutes_with_failed_scrape": 1,
+  "estimated_eligible_requests": 47.04674330094001,
+  "estimated_successful_requests": 47.04674330094001,
+  "observed_availability": 1.0,
+  "status": "incomplete_scrape_history"
+}

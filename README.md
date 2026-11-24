@@ -117,6 +117,8 @@ Set RECORD_REPLAY=1 only for a controlled development run. Replay uses a disk ca
 
 ## Load and SLOs
 
+Select an API instance in Grafana to inspect its traffic and error budget. The Qwen and fixture instances have independent burn-rate and cost alerts. At 11:45 IST on 24 November 2026, Prometheus had Qwen samples in **16 of 10,080 minutes** and fixture samples in **81**. Both showed 100% success among observed eligible requests. The seven-day verdict for both was **incomplete**. Run `python -m scripts.slo_report --mode local` to refresh the Qwen report. [Qwen coverage](results/local/slo-window.json) · [Fixture coverage](results/fixture/slo-window.json)
+
 The same k6 script also exercised the stable v1 **real Qwen API** on Docker Desktop. Each 16-second stage repeatedly submitted an order-tracking ticket to the authenticated host API. Completed throughput includes time spent draining in-flight requests after each stage. These short runs characterize one laptop and one ticket shape.
 
 |Offered RPS|Completed requests|Completed RPS including drain|p50 / p95 / p99 (s)|HTTP errors / dropped arrivals|
