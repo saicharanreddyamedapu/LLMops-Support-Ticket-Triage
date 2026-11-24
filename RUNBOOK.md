@@ -2,7 +2,7 @@
 
 ## Initial checks
 
-GitHub dispatches verification to a repository runner labeled `triage-verification`. The local runner image is defined in `ops/runner.Dockerfile`; it includes promtool for the alert tests. The dedicated Docker runner has no host directory mounts or Docker socket. If checks queue, check Docker Desktop and the repository's Actions runner status. The staging publisher runs separately and checks only the verified main revision.
+GitHub provisions an Ubuntu runner for each verification job. If checks queue, inspect the workflow run on GitHub. Keep the local staging publisher separate and deploy only verified main revisions.
 
 The separate local staging publisher runs from the checkout with `python -m scripts.local_staging --watch`. It checks the GitHub main verification every two minutes, builds the accepted Git archive, pushes a SHA-tagged image to the registry on loopback port 15000, then validates a trial container before updating staging on port 8767. It serves fixture traffic with no hosted provider calls. The deployment receipt is `.local/staging/deployment.json`. Its two Docker services are independent of the Compose and Qwen services. Run only one publisher from a checkout. Repository polling uses the Git credential helper for the configured GitHub HTTPS origin.
 
