@@ -60,3 +60,11 @@ Approve a destination and budget first. Recheck the official model lists, prices
 Run `python -m scripts.dataset validate`; obtain at least 200 actual reviews. Evaluate the two prompt versions separately with `python -m scripts.evaluate --mode live --version v1 --judge --output results/live/baseline.json` and then v2 with `--output results/live/current.json`. Judge usage is reported separately. Calibrate the judge against human ratings before using it as a release criterion. Compare the matching reports with `python -m scripts.gate`. Reconcile amounts with billing and keep the fixture evidence intact.
 
 For failover, use an isolated live staging process at 0% canary. Verify one request on the primary. Temporarily configure an invalid primary key on this isolated process, restart it, and send one approved synthetic ticket. A primary auth error should route directly to the second provider. Verify actual model, token usage, OK secondary span, return the valid key, restart and confirm recovery. Never rotate or revoke a production credential for this drill. Stop when the approved budget is exhausted.
+### Local automatic rollback
+
+Start the API with `AUTO_ROLLBACK=1` and a persistent writable `STATE_DIR`.
+Check `GET /rollout/status` for the stable prompt, candidate prompt, effective candidate percentage and rollback state.
+During a canary, a candidate response with HTTP 5xx stops subsequent candidate traffic. In-flight calls finish normally.
+The stop persists across process restarts and traffic percentage changes. Client errors and practice requests do not trigger it.
+After correcting the candidate and passing its release checks, set a fresh `rollout_id` in the rollout configuration for the next attempt.
+Latency, cost and quality regressions still use the existing thresholds and operator rollback procedure.
