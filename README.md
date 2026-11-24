@@ -2,7 +2,7 @@
 
 A FastAPI service that classifies support tickets, drafts replies and records which prompt and model served each request.
 
-**Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. Stable v1 serves traffic and v4 has zero weight. [Real-model comparison](results/local/gate.md)
+**Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. Stable v1 serves traffic and v4 has zero weight. [Real-model comparison](results/local/v4-gate.md)
 
 In a local rollback drill, the candidate passed a fresh held-out gate, then reached **227.3 ms p95** across 25 fixture requests versus **46.9 ms** across 185 stable requests. Setting its weight to zero restored the stable version on **30/30** subsequent requests, at **47.3 ms p95**. The test injected 180 ms into candidate calls and sent traffic through the Compose API. [Drill results](results/fixture/canary.json)
 
@@ -97,7 +97,7 @@ The unconstrained local adapter returned only 9 valid responses on 132 tickets. 
 |Actual provider fees|$0|$0|$0|
 |Verdict|Stable|Blocked on category and product|Blocked on latency|
 
-The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same frozen test IDs. Triage latency excludes the subsequent judge call. The JSON records judge tokens separately. Priority scores have no independent human validation. The held-out thresholds were retained after both rejections. [Stable output and metrics](results/baseline.json) · [Trimmed version](results/local/v2.json) · [Current candidate](results/local/current.json) · [Current ticket outputs](results/local/v4-outputs.json)
+The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same frozen test IDs. Triage latency excludes the subsequent judge call. The JSON records judge tokens separately. Priority scores have no independent human validation. The held-out thresholds were retained after both rejections. [Stable output and metrics](results/baseline.json) · [Trimmed version](results/local/v2.json) · [v4 experiment](results/local/v4.json) · [Current ticket outputs](results/local/v4-outputs.json)
 
 |Held-out fixture measure, same 132 tickets|v1 baseline|v2 trimmed|
 |---|---:|---:|
@@ -148,7 +148,7 @@ GenAI span attributes follow [OpenTelemetry semantic conventions v1.37.0](https:
 
 ## Release and rollback
 
-On PRs, the workflow runs unit tests on the candidate and measures both main's stable version and the candidate on the same runner, full held-out split and fixture mode. Main's comparator rejects accuracy drops greater than 2 percentage points or p95/unit-cost increases above 15%. Missing human priority and live evidence appear in the summary. The [rejection table](results/fixture/rejection.md) shows a measured 60.6% to 9.1% category regression. A hosted failed run and staging deployment require a destination. The local project has no remote. [Workflow](.github/workflows/verify.yml)
+On PRs, the workflow runs unit tests on the candidate and measures both main's stable version and the candidate on the same runner, full held-out split and fixture mode. Main's comparator rejects accuracy drops greater than 2 percentage points or p95/unit-cost increases above 15%. Missing human priority and live evidence appear in the summary. The [rejection table](results/fixture/rejection.md) shows a measured 60.6% to 9.1% category regression. Main uses v1 as the baseline and release candidate. The v4 proposal is evaluated on a separate branch. Verification runs on a repository-scoped self-hosted runner. Remote artifact uploads and external staging are opt-in. [Workflow](.github/workflows/verify.yml)
 
 The workflow also checks the recorded Qwen runs. It verifies the measured Git revisions, checks for changes to the listed inference inputs and recalculates category, product, provisional priority, schema validity, availability and reply scores from the saved ticket outputs. Inference runs on the local GPU. The CI verification needs neither model weights nor provider credentials. Reproduce that check with `python -m scripts.recorded_gate . .`.
 

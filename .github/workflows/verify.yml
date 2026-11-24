@@ -10,7 +10,8 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ubuntu-24.04
+    runs-on: ${{ vars.TRIAGE_VERIFY_RUNNER || 'triage-verification' }}
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with: {path: candidate, persist-credentials: false, fetch-depth: 0}
@@ -21,15 +22,19 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       - uses: astral-sh/setup-uv@v6
-        with: {version: '0.13.8'}
+        with: {version: '0.13.8', enable-cache: false}
       - run: uv python install 3.12.16
       - run: uv sync --frozen && uv run --frozen python -m scripts.prepare_tokenizers && uv run --frozen python -m pytest -q
         working-directory: candidate
       - name: Verify Prometheus alert behavior
         working-directory: candidate
         run: |
-          docker run --rm --network none --volume "$PWD/ops:/rules:ro" --workdir /rules \
-            --entrypoint /bin/promtool prom/prometheus:v3.6.0 test rules alerts.test.yaml
+          if command -v promtool >/dev/null; then
+            (cd ops && promtool test rules alerts.test.yaml)
+          else
+            docker run --rm --network none --volume "$PWD/ops:/rules:ro" --workdir /rules \
+              --entrypoint /bin/promtool prom/prometheus:v3.6.0 test rules alerts.test.yaml
+          fi
       - name: Measure main on this runner
         working-directory: base
         run: |
@@ -51,7 +56,7 @@ jobs:
           set -o pipefail
           uv run --frozen python -m scripts.recorded_gate . ../candidate | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && vars.UPLOAD_MEASUREMENTS == 'true'
         with:
           name: measurements
           path: |
