@@ -1,0 +1,127 @@
+{
+  "mode": "fixture",
+  "timestamp": "2026-11-24T11:05:12.528548+00:00",
+  "offline_gate": {
+    "base": {
+      "mode": "fixture",
+      "method": "asgi-serial-v1",
+      "split": "test",
+      "revision": "430d1a89bd93bd1fa23c16f29dd53e73f0087443",
+      "dataset_digest": "3ce6092a4fe66d61f2259c2cfafb68329fbee12838da51b1e3e19d432233a4e0",
+      "n": 132,
+      "timestamp": "2026-11-24T11:04:11.216789+00:00",
+      "git_sha": "4b7d63d20b3fa97aa445c05c16a3a9e6797ca6ed",
+      "prompt_version": "v1",
+      "primary": "openai/gpt-4.1-mini-2025-04-14",
+      "providers": 1,
+      "cache": "bypass",
+      "availability": 1.0,
+      "first_pass": 1.0,
+      "category": 0.6060606060606061,
+      "product": 0.7121212121212122,
+      "priority": 0.6515151515151515,
+      "reviewed": 132,
+      "human_review_total": 0,
+      "priority_source": "assistant-rubric-v1",
+      "provisional_digest": "44dbe25bd82cf5fa167bf5a53ece692dd3a9f74e451eb12f1c8d1fcd055b8c59",
+      "summary_grounding": 1.0,
+      "draft_reply_judge": null,
+      "judge_n": 0,
+      "judge_errors": 0,
+      "judge_cost_usd": 0,
+      "p50_ms": 46.4977000374347,
+      "p95_ms": 49.297999998088926,
+      "p99_ms": 50.667300005443394,
+      "input_tokens": 24789.0,
+      "output_tokens": 7309.0,
+      "unknown_usage_attempts": 0,
+      "priced_usd": 0.021609999999999994,
+      "priced_usd_per_request": 0.00016371212121212117,
+      "priced_usd_per_1000_success": 0.16371212121212114,
+      "monthly_usd_at_100k": 16.371212121212118,
+      "provider_spend_usd": 0
+    },
+    "candidate": {
+      "mode": "fixture",
+      "method": "asgi-serial-v1",
+      "split": "test",
+      "revision": "430d1a89bd93bd1fa23c16f29dd53e73f0087443",
+      "dataset_digest": "3ce6092a4fe66d61f2259c2cfafb68329fbee12838da51b1e3e19d432233a4e0",
+      "n": 132,
+      "timestamp": "2026-11-24T11:04:30.274741+00:00",
+      "git_sha": "4b7d63d20b3fa97aa445c05c16a3a9e6797ca6ed",
+      "prompt_version": "v2",
+      "primary": "openai/gpt-4.1-mini-2025-04-14",
+      "providers": 1,
+      "cache": "bypass",
+      "availability": 1.0,
+      "first_pass": 1.0,
+      "category": 0.6060606060606061,
+      "product": 0.7121212121212122,
+      "priority": 0.6515151515151515,
+      "reviewed": 132,
+      "human_review_total": 0,
+      "priority_source": "assistant-rubric-v1",
+      "provisional_digest": "44dbe25bd82cf5fa167bf5a53ece692dd3a9f74e451eb12f1c8d1fcd055b8c59",
+      "summary_grounding": 1.0,
+      "draft_reply_judge": null,
+      "judge_n": 0,
+      "judge_errors": 0,
+      "judge_cost_usd": 0,
+      "p50_ms": 46.669099945575,
+      "p95_ms": 49.05099997995421,
+      "p99_ms": 50.65779999131337,
+      "input_tokens": 18189.0,
+      "output_tokens": 7309.0,
+      "unknown_usage_attempts": 0,
+      "priced_usd": 0.01897,
+      "priced_usd_per_request": 0.00014371212121212123,
+      "priced_usd_per_1000_success": 0.14371212121212124,
+      "monthly_usd_at_100k": 14.371212121212121,
+      "provider_spend_usd": 0
+    },
+    "comparison": "|Metric|Base|Candidate|Gate|\n|---|---:|---:|---|\n|category|0.6060606|0.6060606|pass|\n|product|0.7121212|0.7121212|pass|\n|priority|0.6515152|0.6515152|pass|\n|first_pass|1|1|pass|\n|availability|1|1|pass|\n|p95_ms|49.298|49.051|pass|\n|priced_usd_per_request|0.0001637121|0.0001437121|pass|\n\nMode fixture, n=132.\nHuman-reviewed live provider evidence remains pending.\nPriority uses provisional assistant annotations."
+  },
+  "percent": 10,
+  "versions": {
+    "v1": 228,
+    "v2": 25
+  },
+  "before": {
+    "stable": {
+      "n": 228.0,
+      "availability": 1.0,
+      "first_pass": 1.0,
+      "p95_ms": 53.25360002461821,
+      "priced_usd_per_request": 0.0001572000000000002
+    },
+    "candidate": {
+      "n": 25.0,
+      "availability": 1.0,
+      "first_pass": 1.0,
+      "p95_ms": 242.2550999908708,
+      "priced_usd_per_request": 0.00013720000000000006
+    }
+  },
+  "breaches": [
+    "p95_ms"
+  ],
+  "rollback_percent": 0,
+  "recovered_versions": {
+    "v1": 30
+  },
+  "after": {
+    "n": 30.0,
+    "availability": 1.0,
+    "first_pass": 1.0,
+    "p95_ms": 52.97790002077818,
+    "priced_usd_per_request": 0.00015720000000000317
+  },
+  "policy": {
+    "minimum_per_cohort": 25,
+    "min_availability": 0.99,
+    "min_schema_valid": 0.99,
+    "max_p95_ratio": 1.5,
+    "max_cost_ratio": 1.15
+  }
+}

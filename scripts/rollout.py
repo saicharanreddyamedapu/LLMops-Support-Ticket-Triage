@@ -1,13 +1,13 @@
+import argparse
 import json
 import os
 import stat
-import sys
 import tempfile
 from pathlib import Path
 
 
-def weight(percent):
-    path = Path(os.getenv("ROLLOUT_PATH","config/rollout.json"))
+def weight(percent, path=None):
+    path = Path(path or os.getenv("ROLLOUT_PATH","config/rollout.json"))
     cfg = json.loads(path.read_text())
     if not 0 <= percent <= 100:
         raise ValueError("percent outside 0..100")
@@ -23,4 +23,8 @@ def weight(percent):
 
 
 if __name__ == "__main__":
-    print("candidate percent",weight(int(sys.argv[1])))
+    parser = argparse.ArgumentParser(description="Set the candidate traffic percentage.")
+    parser.add_argument("percent", type=int)
+    parser.add_argument("--path", type=Path, help="Use the rollout file for a specific service.")
+    args = parser.parse_args()
+    print("candidate percent", weight(args.percent, args.path))

@@ -4,7 +4,7 @@ A FastAPI service that classifies support tickets, drafts replies and records wh
 
 **Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. Stable v1 serves traffic and v4 has zero weight. [Real-model comparison](results/local/v4-gate.md)
 
-In a local rollback drill, the candidate passed a fresh held-out gate, then reached **227.3 ms p95** across 25 fixture requests versus **46.9 ms** across 185 stable requests. Setting its weight to zero restored the stable version on **30/30** subsequent requests, at **47.3 ms p95**. The test injected 180 ms into candidate calls and sent traffic through the Compose API. [Drill results](results/fixture/canary.json)
+In the isolated canary drill, v2 passed a fresh fixture gate, then reached **242.3 ms p95** across 25 requests versus **53.3 ms** across 228 requests on v1. Setting its weight to zero restored v1 on **30/30** subsequent requests at **53.0 ms p95**. The drill injected 180 ms into candidate calls. [Measured rollback](results/fixture/canary-recheck.json) · [Earlier Compose drill](results/fixture/canary.json)
 
 ![Grafana dashboard during traffic to the local Qwen API](results/local/grafana-load.png)
 
@@ -18,7 +18,7 @@ Install Docker with Compose. From this folder:
 docker compose up --build -d --wait
 ```
 
-This is also the Windows PowerShell equivalent of `make demo`. To embed the revision in Docker responses, first set `$env:GIT_SHA = git rev-parse HEAD` in PowerShell or `export GIT_SHA=$(git rev-parse HEAD)` in a POSIX shell. Without it a container reports `unavailable`. Fixture defaults require no sign-up or paid key.
+`make demo` embeds the checkout revision automatically. When using Compose directly, first set `$env:GIT_SHA = git rev-parse HEAD` in PowerShell or `export GIT_SHA=$(git rev-parse HEAD)` in a POSIX shell. Without it a container reports `unavailable`. Fixture defaults require no sign-up or paid key.
 
 ```powershell
 Invoke-RestMethod http://127.0.0.1:8765/triage -Method Post -ContentType 'application/json' -Headers @{Authorization='Bearer fixture-demo'} -Body '{"text":"How can I track my order?"}'
@@ -33,6 +33,7 @@ Run Ollama on the host with the `qwen3.5:9b` weights pinned in [the local regist
 ```powershell
 $env:TRIAGE_MODE = 'local'
 $env:TRIAGE_KEYS = 'local-demo-only'
+$env:RECORD_REPLAY = '1'
 $env:OTEL_EXPORTER_OTLP_TRACES_ENDPOINT = 'http://127.0.0.1:14318/v1/traces'
 uv run --frozen uvicorn app.main:app --host 127.0.0.1 --port 8766
 ```
@@ -54,8 +55,9 @@ flowchart LR
     G --> F[Offline fixture or development replay]
     A --> T[OpenTelemetry Collector] --> X[Phoenix]
     T --> M[Prometheus] --> D[Grafana]
-    CI[GitHub Actions tests and held-out gate] --> I[Image]
-    I --> S[Configured staging]
+    CI[GitHub Actions tests and held-out gate] --> W[Local publisher verifies main SHA]
+    W --> I[Loopback image registry] --> S[Separate staging API]
+    S --> R[Revision-specific rollout file]
 ```
 
 Hosted provider attempts have a 3 s timeout within a 9 s request deadline. Local Qwen uses a 90 s attempt timeout and a 180 s request deadline. The gateway retries rate limits, upstream 5xx and timeouts with jitter, honors Retry-After and moves to the secondary when waiting would exhaust the retry allowance. It sends 400-class bad requests back as typed upstream failures. An invalid model output gets one repair. Provider authentication failures can fail over without retrying that credential. The breaker allows a recovery probe after cooldown. The input limit uses conservatively bounded UTF-8 bytes plus framing. Output is capped by the prompt registry.
@@ -73,9 +75,9 @@ uv run --frozen python -m scripts.evaluate --version v2 --output .local/candidat
 uv run --frozen python -m scripts.gate .local/base.json .local/candidate.json
 ```
 
-`make eval` runs the full held-out fixture evaluation. Each result includes the data digest, run mode, timestamp, model, prompt and source revision. The [fixture baseline](results/fixture/baseline.json), [fixture candidate](results/fixture/current.json) and [per-ticket outputs](results/fixture/outputs.json) are included.
+`make eval` runs the stable prompt against local Qwen on all 132 held-out tickets, grades the replies, prints the baseline table and writes `.local/eval/baseline.json` and `.local/eval/stable-outputs.json`. The accepted baseline is versioned at [results/baseline.json](results/baseline.json). Each result includes the data digest, run mode, timestamp, model, prompt and source revision. `make eval-fixture` runs the deterministic candidate benchmark. [Fixture baseline](results/fixture/baseline.json) · [Fixture candidate](results/fixture/current.json)
 
-`make eval-local` runs Qwen on the same 132 held-out inputs for each version and applies the regression thresholds. On Windows without Make, run the three commands from the [eval-local target](Makefile). The model runs serially on the host. End-to-end latency covers the triage API response, including retries and repairs. The reply grade is computed afterward. The same model judges its own answers against the Bitext references, so the grade needs independent calibration.
+`make eval-local` runs the baseline followed by the configured candidate on the same tickets and applies the regression thresholds. Each role has its own output file, including when both roles serve v1. On Windows without Make, run the `eval` command followed by the two commands under `eval-local` in the [Makefile](Makefile). End-to-end latency covers the triage API response, retries and repairs. The same model grades each reply against the Bitext reference afterward. Those grades still need independent calibration.
 
 Python setup downloads checksum-verified token tables once. Docker includes them in the image. The adapter integration test sends an OpenAI-format request to a local server returning HTTP 429, then verifies the Anthropic-format request and successful response. This exercises the SDK adapters without provider accounts or charges.
 
@@ -97,7 +99,7 @@ The unconstrained local adapter returned only 9 valid responses on 132 tickets. 
 |Actual provider fees|$0|$0|$0|
 |Verdict|Stable|Blocked on category and product|Blocked on latency|
 
-The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same frozen test IDs. Triage latency excludes the subsequent judge call. The JSON records judge tokens separately. Priority scores have no independent human validation. The held-out thresholds were retained after both rejections. [Stable output and metrics](results/baseline.json) · [Trimmed version](results/local/v2.json) · [v4 experiment](results/local/v4.json) · [Current ticket outputs](results/local/v4-outputs.json)
+The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same frozen test IDs. Triage latency excludes the subsequent judge call. The JSON records judge tokens separately. Priority scores have no independent human validation. The held-out thresholds were retained after both rejections. [Original v1 measurement](results/local/original-v1/baseline.json) · [Trimmed version](results/local/v2.json) · [v4 experiment](results/local/v4.json) · [v4 ticket outputs](results/local/v4-outputs.json)
 
 |Held-out fixture measure, same 132 tickets|v1 baseline|v2 trimmed|
 |---|---:|---:|
@@ -111,9 +113,11 @@ The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same
 |Paid provider spend|$0|$0|
 |Reviewed priority / live reply-judge samples|0 / 0|0 / 0|
 
+At the v2 fixture rate and 100,000 requests per month, a self-hosted installation would have to deliver equivalent quality and capacity for less than $14.37 per month to beat the modeled API bill. For another volume, divide monthly fixed hosting cost by the difference between API and self-hosted variable cost per successful request. The laptop experiment measures throughput and provider fees. A measured break-even volume also needs power, hardware and operating costs.
+
 The shorter system prompt removed 50 estimated input tokens per request and reduced modeled unit cost by 12.2%. With v2, output accounted for about 62% of estimated cost. Fixture counts use a bundled tokenizer and message framing. Live mode uses provider-reported usage for every returned attempt, including repairs. List-price estimates use standard uncached text rates. Unconfirmed live attempts retain their budget reservations and are counted separately. [Dated prices and official sources](config/prices.json)
 
-Set RECORD_REPLAY=1 only for a controlled development run. Replay uses a disk cache keyed by model, prompt configuration and messages. It stores provider output locally and requires protection like the original ticket. Live evaluation bypasses cache reads. The default application budget is zero.
+The local development example records each Qwen response to disk. With the same state directory and rollout, restart in `TRIAGE_MODE=replay` with `REPLAY_SOURCE=local` to serve those responses. For a hosted development recording, use `RECORD_REPLAY=1` and replay with the default `REPLAY_SOURCE=live`. Keys include the model, prompt configuration and messages. The cache stores model output and needs the same protection as the original ticket. Quality and latency benchmarks bypass recording and replay. The default application budget is zero.
 
 ## Load and SLOs
 
@@ -152,15 +156,13 @@ On PRs, the workflow runs unit tests on the candidate and measures both main's s
 
 The workflow also checks the recorded Qwen runs. It verifies the measured Git revisions, checks for changes to the listed inference inputs and recalculates category, product, provisional priority, schema validity, availability and reply scores from the saved ticket outputs. Inference runs on the local GPU. The CI verification needs neither model weights nor provider credentials. Reproduce that check with `python -m scripts.recorded_gate . .`.
 
-The commands below exercise the fixture drill. Use an isolated checkout or stop the host Qwen service during the drill because both services otherwise read the same rollout file. The current real-model verdict keeps v4 at zero traffic.
+The fixture drill starts a private loopback API with temporary rollout and fault files. It gates v1 against v2, sends 10% of traffic to v2, injects a slowdown, measures both cohorts and verifies recovery after setting candidate weight to zero.
 
 ```shell
-uv run --frozen python -m scripts.rollout 10
 uv run --frozen python -m scripts.drill
-uv run --frozen python -m scripts.rollout 0
 ```
 
-The middle command exercises a controlled candidate slowdown against the fixture stack, evaluates the cohort thresholds, and verifies the rollback using new response metadata. Run on an isolated stack without concurrent traffic. The drill restores the prior rollout setting on exit. The last command leaves the weight at zero. [Canary thresholds](config/canary.json) · [Two-minute fixture failover demo](results/fixture/failover-demo.webm)
+The command saves the gate, cohort measurements, trigger and recovery to `.local/canary.json`. GitHub CI repeats this drill after the release comparisons pass. [Canary thresholds](config/canary.json) · [Isolated rerun](results/fixture/canary-recheck.json) · [Two-minute fixture failover demo](results/fixture/failover-demo.webm)
 
 ## What broke
 

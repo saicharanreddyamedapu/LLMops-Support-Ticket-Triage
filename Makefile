@@ -3,9 +3,11 @@ demo:
 	docker compose up -d --wait
 
 eval:
+	uv run --frozen python -m scripts.prepare_tokenizers
 	uv run --frozen python -m scripts.evaluate --mode local --role stable --provisional-priority --judge --output .local/eval/baseline.json --outputs .local/eval/stable-outputs.json
 
 eval-fixture:
+	uv run --frozen python -m scripts.prepare_tokenizers
 	uv run --frozen python -m scripts.evaluate --role candidate --provisional-priority --output .local/fixture-eval.json
 
 eval-local: eval

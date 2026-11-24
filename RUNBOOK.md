@@ -41,8 +41,15 @@ Select the alert's API instance in Grafana. Run `python -m scripts.slo_report --
 1. Set the version registry and `config/rollout.json` in Git. Validate on dev, freeze, and run the held-out gate. On staging, use the mounted config directory or an equivalent externally managed config volume.
 2. Run `python -m scripts.rollout 10`. The fixture drill evaluates both cohorts after at least 25 observations each. A rollback triggers below 99% schema validity or availability, a one-point relative-to-stable quality drop in either, p95 above 1.5× stable, or unit price above 1.15× stable. The file `config/canary.json` declares the thresholds.
 3. Set the weight to zero to roll back. Sample responses and cohort metric deltas. Keep the degraded candidate out until the cause is resolved. The repeatable local drill uses isolated configuration and restores the initial weight on exit.
-4. An image-only single container needs external persistent runtime storage and mutable rollout config for equivalent behavior. Configure those before enabling staging deployments.
+4. The local staging publisher mounts a separate rollout directory for each deployed revision. To roll back staging in PowerShell, use the commands below from the project root. The container rereads that file for each request. Inspect the next response headers and the mounted file to confirm recovery.
 5. Stop the local stack with `docker compose stop`. Restart with one `docker compose up -d --wait` and inspect `docker compose logs --tail 50` if a container is unhealthy. Keep volumes during diagnosis.
+
+```powershell
+$revision = (Get-Content .local/staging/deployment.json -Raw | ConvertFrom-Json).git_sha
+python -m scripts.rollout 0 --path ".local/staging/rollouts/$revision/rollout.json"
+```
+
+For a rehearsal, run `python -m scripts.drill`. This starts an isolated fixture instance on an ephemeral port. It evaluates v1 and v2, applies the canary policy, and saves the measured rollback to `.local/canary.json`.
 
 ## Live evaluation and two-provider drill
 
