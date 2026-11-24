@@ -67,8 +67,23 @@ def test_catalog_product_uses_only_the_predicted_category(monkeypatch):
                                summary="Order status", draft_reply="Check your order page."))
     monkeypatch.setattr(fixture, "answer", inconsistent)
     for version,expected in (("v3","billing"),("v4","storefront")):
-        monkeypatch.setattr(settings,"choose",lambda: ("stable",settings.prompt(version)))
+        monkeypatch.setattr(settings,"choose",lambda plan: ("stable",settings.prompt(version)))
         assert post("Where is my invoice?").json()["product"] == expected
+
+
+def test_candidate_failure_routes_following_requests_to_stable(tmp_path, monkeypatch):
+    monkeypatch.setenv("AUTO_ROLLBACK", "1")
+    plan = {"stable": "v2", "candidate": "v3", "percent": 100}
+    (tmp_path / "rollout.json").write_text(json.dumps(plan))
+    assert post().json()["prompt_version"] == "v3"
+    assert post(" ").status_code == 422
+    assert client.get("/rollout/status").json()["candidate_percent"] == 100
+    fault_file = tmp_path / "fault.json"
+    fault_file.write_text(json.dumps({"invalid": True}))
+    assert post().status_code == 502
+    fault_file.unlink()
+    assert client.get("/rollout/status").json()["rolled_back"]
+    assert post().json()["prompt_version"] == "v2"
 
 
 @pytest.mark.parametrize("fault,status,calls", [("repair",200,2),("invalid",502,2),("primary_down",200,3)])

@@ -1,4 +1,5 @@
 import json
+import hashlib
 import os
 import random
 import re
@@ -51,8 +52,18 @@ def rollout():
     return r
 
 
-def choose():
-    r = rollout()
+def rollback_marker(r):
+    if os.getenv("AUTO_ROLLBACK") != "1":
+        return None
+    identity = json.dumps([r["stable"], r["candidate"], r.get("rollout_id")]).encode()
+    return Path(os.getenv("STATE_DIR", ".local")) / ("rollback-" + hashlib.sha256(identity).hexdigest())
+
+
+def choose(r=None):
+    r = rollout() if r is None else r
+    marker = rollback_marker(r)
+    if marker and marker.exists():
+        return "stable", prompt(r["stable"])
     cohort = "candidate" if random.randrange(100) < r["percent"] else "stable"
     return cohort, prompt(r[cohort])
 
