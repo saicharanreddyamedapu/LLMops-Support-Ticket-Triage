@@ -226,6 +226,7 @@ The command saves the gate, cohort measurements, trigger and recovery to `.local
 ## Operations and evidence
 
 - [Verification by component](REFERENCE_REVIEW.md)
+- [GitHub release check that blocked a slower candidate](https://github.com/saicharanreddyamedapu/LLMops-Support-Ticket-Triage/actions/runs/45344100922/job/138274387211)
 - [Runbook and rollback procedure](RUNBOOK.md)
 - [Incident report on duplicate trace spans](postmortems/001-duplicate-request-spans.md)
 - [Recorded failover demo](results/fixture/failover-demo.webm)
