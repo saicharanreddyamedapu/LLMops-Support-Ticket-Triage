@@ -2,6 +2,10 @@
 
 ## Initial checks
 
+GitHub dispatches verification to a repository runner labeled `triage-verification`. The local runner image is defined in `ops/runner.Dockerfile`; it includes promtool for the alert tests. The dedicated Docker runner has no host directory mounts or Docker socket. If checks queue, check Docker Desktop and the repository's Actions runner status. The staging publisher runs separately and checks only the verified main revision.
+
+The separate local staging publisher runs from the checkout with `python -m scripts.local_staging --watch`. It checks the GitHub main verification every two minutes, builds the accepted Git archive, pushes a SHA-tagged image to the registry on loopback port 15000, then validates a trial container before updating staging on port 8767. It serves fixture traffic with no hosted provider calls. The deployment receipt is `.local/staging/deployment.json`. Its two Docker services are independent of the Compose and Qwen services. Run only one publisher from a checkout. Repository polling uses the Git credential helper for the configured GitHub HTTPS origin.
+
 The Collector scrapes the API's Prometheus endpoint every two seconds and publishes those series on its internal port 8889. Prometheus scrapes `collector:8889`. If the target is healthy but a panel is empty, inspect the Collector's upstream scrape errors and verify that the API itself exposes the expected series.
 
 Run `docker compose ps`, then open `http://127.0.0.1:8765/readyz`, `http://127.0.0.1:19090/targets`, the [Grafana dashboard](http://127.0.0.1:13000/d/triage) and [Phoenix](http://127.0.0.1:16006). The configured service runs one worker. Rate limits and breakers are process-local. A shared rate limiter and replicated budget ledger are prerequisites for multi-host operation.

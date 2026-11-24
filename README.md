@@ -172,13 +172,15 @@ One 111.8 ms failover request captured in Phoenix spent 12.8 ms and 3.0 ms on fa
 
 ## Project 01 acceptance
 
+The [point-by-point review](REFERENCE_REVIEW.md) maps each relevant requirement to evidence and records the open items. The prospective Qwen availability window runs from 24 November to 1 December 2026 at 11:54 IST.
+
 |Milestone|Evidence|Scope|
 |---|---|---|
 |M0 · Golden set and baseline|[Sample and rubric](data/README.md), [one-model baseline](results/baseline.json)|264 frozen tickets. Priority has assistant annotations for all 264 and zero human reviews.|
 |M1 · Packaged service|[Compose](compose.yaml), [prompt versions](prompts/triage), [service tests](tests/test_service.py)|Authenticated FastAPI requests verified locally. The image embeds its build revision.|
 |M2 · Gateway reliability|[Adapter tests](tests/test_service.py), [three-attempt trace](results/fixture/phoenix-trace.json)|The actual OpenAI and Anthropic adapters passed controlled HTTP tests. External two-provider failover remains unverified.|
 |M3 · Observability|[Dashboard](ops/grafana/triage.json), [Qwen scrape checks](results/local/monitoring.json), [fixture dashboard](results/fixture/grafana-load.png), [rules](ops/alerts.yaml)|Collector, Phoenix, Prometheus and Grafana exercised locally. The seven-day SLO has a shorter observation history.|
-|M4 · CI/CD|[Workflow](.github/workflows/verify.yml), [fixture rejection](results/fixture/rejection.md), [Qwen rejection](results/local/gate.md)|Local fixture gate, actual model-score recomputation and latency rejection verified. Hosted PR rejection, image publication and staging deployment await a destination.|
+|M4 · CI/CD|[Workflow](.github/workflows/verify.yml), [fixture rejection](results/fixture/rejection.md), [blocked PR #1](https://github.com/saicharanreddyamedapu/support-ticket-triage/pull/1), [staging receipt](results/staging/first-deployment.json)|GitHub verified stable main and blocked the candidate at the Qwen latency threshold. The verified main image was published to a local registry and served an authenticated request on separate local staging.|
 |M5 · Canary|[Rollback drill](results/fixture/canary.json), [screen recording](results/fixture/failover-demo.webm)|The fixture gate passed, the candidate breached the declared latency threshold and the config rollback restored stable routing.|
 |M6 · Capacity and cost|[Fixture peak stage](results/fixture/load-24.json), [Qwen peak stage](results/local/load-1.json), [fixture unit cost](results/fixture/current.json)|Increasing-rate HTTP load measured against both services. The fixture sweep reached admission 429s. The laptop Qwen sweep demonstrated latency degradation within the limiter.|
 |M7 · Operations|[Runbook](RUNBOOK.md), [incident report](postmortems/001-duplicate-request-spans.md)|Procedures cover both alerts, rollback, recovery and the two-provider drill.|

@@ -42,6 +42,9 @@ def post(ticket="check my refund", key="test-client"):
 
 
 def test_auth_schemas_and_probes():
+    probe = client.get("/healthz")
+    assert probe.headers["X-Triage-Git-Sha"] == settings.revision()
+    assert probe.headers["X-Triage-Model"] == probe.headers["X-Triage-Prompt-Version"] == "not-used"
     assert client.get("/healthz").is_success and client.get("/readyz").is_success
     assert post(key="wrong").status_code == 401
     assert post(" ").status_code == 422
