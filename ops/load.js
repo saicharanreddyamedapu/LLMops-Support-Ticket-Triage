@@ -2,12 +2,14 @@ import http from 'k6/http';
 import { Counter, Trend } from 'k6/metrics';
 
 const rate = Number(__ENV.RATE || 5);
+const interval = Number(__ENV.INTERVAL || 1);
+const mode = __ENV.MODE || 'fixture';
 const seconds = Number(__ENV.SECONDS || 15);
 const counts = new Counter('triage_status');
 const success = new Trend('triage_success_ms', true);
 export const options = {
-  scenarios: { triage: { executor: 'constant-arrival-rate', rate, timeUnit: '1s',
-    duration: seconds + 's', preAllocatedVUs: 12, maxVUs: 48, gracefulStop: '5s' } },
+  scenarios: { triage: { executor: 'constant-arrival-rate', rate, timeUnit: interval + 's',
+    duration: seconds + 's', preAllocatedVUs: 12, maxVUs: 48, gracefulStop: mode === 'local' ? '100s' : '5s' } },
   summaryTrendStats: ['med', 'p(95)', 'p(99)', 'max'],
 };
 export default function () {
@@ -23,8 +25,11 @@ const other = new Counter('triage_other_error');
 export function handleSummary(data) {
   const m = data.metrics;
   const n = m.http_reqs.values.count;
-  const row = {mode:'fixture', target_rps:rate, duration_s:seconds, n, achieved_rps:n/seconds,
+  const target = rate/interval;
+  const row = {mode, target_rps:target, duration_s:seconds, n, achieved_rps:n/seconds,
     rejected_429:m.triage_429?.values.count || 0, other_errors:m.triage_other_error?.values.count || 0,
     dropped:m.dropped_iterations?.values.count || 0, all_ms:m.http_req_duration.values, success_ms:m.triage_success_ms?.values || null};
-  return {stdout: JSON.stringify(row)+'\n', ['/results/load-'+rate+'.json']:JSON.stringify(row,null,2)+'\n'};
+  row.elapsed_s_including_drain = data.state.testRunDurationMs/1000;
+  row.completed_rps_including_drain = n/row.elapsed_s_including_drain;
+  return {stdout: JSON.stringify(row)+'\n', ['/results/load-'+target+'.json']:JSON.stringify(row,null,2)+'\n'};
 }

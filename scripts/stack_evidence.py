@@ -1,4 +1,5 @@
 """Verify trace delivery and screenshot the provisioned Grafana dashboard under fixture traffic."""
+import argparse
 import os
 import threading
 import time
@@ -17,9 +18,13 @@ GRAFANA="http://127.0.0.1:13000"
 PROM="http://127.0.0.1:19090"
 
 
-def issue(c):
-    r=c.post(API+"/triage",json={"text":"I have a question about my refund."},headers={"Authorization":"Bearer fixture-demo"})
+def issue(c, mode="fixture"):
+    local=mode=="local"
+    origin="http://127.0.0.1:8766" if local else API
+    key=os.environ["TRIAGE_KEYS"].split(",")[0] if local else "fixture-demo"
+    r=c.post(origin+"/triage",json={"text":"I have a question about my refund."},headers={"Authorization":"Bearer "+key})
     r.raise_for_status()
+    assert r.json()["mode"]==mode
     return r.json(), r.headers["X-Trace-Id"]
 
 
@@ -50,14 +55,14 @@ def phoenix(c):
     raise RuntimeError("Phoenix did not return a complete successful failover trace")
 
 
-def capture(c):
+def capture(c, mode="fixture"):
     board=c.get(GRAFANA+"/api/dashboards/uid/triage").json()["dashboard"]
     stop=threading.Event()
     errors=[]
     def background():
         try:
             while not stop.wait(.23):
-                issue(c)
+                issue(c,mode)
         except Exception as exc:
             errors.append(type(exc).__name__)
     sender=threading.Thread(target=background)
@@ -72,12 +77,16 @@ def capture(c):
             for panel in board["panels"]:
                 page.get_by_text(panel["title"],exact=True).first.wait_for(timeout=60000)
             page.wait_for_timeout(8000)
-            page.screenshot(path="results/fixture/grafana-load.png",full_page=True)
+            page.get_by_text("No data",exact=True).first.wait_for(state="hidden",timeout=60000)
+            page.screenshot(path=f"results/{mode}/grafana-load.png",full_page=True)
             browser.close()
         rules=c.get(PROM+"/api/v1/rules").json()["data"]["groups"]
         targets=c.get(PROM+"/api/v1/targets").json()["data"]["activeTargets"]
         collector_url="http://collector:8889/metrics"
         assert any(t["scrapeUrl"]==collector_url and t["health"]=="up" for t in targets)
+        origin="host.docker.internal:8766" if mode=="local" else "api:8000"
+        source=c.get(PROM+"/api/v1/query",params={"query":f'sum(rate(triage_requests_total{{instance="{origin}"}}[30s]))'}).json()
+        assert any(float(s["value"][1])>0 for s in source["data"]["result"]), "No traffic from the selected scrape source"
         checks={}
         for panel in board["panels"]:
             series=0
@@ -87,7 +96,7 @@ def capture(c):
                 series+=len(data["data"]["result"])
             checks[panel["title"]]=series
         assert all(checks.values()) and not errors
-        write("results/fixture/monitoring.json",dict(mode="fixture",dashboard=board["uid"],series=checks,metrics_target=collector_url,
+        write(f"results/{mode}/monitoring.json",dict(mode=mode,dashboard=board["uid"],series=checks,metrics_target=collector_url,source=origin,
              alerts=[r["name"] for group in rules for r in group["rules"] if r["type"]=="alerting"],sender_errors=errors))
     finally:
         stop.set()
@@ -95,8 +104,16 @@ def capture(c):
 
 
 if __name__=="__main__":
-    with httpx.Client(trust_env=False,timeout=10) as c:
-        assert c.get(API+"/readyz").json()["mode"]=="fixture"
-        phoenix(c)
-        time.sleep(1)
-        capture(c)
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--mode",choices=["fixture","local"],default="fixture")
+    mode=parser.parse_args().mode
+    with httpx.Client(trust_env=False,timeout=120) as c:
+        if mode=="fixture":
+            assert c.get(API+"/readyz").json()["mode"]=="fixture"
+            phoenix(c)
+            time.sleep(1)
+        else:
+            origin="http://127.0.0.1:8766"
+            assert c.get(origin+"/readyz").json()["mode"]=="local"
+            assert c.post(origin+"/triage",json={"text":"authentication control"}).status_code==401
+        capture(c,mode)

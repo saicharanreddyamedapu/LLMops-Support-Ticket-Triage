@@ -1,0 +1,24 @@
+{
+  "mode": "local",
+  "target_rps": 1,
+  "duration_s": 16,
+  "n": 17,
+  "achieved_rps": 1.0625,
+  "rejected_429": 0,
+  "other_errors": 0,
+  "dropped": 0,
+  "all_ms": {
+    "max": 15882.675999,
+    "med": 8988.599718,
+    "p(95)": 15177.7253358,
+    "p(99)": 15741.68586636
+  },
+  "success_ms": {
+    "p(99)": 15741.68586636,
+    "max": 15882.675999,
+    "med": 8988.599718,
+    "p(95)": 15177.7253358
+  },
+  "elapsed_s_including_drain": 31.884771206,
+  "completed_rps_including_drain": 0.5331698913618355
+}

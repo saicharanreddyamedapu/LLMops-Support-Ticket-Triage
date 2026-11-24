@@ -74,8 +74,11 @@ def measured(checkout, role, path):
 
 
 if __name__ == "__main__":
-    base = measured(sys.argv[1], "stable", "results/baseline.json")
-    candidate = measured(sys.argv[2], "candidate", "results/local/current.json")
-    rejected, table = compare(base, candidate)
+    try:
+        base = measured(sys.argv[1], "stable", "results/baseline.json")
+        candidate = measured(sys.argv[2], "candidate", "results/local/current.json")
+        rejected, table = compare(base, candidate)
+    except (OSError, ValueError, KeyError, subprocess.CalledProcessError) as exc:
+        rejected, table = True, f"Recorded release evidence rejected. {exc}"
     print(table)
     raise SystemExit(int(rejected))

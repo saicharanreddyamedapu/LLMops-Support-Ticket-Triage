@@ -13,11 +13,12 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-        with: {path: candidate, persist-credentials: false}
+        with: {path: candidate, persist-credentials: false, fetch-depth: 0}
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.base.sha || (github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000' && github.event.before) || github.sha }}
           path: base
+          fetch-depth: 0
           persist-credentials: false
       - uses: astral-sh/setup-uv@v6
         with: {version: '0.13.8'}
@@ -28,16 +29,22 @@ jobs:
         working-directory: base
         run: |
           uv run --frozen python -m scripts.prepare_tokenizers
-          uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["stable"])')" --output ../base.json
+          uv run --frozen python -m scripts.evaluate --provisional-priority --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["stable"])')" --output ../base.json
       - name: Measure candidate on the same held-out split
         working-directory: candidate
-        run: uv run --frozen python -m scripts.evaluate --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["candidate"])')" --output ../candidate.json
+        run: uv run --frozen python -m scripts.evaluate --provisional-priority --version "$(python -c 'import json;print(json.load(open("config/rollout.json"))["candidate"])')" --output ../candidate.json
       - name: Evaluate thresholds and publish comparison
         working-directory: base
         shell: bash
         run: |
           set -o pipefail
           uv run --frozen python -m scripts.gate ../base.json ../candidate.json | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Check recorded Qwen quality and inference inputs
+        working-directory: base
+        shell: bash
+        run: |
+          set -o pipefail
+          uv run --frozen python -m scripts.recorded_gate . ../candidate | tee -a "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -72,7 +79,7 @@ jobs:
           test -n "$SERVICE" && test -n "$TOKEN"
           api="https://api.render.com/v1/services/$SERVICE/deploys"
           id=$(curl -fsS -X POST -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" -d "$(jq -nc --arg img "$IMAGE" '{imageUrl:$img}')" "$api" | jq -er .id)
-          for i in $(seq 1 60); do
+          for ((attempt=1; attempt<=60; attempt++)); do
             state=$(curl -fsS -H "Authorization: Bearer $TOKEN" "$api/$id" | jq -er .status)
             case "$state" in live) exit 0;; *failed|canceled|deactivated) exit 1;; esac
             sleep 10

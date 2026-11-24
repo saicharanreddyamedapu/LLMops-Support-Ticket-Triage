@@ -30,7 +30,7 @@ def compare(base, candidate):
                     report.get("human_review_total", 0) < 200 or report["reviewed"] <= 0):
                 raise ValueError("live gate requires 200 human priority reviews and held-out labels")
             if report.get("judge_errors") != 0 or not report.get("judge_n") or report["judge_n"] != round(report["availability"] * report["n"]):
-                raise ValueError("live gate requires reply grades for every successful request")
+                raise ValueError("requires reply grades for every successful request")
         metrics["draft_reply_judge"] = ("floor", .02)
     rejected = False
     rows = ["|Metric|Base|Candidate|Gate|","|---|---:|---:|---|"]
@@ -57,7 +57,10 @@ def compare(base, candidate):
 
 
 if __name__ == "__main__":
-    failed,table = compare(*(json.loads(Path(f).read_text()) for f in sys.argv[1:3]))
+    try:
+        failed,table = compare(*(json.loads(Path(f).read_text()) for f in sys.argv[1:3]))
+    except (ValueError, KeyError) as exc:
+        failed,table = True, f"Release gate rejected the evidence. {exc}."
     print(table)
     if len(sys.argv)>3:
         Path(sys.argv[3]).write_text(table+"\n",encoding="utf-8")

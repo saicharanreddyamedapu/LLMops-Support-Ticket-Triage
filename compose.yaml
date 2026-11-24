@@ -31,6 +31,9 @@ services:
   collector:
     image: otel/opentelemetry-collector-contrib:0.136.0
     command: ["--config=/etc/collector.yaml"]
+    ports: ["127.0.0.1:14318:4318"]
+    environment:
+      TRIAGE_METRICS_TARGET: ${TRIAGE_METRICS_TARGET:-api:8000}
     volumes: ["./ops/collector.yaml:/etc/collector.yaml:ro"]
   prometheus:
     image: prom/prometheus:v3.6.0

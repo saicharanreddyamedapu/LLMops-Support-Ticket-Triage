@@ -1,0 +1,80 @@
+{
+  "method": "synthetic development probes over host HTTP",
+  "label_source": "assistant-authored examples and expectations",
+  "n": 8,
+  "matches": 7,
+  "records": [
+    {
+      "text": "Someone is in my account right now placing orders I did not authorize.",
+      "expected": "urgent",
+      "observed": "urgent",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "13149661fe4588318d1acb879bf684e3"
+    },
+    {
+      "text": "I can see unauthorized card charges from your store still appearing today.",
+      "expected": "urgent",
+      "observed": "high",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "d506776eace71a861c106a883d3aff16"
+    },
+    {
+      "text": "My account is locked and I cannot sign in to see any of my orders.",
+      "expected": "high",
+      "observed": "high",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "3d4616802b656a599fb3ff61a23958a2"
+    },
+    {
+      "text": "You charged me twice for the same order. Please help reverse the duplicate.",
+      "expected": "high",
+      "observed": "high",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "82f6c2fd99cf55e0dac857d9a072d70f"
+    },
+    {
+      "text": "Checkout declines every payment and I cannot complete my purchase.",
+      "expected": "high",
+      "observed": "high",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "ca77a83c956473e573e037f974480a1f"
+    },
+    {
+      "text": "Please change the delivery address on my existing order.",
+      "expected": "normal",
+      "observed": "normal",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "e36c9c8281c9c89ab30e5b76778a6b39"
+    },
+    {
+      "text": "Which payment methods does your store accept?",
+      "expected": "low",
+      "observed": "low",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "1a549da2feec4b88094075639314ce67"
+    },
+    {
+      "text": "Where can I leave feedback about a recent delivery?",
+      "expected": "low",
+      "observed": "low",
+      "prompt_version": "v1",
+      "model": "ollama_chat/qwen3.5:9b",
+      "git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+      "trace_id": "20852cfec115dca82ab0991083dc6491"
+    }
+  ]
+}

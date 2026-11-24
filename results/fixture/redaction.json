@@ -5,6 +5,9 @@
   "fully_redacted": 5,
   "false_positives": 0,
   "calls": 10000,
-  "p50_us": 1.4,
-  "p95_us": 4.0
+  "method": "1000 paired ten-ticket batches; alternating order; microseconds per ticket",
+  "disabled_p50_us": 0.04,
+  "enabled_p50_us": 0.77,
+  "added_p50_us": 0.74,
+  "added_p95_us": 1.8099999999999998
 }

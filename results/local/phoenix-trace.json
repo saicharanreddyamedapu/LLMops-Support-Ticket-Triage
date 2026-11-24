@@ -1,0 +1,59 @@
+{
+  "mode": "local",
+  "trace_id": "20852cfec115dca82ab0991083dc6491",
+  "spans": [
+    {
+      "id": "U3BhbjozNDE1",
+      "name": "POST /triage",
+      "context": {
+        "trace_id": "20852cfec115dca82ab0991083dc6491",
+        "span_id": "c03e27a0d75d4ccb"
+      },
+      "span_kind": "CHAIN",
+      "parent_id": null,
+      "start_time": "2026-11-24T06:06:55.808698+00:00",
+      "end_time": "2026-11-24T06:06:58.288491+00:00",
+      "status_code": "OK",
+      "status_message": "",
+      "attributes": {
+        "app.git_sha": "9b5e6bc69437d91bcc572d2cf50c692842a44003",
+        "app.mode": "local",
+        "app.duration_ms": 2484.0,
+        "app.outcome": "ok",
+        "app.cohort": "stable",
+        "app.model": "ollama_chat/qwen3.5:9b",
+        "app.prompt_version": "v1"
+      },
+      "events": []
+    },
+    {
+      "id": "U3BhbjozNDE0",
+      "name": "chat ollama_chat/qwen3.5:9b",
+      "context": {
+        "trace_id": "20852cfec115dca82ab0991083dc6491",
+        "span_id": "cd64497b9f1ab617"
+      },
+      "span_kind": "LLM",
+      "parent_id": "c03e27a0d75d4ccb",
+      "start_time": "2026-11-24T06:06:55.811908+00:00",
+      "end_time": "2026-11-24T06:06:58.286359+00:00",
+      "status_code": "OK",
+      "status_message": "",
+      "attributes": {
+        "gen_ai.provider.name": "ollama_chat",
+        "gen_ai.response.model": "ollama_chat/qwen3.5:9b",
+        "gen_ai.response.finish_reasons": [
+          "stop"
+        ],
+        "gen_ai.usage.input_tokens": 190,
+        "gen_ai.usage.output_tokens": 94,
+        "gen_ai.operation.name": "chat",
+        "gen_ai.request.model": "ollama_chat/qwen3.5:9b",
+        "app.mode": "local",
+        "app.secondary": false,
+        "app.prompt_version": "v1"
+      },
+      "events": []
+    }
+  ]
+}

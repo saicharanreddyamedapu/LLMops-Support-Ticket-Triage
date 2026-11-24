@@ -5,7 +5,7 @@ receivers:
         - job_name: triage
           scrape_interval: 2s
           static_configs:
-            - targets: ["api:8000"]
+            - targets: ["${env:TRIAGE_METRICS_TARGET:-api:8000}"]
           metric_relabel_configs:
             - source_labels: [__name__]
               regex: "triage_.*"

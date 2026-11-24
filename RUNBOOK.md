@@ -38,6 +38,8 @@ Use the request timestamp, prompt version, model and Git revision to correlate s
 
 ## Live evaluation and two-provider drill
 
+For the zero-provider-fee local model, start the host API using the README. A 503 from its readiness endpoint means it cannot verify the configured Ollama tag and digest or another runtime setting is invalid. Check `ollama list`, the registry digest, the loopback listener on 11434 and the local client key. Check port 14318 on the Collector for missing host traces. Use `python -m scripts.load --mode local` for the short host capacity sweep. Run benchmarks and load tests sequentially on a single GPU.
+
 Approve a destination and budget first. Recheck the official model lists, prices, regional availability and account access. Set provider-side spending controls where supported. Configure TRIAGE_MODE, TRIAGE_KEYS, OPENAI_API_KEY, ANTHROPIC_API_KEY, LIVE_BUDGET_USD and STATE_DIR using the secret store. Use an isolated persistent budget ledger for the approved run. Keep RECORD_REPLAY=0 when measuring latency or spend.
 
 Run `python -m scripts.dataset validate`; obtain at least 200 actual reviews. Evaluate the two prompt versions separately with `python -m scripts.evaluate --mode live --version v1 --judge --output results/live/baseline.json` and then v2 with `--output results/live/current.json`. Judge usage is reported separately. Calibrate the judge against human ratings before using it as a release criterion. Compare the matching reports with `python -m scripts.gate`. Reconcile amounts with billing and keep the fixture evidence intact.
