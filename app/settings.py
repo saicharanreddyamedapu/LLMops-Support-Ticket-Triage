@@ -35,7 +35,7 @@ def prompt(version):
         raise ValueError("invalid prompt registry")
     if any(p[k] not in PRICES for k in ("primary", "secondary")) or not 1 <= p["params"]["max_tokens"] <= 512:
         raise ValueError("missing price or unsafe output cap")
-    if MODE == "local":
+    if MODE == "local" or (MODE == "replay" and os.getenv("REPLAY_SOURCE", "live") == "local"):
         from .schema import Triage
         local = yaml.safe_load((ROOT / "prompts/local.yaml").read_text())
         p.update(primary=local["model"], secondary=local["model"], local_digest=local["digest"])

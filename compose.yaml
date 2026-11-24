@@ -14,6 +14,7 @@ services:
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
       LIVE_BUDGET_USD: ${LIVE_BUDGET_USD:-0}
       RECORD_REPLAY: ${RECORD_REPLAY:-0}
+      REPLAY_SOURCE: ${REPLAY_SOURCE:-live}
       FIXTURE_FAULT_FILE: /service/config/fixture-fault.json
       OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://collector:4318/v1/traces
     volumes: ["./config:/service/config:ro", "state:/service/state"]
