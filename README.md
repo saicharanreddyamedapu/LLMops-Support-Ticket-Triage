@@ -1,54 +1,10 @@
-# Support ticket triage API
+# LLMops Support Ticket Triage
 
-A FastAPI service that classifies support tickets, drafts replies and records which prompt and model served each request.
+## What problem does it solve?
 
-**Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. Stable v1 serves traffic and v4 has zero weight. [Real-model comparison](results/local/v4-gate.md)
+When support tickets arrive together, an agent has to decide which issue needs attention first and how to respond. This service reads the customer's message and suggests a category, priority, product, summary and draft reply. The agent reviews the draft before sending it.
 
-In the isolated canary drill, v2 passed a fresh fixture gate, then reached **242.3 ms p95** across 25 requests versus **53.3 ms** across 228 requests on v1. Setting its weight to zero restored v1 on **30/30** subsequent requests at **53.0 ms p95**. The drill injected 180 ms into candidate calls. [Measured rollback](results/fixture/canary-recheck.json) · [Earlier Compose drill](results/fixture/canary.json)
-
-![Grafana dashboard during traffic to the local Qwen API](results/local/grafana-load.png)
-
-**Actual API spend was $0.** All 132 held-out Bitext tickets succeeded using simulated model responses. At the documented provider rates, the shorter prompt cost an estimated **$0.000144 per ticket**, or **14.4¢ per 1,000 successful tickets**, down from **16.4¢** with the baseline prompt. The project’s estimated cost target is **under $0.22 per 1,000 successful tickets**. [Evaluation results](results/fixture/current.json)
-
-## Run locally
-
-Support agents can use the suggested priority to order their queue and review the draft before replying to a customer. To follow one ticket from submission to monitoring on your own computer:
-
-1. Install [Docker Desktop](https://docs.docker.com/desktop/) for your operating system, open it and wait for the engine to start. Use Linux containers on Windows. In a terminal check that `docker info` shows a Server section and `docker compose version` prints a version.
-2. With access to this private repository, use **Code → HTTPS**, clone the repository with Git, and open a terminal in the folder containing `compose.yaml`. Set the Git revision as described below before starting Compose.
-3. Start the demo with the command below. Run `docker compose ps` to check the services and confirm that the API is healthy.
-
-```shell
-docker compose up --build -d --wait
-```
-
-`make demo` embeds the checkout revision automatically. When using Compose directly, first set `$env:GIT_SHA = git rev-parse HEAD` in PowerShell or `export GIT_SHA=$(git rev-parse HEAD)` in a POSIX shell. Without it a container reports `unavailable`. Fixture defaults require no sign-up or paid key.
-
-```powershell
-Invoke-RestMethod http://127.0.0.1:8765/triage -Method Post -ContentType 'application/json' -Headers @{Authorization='Bearer fixture-demo'} -Body '{"text":"How can I track my order?"}'
-```
-
-The five output fields are category, priority, product, summary and draft_reply. The response also identifies the prompt version, actual model, Git revision, cohort, first-pass schema result and fallback. Explore the [interactive API](http://127.0.0.1:8765/docs), [Grafana](http://127.0.0.1:13000/d/triage), [Phoenix](http://127.0.0.1:16006) and [Prometheus](http://127.0.0.1:19090). Run `docker compose stop` to stop this stack.
-
-4. To send the example from a browser, open the interactive API, click **Authorize**, enter `fixture-demo`, and close the dialog. Open **POST /triage → Try it out**, enter `{"text":"How can I track my order?"}` and click **Execute**. Read the draft in **Response body** and copy **x-trace-id** from **Response headers**.
-5. In **Docker Desktop → Containers**, expand **ticket-triage**. Click the **16006** port beside **phoenix**. Under **Projects**, open the project receiving the requests and select **Traces**. Open the request around the time you clicked Execute and match its trace ID. Select the child model call to see its timing.
-6. Return to Docker Desktop and click the **13000** port beside **grafana**. Open **Dashboards → Support ticket triage**, select the API instance for the demo and a time range containing your request. Send a few tickets and allow time for the metrics scrape. Start with **Request rate** and **Request latency**. The local dashboard allows anonymous viewing.
-
-### Serve real responses with Qwen
-
-Run Ollama on the host with the `qwen3.5:9b` weights pinned in [the local registry](prompts/local.yaml). With the Python environment installed, start the host API in a PowerShell window. Use the same local key in the request header. This instance uses port 8766 so it can run beside the fixture demo.
-
-```powershell
-$env:TRIAGE_MODE = 'local'
-$env:TRIAGE_KEYS = 'local-demo-only'
-$env:RECORD_REPLAY = '1'
-$env:OTEL_EXPORTER_OTLP_TRACES_ENDPOINT = 'http://127.0.0.1:14318/v1/traces'
-uv run --frozen uvicorn app.main:app --host 127.0.0.1 --port 8766
-```
-
-Open [local readiness](http://127.0.0.1:8766/readyz) to verify the model digest. Send the same request shown above to port 8766 with `Bearer local-demo-only`. Local inference and reply grading use loopback and incur zero provider fees. Hardware and electricity are outside that figure.
-
-The host service exports traces to the Compose Collector on 14318. On Docker Desktop, set `$env:TRIAGE_METRICS_TARGET = 'host.docker.internal:8766'` and run `docker compose up -d collector` to graph the host service. The default scrape target is the Compose fixture. The 150 ms dashboard reference line comes from the fixture baseline.
+[System design](#architecture) · [Example output](#example-output) · [Run locally](#run-locally) · [Measured results](#measured-results)
 
 ## Architecture
 
@@ -70,9 +26,90 @@ flowchart LR
     S --> R[Revision-specific rollout file]
 ```
 
-Hosted provider attempts have a 3 s timeout within a 9 s request deadline. Local Qwen uses a 90 s attempt timeout and a 180 s request deadline. The gateway retries rate limits, upstream 5xx and timeouts with jitter, honors Retry-After and moves to the secondary when waiting would exhaust the retry allowance. It sends 400-class bad requests back as typed upstream failures. An invalid model output gets one repair. Provider authentication failures can fail over without retrying that credential. The breaker allows a recovery probe after cooldown. The input limit uses conservatively bounded UTF-8 bytes plus framing. Output is capped by the prompt registry.
+### How a ticket moves through the system
+
+1. FastAPI authenticates the caller and validates the ticket text.
+2. The rollout configuration selects a versioned prompt. The gateway calls the configured model and validates its structured response.
+3. The client receives the triage fields and a trace ID. Phoenix shows individual model attempts. Grafana graphs traffic, latency and errors across requests.
+
+### Project structure
+
+| Directory | What to look for |
+| --- | --- |
+| `app/` | API routes, model calls, validation and telemetry |
+| `prompts/` and `config/` | Prompt versions, model settings and rollout rules |
+| `ops/` | Collector, alert rules, dashboards and load driver |
+| `scripts/` and `tests/` | Evaluation, release checks and rollback drills |
+| `results/` | Recorded responses, measurements and screenshots |
+
+## Example output
+
+For an account-closure question, local Qwen produced these five fields. The API also returns the serving model and prompt version. [Recorded responses](results/local/v1-outputs.json)
+
+```json
+{
+  "category": "ACCOUNT",
+  "priority": "normal",
+  "product": "membership",
+  "summary": "The customer is asking how to close their account.",
+  "draft_reply": "Hello, I can certainly help you with closing your account. Please confirm which specific account category you are referring to so I can guide you through the correct steps."
+}
+```
+
+## Run locally
+
+To follow one ticket from submission to monitoring on your own computer:
+
+1. Install [Docker Desktop](https://docs.docker.com/desktop/) for your operating system, open it and wait for the engine to start. Use Linux containers on Windows. In a terminal check that `docker info` shows a Server section and `docker compose version` prints a version.
+2. With access to this private repository, use **Code → HTTPS**, clone the repository with Git, and open a terminal in the folder containing `compose.yaml`. Set the Git revision as described below before starting Compose.
+3. Start the demo with the command below. Run `docker compose ps` to check the services and confirm that the API is healthy.
+
+```shell
+docker compose up --build -d --wait
+```
+
+`make demo` embeds the checkout revision automatically. When using Compose directly, first set `$env:GIT_SHA = git rev-parse HEAD` in PowerShell or `export GIT_SHA=$(git rev-parse HEAD)` in a POSIX shell. Without it a container reports `unavailable`. Fixture defaults require no sign-up or paid key.
+
+```powershell
+Invoke-RestMethod http://127.0.0.1:8765/triage -Method Post -ContentType 'application/json' -Headers @{Authorization='Bearer fixture-demo'} -Body '{"text":"How can I track my order?"}'
+```
+
+The five output fields are category, priority, product, summary and draft_reply. The response also identifies the prompt version, actual model, Git revision, cohort, first-pass schema result and fallback. Explore the [interactive API](http://127.0.0.1:8765/docs), [Grafana](http://127.0.0.1:13000/d/triage), [Phoenix](http://127.0.0.1:16006) and [Prometheus](http://127.0.0.1:19090). Run `docker compose stop` to stop this stack.
+
+4. To send the example from a browser, open the interactive API, click **Authorize**, enter `fixture-demo`, and close the dialog. Open **POST /triage → Try it out**, enter `{"text":"How can I track my order?"}` and click **Execute**. Read the draft in **Response body** and copy **x-trace-id** from **Response headers**.
+5. In **Docker Desktop → Containers**, expand **ticket-triage**. Click the **16006** port beside **phoenix**. Under **Projects**, open the project receiving the requests and select **Traces**. Open the request around the time you clicked Execute and match its trace ID. Select the child model call to see its timing.
+6. Return to Docker Desktop and click the **13000** port beside **grafana**. Open **Dashboards → LLMops Support Ticket Triage**, select the API instance for the demo and a time range containing your request. Send a few tickets and allow time for the metrics scrape. Start with **Request rate** and **Request latency**. The local dashboard allows anonymous viewing.
+
+### Serve real responses with Qwen
+
+Run Ollama on the host with the `qwen3.5:9b` weights pinned in [the local registry](prompts/local.yaml). Install Python 3.12 and uv, run `ollama pull qwen3.5:9b`, then run `uv sync --frozen` and `uv run --frozen python -m scripts.prepare_tokenizers` from the repository root. Next, start the host API in a PowerShell window. Use the same local key in the request header. This instance uses port 8766 so it can run beside the fixture demo.
+
+```powershell
+$env:TRIAGE_MODE = 'local'
+$env:TRIAGE_KEYS = 'local-demo-only'
+$env:RECORD_REPLAY = '1'
+$env:OTEL_EXPORTER_OTLP_TRACES_ENDPOINT = 'http://127.0.0.1:14318/v1/traces'
+uv run --frozen uvicorn app.main:app --host 127.0.0.1 --port 8766
+```
+
+Open [local readiness](http://127.0.0.1:8766/readyz) to verify the model digest. Send the same request shown above to port 8766 with `Bearer local-demo-only`. Local inference and reply grading use loopback and incur zero provider fees. Hardware and electricity are outside that figure.
+
+The host service exports traces to the Compose Collector on 14318. On Docker Desktop, set `$env:TRIAGE_METRICS_TARGET = 'host.docker.internal:8766'` and run `docker compose up -d collector` to graph the host service. The default scrape target is the Compose fixture. The 150 ms dashboard reference line comes from the fixture baseline.
+
+## Measured results
+
+**Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. Stable v1 serves traffic and v4 has zero weight. [Real-model comparison](results/local/v4-gate.md)
+
+In the isolated canary drill, v2 passed a fresh fixture gate, then reached **242.3 ms p95** across 25 requests versus **53.3 ms** across 228 requests on v1. Setting its weight to zero restored v1 on **30/30** subsequent requests at **53.0 ms p95**. The drill injected 180 ms into candidate calls. [Measured rollback](results/fixture/canary-recheck.json) · [Earlier Compose drill](results/fixture/canary.json)
+
+![Grafana dashboard during traffic to the local Qwen API](results/local/grafana-load.png)
+
+**Actual API spend was $0.** All 132 held-out Bitext tickets succeeded using simulated model responses. At the documented provider rates, the shorter prompt cost an estimated **$0.000144 per ticket**, or **14.4¢ per 1,000 successful tickets**, down from **16.4¢** with the baseline prompt. The project’s estimated cost target is **under $0.22 per 1,000 successful tickets**. [Evaluation results](results/fixture/current.json)
 
 ## Evaluation and cost
+
+<details>
+<summary>Commands, measurements and interpretation</summary>
 
 Use Python 3.12 and uv. Run these from the repository root. On Windows use `python -m uv` in place of `uv` if installed through pip.
 
@@ -129,7 +166,12 @@ The shorter system prompt removed 50 estimated input tokens per request and redu
 
 The local development example records each Qwen response to disk. With the same state directory and rollout, restart in `TRIAGE_MODE=replay` with `REPLAY_SOURCE=local` to serve those responses. For a hosted development recording, use `RECORD_REPLAY=1` and replay with the default `REPLAY_SOURCE=live`. Keys include the model, prompt configuration and messages. The cache stores model output and needs the same protection as the original ticket. Quality and latency benchmarks bypass recording and replay. The default application budget is zero.
 
+</details>
+
 ## Load and SLOs
+
+<details>
+<summary>Commands, measurements and interpretation</summary>
 
 Select an API instance in Grafana to inspect its traffic and error budget. The Qwen and fixture instances have independent burn-rate and cost alerts. At 11:45 IST on 24 November 2026, Prometheus had Qwen samples in **16 of 10,080 minutes** and fixture samples in **81**. Both showed 100% success among observed eligible requests. The seven-day verdict for both was **incomplete**. Run `python -m scripts.slo_report --mode local` to refresh the Qwen report. [Qwen coverage](results/local/slo-window.json) · [Fixture coverage](results/fixture/slo-window.json)
 
@@ -160,7 +202,12 @@ Provisional fixture targets are 99% eligible-request availability over seven day
 
 GenAI span attributes follow [OpenTelemetry semantic conventions v1.37.0](https://github.com/open-telemetry/semantic-conventions/tree/v1.37.0/docs/gen-ai). Request and child spans carry sanitized metadata only. [Dashboard JSON](ops/grafana/triage.json) · [Alert rules](ops/alerts.yaml) · [Failover trace](results/fixture/failover-trace.json)
 
+</details>
+
 ## Release and rollback
+
+<details>
+<summary>Commands, measurements and interpretation</summary>
 
 On PRs, the workflow runs unit tests on the candidate and measures both main's stable version and the candidate on the same runner, full held-out split and fixture mode. Main's comparator rejects accuracy drops greater than 2 percentage points or p95/unit-cost increases above 15%. Missing human priority and live evidence appear in the summary. The [rejection table](results/fixture/rejection.md) shows a measured 60.6% to 9.1% category regression. Main uses v1 as the baseline and release candidate. The v4 proposal is evaluated on a separate branch. Verification runs on a repository-scoped self-hosted runner. Remote artifact uploads and external staging are opt-in. [Workflow](.github/workflows/verify.yml)
 
@@ -174,31 +221,12 @@ uv run --frozen python -m scripts.drill
 
 The command saves the gate, cohort measurements, trigger and recovery to `.local/canary.json`. GitHub CI repeats this drill after the release comparisons pass. [Canary thresholds](config/canary.json) · [Isolated rerun](results/fixture/canary-recheck.json) · [Two-minute fixture failover demo](results/fixture/failover-demo.webm)
 
-## What broke
+</details>
 
-Native FastAPI instrumentation and the custom request span both traced the same request. The original tests confirmed a common trace ID, which missed the extra parent. The fix assigns the request span to one instrumentation layer and tests every model span's parent ID. [Incident report](postmortems/001-duplicate-request-spans.md) · [Runbook](RUNBOOK.md)
+## Operations and evidence
 
-The redaction stretch goal covered email addresses and US-style telephone numbers before inference. On five positive and five negative synthetic examples, all five positives were redacted and no negative controls changed. Across 1,000 paired ten-ticket batches, enabling redaction added 0.74 µs per ticket at the median and 1.81 µs at p95 across batch means. Names, addresses, account IDs and international phone formats are outside this measurement. [Redaction evidence](results/fixture/redaction.json)
-
-One 111.8 ms failover request captured in Phoenix spent 12.8 ms and 3.0 ms on failed primary attempts and 37.5 ms on the successful secondary call. The remaining 58.5 ms included backoff and request handling. The API returned the same trace ID that Phoenix recorded for all three attempts. [Trace exported from Phoenix](results/fixture/phoenix-trace.json)
-
-## Project verification
-
-The [point-by-point review](REFERENCE_REVIEW.md) maps each relevant requirement to evidence and records the open items. The prospective Qwen availability window runs from 24 November to 1 December 2026 at 11:54 IST.
-
-|Milestone|Evidence|Scope|
-|---|---|---|
-|M0 · Golden set and baseline|[Sample and rubric](data/README.md), [one-model baseline](results/baseline.json)|264 frozen tickets. Priority has assistant annotations for all 264 and zero human reviews.|
-|M1 · Packaged service|[Compose](compose.yaml), [prompt versions](prompts/triage), [service tests](tests/test_service.py)|Authenticated FastAPI requests verified locally. The image embeds its build revision.|
-|M2 · Gateway reliability|[Adapter tests](tests/test_service.py), [three-attempt trace](results/fixture/phoenix-trace.json)|The actual OpenAI and Anthropic adapters passed controlled HTTP tests. External two-provider failover remains unverified.|
-|M3 · Observability|[Dashboard](ops/grafana/triage.json), [Qwen scrape checks](results/local/monitoring.json), [fixture dashboard](results/fixture/grafana-load.png), [rules](ops/alerts.yaml)|Collector, Phoenix, Prometheus and Grafana exercised locally. The seven-day SLO has a shorter observation history.|
-|M4 · CI/CD|[Workflow](.github/workflows/verify.yml), [fixture rejection](results/fixture/rejection.md), [blocked PR #1](https://github.com/saicharanreddyamedapu/support-ticket-triage/pull/1), [staging receipt](results/staging/first-deployment.json)|GitHub verified stable main and blocked the candidate at the Qwen latency threshold. The verified main image was published to a local registry and served an authenticated request on separate local staging.|
-|M5 · Canary|[Rollback drill](results/fixture/canary.json), [screen recording](results/fixture/failover-demo.webm)|The fixture gate passed, the candidate breached the declared latency threshold and the config rollback restored stable routing.|
-|M6 · Capacity and cost|[Fixture peak stage](results/fixture/load-24.json), [Qwen peak stage](results/local/load-1.json), [fixture unit cost](results/fixture/current.json)|Increasing-rate HTTP load measured against both services. The fixture sweep reached admission 429s. The laptop Qwen sweep demonstrated latency degradation within the limiter.|
-|M7 · Operations|[Runbook](RUNBOOK.md), [incident report](postmortems/001-duplicate-request-spans.md)|Procedures cover both alerts, rollback, recovery and the two-provider drill.|
-
-The selected stretch goal is [PII redaction with paired latency measurements](results/fixture/redaction.json).
-
-## Attribution
-
-The Bitext sample carries its own [data attribution and license](data/README.md).
+- [Verification by component](REFERENCE_REVIEW.md)
+- [Runbook and rollback procedure](RUNBOOK.md)
+- [Incident report on duplicate trace spans](postmortems/001-duplicate-request-spans.md)
+- [Recorded failover demo](results/fixture/failover-demo.webm)
+- [Bitext dataset attribution and license](data/README.md)

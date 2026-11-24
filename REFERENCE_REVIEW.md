@@ -1,4 +1,4 @@
-# Support ticket triage verification
+# LLMops Support Ticket Triage verification
 
 This document maps the ticket triage service to its implementation and verification evidence.
 
@@ -17,7 +17,7 @@ This document maps the ticket triage service to its implementation and verificat
 |M3 · GenAI spans and slow request|The README pins conventions and breaks out attempt latency, retry delay and service overhead. A Qwen HTTP trace contains usage and a successful model child.|Verified.|
 |M3 · metrics, dashboard, alerts|The dashboard includes rate, latency quantiles, errors by class, tokens, price and fallback. Promtool tests check burn rate, cost spike, healthy controls and isolation between sources.|Verified. TTFT applies only to streaming.|
 |Seven-day availability target|Hourly authenticated probes validate actual responses from the Qwen service. A fixed window and persistent journal preserve missed slots. Prometheus independently measures eligible request outcomes and scrape coverage.|In progress. The final verdict requires the full elapsed window.|
-|M4 · PR checks and gate|GitHub ran tests, two fresh fixture benchmarks and comparisons on the same runner, then recomputed the Qwen results. The fixture gate passed. The Qwen p95 regression failed the required check on PR #1. The job summary contains the comparison.|Verified. One measured PR blocked. [Failed job](https://github.com/saicharanreddyamedapu/support-ticket-triage/actions/runs/45344100922/job/138274387211)|
+|M4 · PR checks and gate|GitHub ran tests, two fresh fixture benchmarks and comparisons on the same runner, then recomputed the Qwen results. The fixture gate passed. The Qwen p95 regression failed the required check on PR #1. The job summary contains the comparison.|Verified. One measured PR blocked. [Failed job](https://github.com/saicharanreddyamedapu/LLMops-Support-Ticket-Triage/actions/runs/45344100922/job/138274387211)|
 |M4 · release and staging|A local publisher checks GitHub's successful default-branch run, builds the exact Git archive, pushes its revision tag to a loopback registry and validates a staging response. The external Render workflow remains optional.|Separate local staging chosen. No public hosting claim.|
 |M5 · canary, thresholds and rollback|The recorded fixture drill assigned weighted traffic, evaluated predeclared thresholds and restored stable service on 30/30 subsequent requests without rebuilding.|Verified locally. The two-minute video demonstrates failover; the JSON records the rollback.|
 |M6 · load and capacity|k6 exercised increasing rates. The fixture reached admission 429s at 12 RPS. Qwen completed 30 requests in a separate sweep with p95 rising from 2.21 to 15.18 seconds.|Verified for the stated system, traffic and sample sizes.|
