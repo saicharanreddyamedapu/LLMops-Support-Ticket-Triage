@@ -1,6 +1,6 @@
 {
   "uid": "triage",
-  "title": "Support ticket triage",
+  "title": "LLMops Support Ticket Triage",
   "schemaVersion": 40,
   "refresh": "5s",
   "time": {

@@ -10,7 +10,7 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ${{ vars.TRIAGE_VERIFY_RUNNER || 'triage-verification' }}
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
@@ -55,6 +55,20 @@ jobs:
         run: |
           set -o pipefail
           uv run --frozen python -m scripts.recorded_gate . ../candidate | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Verify fixture canary and config rollback
+        working-directory: candidate
+        run: |
+          uv run --frozen python -m scripts.drill
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          report = json.loads(Path(".local/canary.json").read_text())
+          print("Fixture canary traffic", report["versions"])
+          for cohort, stats in report["before"].items():
+              print(f"- {cohort} p95 {stats['p95_ms']:.1f} ms across {stats['n']:.0f} requests")
+          print("Rollback triggers", ", ".join(report["breaches"]))
+          print("Versions after rollback", report["recovered_versions"])
+          PY
       - uses: actions/upload-artifact@v4
         if: always() && vars.UPLOAD_MEASUREMENTS == 'true'
         with:

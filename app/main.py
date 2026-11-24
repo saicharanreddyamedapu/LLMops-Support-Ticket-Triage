@@ -7,7 +7,8 @@ import time
 from collections import defaultdict, deque
 
 import httpx
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Security
+from fastapi.security import HTTPBearer
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
 from opentelemetry.trace import Status, StatusCode
@@ -17,10 +18,11 @@ from . import gateway, observe as obs, settings
 from .schema import Failure, Fault, Served, Ticket
 
 # This service owns the sanitized request span and its child model attempts.
-app = FastAPI(title="Support ticket triage", version="1.0",
+app = FastAPI(title="LLMops Support Ticket Triage", version="1.0",
               telemetry={"tracing":False, "operation_spans":False, "metrics":False, "logs":False})
 log = logging.getLogger("uvicorn.error")
 windows = defaultdict(deque)
+ticket_security = HTTPBearer(auto_error=False, description="Enter the local triage access key.")
 
 
 def authorize(request):
@@ -40,7 +42,8 @@ def authorize(request):
 
 @app.exception_handler(RequestValidationError)
 async def invalid(request, exc):
-    return error("invalid_request", 422)
+    routing = getattr(request.state, "routing", None)
+    return error("invalid_request", 422, routing[1]["version"] if routing else "unavailable")
 
 
 def error(code, status, version="unavailable", wait=0):
@@ -87,10 +90,25 @@ def metrics():
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
+@app.get("/rollout/status")
+def rollout_status():
+    """Show the active prompt rollout and candidate traffic after rollback."""
+    plan = settings.rollout()
+    marker = settings.rollback_marker(plan)
+    rolled_back = marker is not None and marker.exists()
+    return dict(stable=plan["stable"], candidate=plan["candidate"],
+                candidate_percent=0 if rolled_back else plan["percent"],
+                automatic_rollback=marker is not None, rolled_back=rolled_back)
+
+
 @app.middleware("http")
 async def instrument(request: Request, call_next):
-    if request.url.path != "/triage":
-        return await call_next(request)
+    if request.url.path not in {"/triage", "/practice/track-order"}:
+        response = await call_next(request)
+        response.headers["X-Triage-Prompt-Version"] = "not-used"
+        response.headers["X-Triage-Model"] = "not-used"
+        response.headers["X-Triage-Git-Sha"] = settings.revision()
+        return response
     start = time.monotonic()
     cohort = "unassigned"
     version = model = "unavailable"
@@ -98,7 +116,14 @@ async def instrument(request: Request, call_next):
     with obs.tracer.start_as_current_span("POST /triage", attributes={"openinference.span.kind":"CHAIN"}, record_exception=False) as span:
         try:
             authorize(request)
-            cohort, cfg = settings.choose()
+            if request.url.path == "/practice/track-order":
+                if settings.MODE != "local" or not os.getenv("LLMOPS_GROQ_API_KEY"):
+                    raise Fault("practice_unavailable", 503)
+                cohort = "practice"
+                cfg = dict(settings.prompt("v3"), secondary="groq/openai/gpt-oss-20b")
+            else:
+                plan = settings.rollout()
+                cohort, cfg = settings.choose(plan)
             version = cfg["version"]
             request.state.routing = (cohort, cfg, span)
             response = await call_next(request)
@@ -110,6 +135,11 @@ async def instrument(request: Request, call_next):
             response = error(outcome, exc.status, version, exc.retry_after)
         except Exception:
             response = error(outcome, 500, version)
+        if cohort == "candidate" and response.status_code >= 500:
+            marker = settings.rollback_marker(plan)
+            if marker is not None:
+                marker.parent.mkdir(parents=True, exist_ok=True)
+                marker.touch()
         duration = time.monotonic() - start
         attrs = dict(prompt_version=version, model=model, git_sha=settings.revision(), cohort=cohort,
                      outcome=outcome, duration_ms=round(duration*1000,2), mode=settings.MODE)
@@ -118,11 +148,15 @@ async def instrument(request: Request, call_next):
         span.set_attributes({"app."+k:v for k,v in attrs.items()})
         span.set_status(Status(StatusCode.OK if outcome == "ok" else StatusCode.ERROR))
         response.headers["X-Trace-Id"] = format(span.get_span_context().trace_id, "032x")
+        response.headers["X-Triage-Prompt-Version"] = version
+        response.headers["X-Triage-Model"] = model
+        response.headers["X-Triage-Git-Sha"] = attrs["git_sha"]
         log.info(json.dumps(attrs))
         return response
 
 
-@app.post("/triage", response_model=Served, responses={c:{"model":Failure} for c in (401,413,422,429,502,503,504)})
+@app.post("/triage", response_model=Served, dependencies=[Security(ticket_security)],
+          responses={c:{"model":Failure} for c in (401,413,422,429,502,503,504)})
 async def triage(ticket: Ticket, request: Request):
     cohort, cfg, span = request.state.routing
     try:
@@ -134,3 +168,10 @@ async def triage(ticket: Ticket, request: Request):
         result["product"] = settings.CATALOG[result["category"]]
     request.state.model, request.state.outcome = result["model"], "ok"
     return result
+
+
+@app.post("/practice/track-order", response_model=Served, dependencies=[Security(ticket_security)],
+          responses={401: {"model": Failure}})
+async def practice_track_order(request: Request):
+    """Try local Qwen first, with Groq backup for this fixed synthetic ticket."""
+    return await triage(Ticket(text="How can I track my order?"), request)

@@ -47,6 +47,8 @@ def normalize(exc):
     status = getattr(exc, "status_code", 0)
     if isinstance(exc, (TimeoutError, litellm.Timeout)) or status == 408:
         return Fault("timeout", 504)
+    if isinstance(exc, litellm.APIConnectionError):
+        return Fault("provider_5xx", 502)
     headers = getattr(getattr(exc, "response", None), "headers", {}) or {}
     if status == 429:
         return Fault("provider_rate_limit", 503, retry_delay(headers.get("retry-after")))
@@ -115,7 +117,12 @@ async def dispatch(model, messages, config, cohort, secondary=False):
         kwargs.update(mock_response={"model": "fixture/" + model, "choices": [{"index":0, "message":{"role":"assistant","content":output}, "finish_reason":"stop"}],
                                      "usage":{"prompt_tokens":tin,"completion_tokens":tout,"total_tokens":tin+tout}}, api_key="fixture")
     elif mode == "local":
-        kwargs["api_base"] = "http://127.0.0.1:11434"
+        if secondary and cohort == "practice" and model == "groq/openai/gpt-oss-20b":
+            kwargs["api_key"] = os.environ["LLMOPS_GROQ_API_KEY"]
+            params = {"temperature": 0, "max_completion_tokens": 1500,
+                      "response_format": {"type": "json_object"}}
+        else:
+            kwargs["api_base"] = "http://127.0.0.1:11434"
     else:
         row = storage.reserve(price(model, upper, params["max_tokens"]))
     try:
@@ -127,8 +134,8 @@ async def dispatch(model, messages, config, cohort, secondary=False):
         cost = 0 if mode == "local" else price(model, value["tin"], value["tout"])
         if row is not None:
             storage.settle(row, cost)
-            if os.getenv("RECORD_REPLAY") == "1":
-                storage.cached(key, value)
+        if mode in ("local", "live") and os.getenv("RECORD_REPLAY") == "1":
+            storage.cached(key, value)
         obs.TOK.labels(cohort,"in").inc(value["tin"])
         obs.TOK.labels(cohort,"out").inc(value["tout"])
         obs.COST.labels(cohort).inc(cost)
@@ -161,7 +168,7 @@ async def call(model, messages, config, cohort, secondary):
 
 async def route(messages, cfg, cohort, root, single):
     last = Fault("circuit_open", 503)
-    roles = ("primary",) if single or settings.MODE == "local" else ("primary", "secondary")
+    roles = ("primary",) if single or cfg["primary"] == cfg["secondary"] else ("primary", "secondary")
     for role in roles:
         model = cfg[role]
         secondary = role == "secondary"

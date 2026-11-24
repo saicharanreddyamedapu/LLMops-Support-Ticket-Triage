@@ -1,4 +1,5 @@
 import json
+import hashlib
 import os
 import random
 import re
@@ -35,7 +36,7 @@ def prompt(version):
         raise ValueError("invalid prompt registry")
     if any(p[k] not in PRICES for k in ("primary", "secondary")) or not 1 <= p["params"]["max_tokens"] <= 512:
         raise ValueError("missing price or unsafe output cap")
-    if MODE == "local":
+    if MODE == "local" or (MODE == "replay" and os.getenv("REPLAY_SOURCE", "live") == "local"):
         from .schema import Triage
         local = yaml.safe_load((ROOT / "prompts/local.yaml").read_text())
         p.update(primary=local["model"], secondary=local["model"], local_digest=local["digest"])
@@ -51,8 +52,18 @@ def rollout():
     return r
 
 
-def choose():
-    r = rollout()
+def rollback_marker(r):
+    if os.getenv("AUTO_ROLLBACK") != "1":
+        return None
+    identity = json.dumps([r["stable"], r["candidate"], r.get("rollout_id")]).encode()
+    return Path(os.getenv("STATE_DIR", ".local")) / ("rollback-" + hashlib.sha256(identity).hexdigest())
+
+
+def choose(r=None):
+    r = rollout() if r is None else r
+    marker = rollback_marker(r)
+    if marker and marker.exists():
+        return "stable", prompt(r["stable"])
     cohort = "candidate" if random.randrange(100) < r["percent"] else "stable"
     return cohort, prompt(r[cohort])
 

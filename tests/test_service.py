@@ -42,6 +42,9 @@ def post(ticket="check my refund", key="test-client"):
 
 
 def test_auth_schemas_and_probes():
+    probe = client.get("/healthz")
+    assert probe.headers["X-Triage-Git-Sha"] == settings.revision()
+    assert probe.headers["X-Triage-Model"] == probe.headers["X-Triage-Prompt-Version"] == "not-used"
     assert client.get("/healthz").is_success and client.get("/readyz").is_success
     assert post(key="wrong").status_code == 401
     assert post(" ").status_code == 422
@@ -64,8 +67,23 @@ def test_catalog_product_uses_only_the_predicted_category(monkeypatch):
                                summary="Order status", draft_reply="Check your order page."))
     monkeypatch.setattr(fixture, "answer", inconsistent)
     for version,expected in (("v3","billing"),("v4","storefront")):
-        monkeypatch.setattr(settings,"choose",lambda: ("stable",settings.prompt(version)))
+        monkeypatch.setattr(settings,"choose",lambda plan: ("stable",settings.prompt(version)))
         assert post("Where is my invoice?").json()["product"] == expected
+
+
+def test_candidate_failure_routes_following_requests_to_stable(tmp_path, monkeypatch):
+    monkeypatch.setenv("AUTO_ROLLBACK", "1")
+    plan = {"stable": "v2", "candidate": "v3", "percent": 100}
+    (tmp_path / "rollout.json").write_text(json.dumps(plan))
+    assert post().json()["prompt_version"] == "v3"
+    assert post(" ").status_code == 422
+    assert client.get("/rollout/status").json()["candidate_percent"] == 100
+    fault_file = tmp_path / "fault.json"
+    fault_file.write_text(json.dumps({"invalid": True}))
+    assert post().status_code == 502
+    fault_file.unlink()
+    assert client.get("/rollout/status").json()["rolled_back"]
+    assert post().json()["prompt_version"] == "v2"
 
 
 @pytest.mark.parametrize("fault,status,calls", [("repair",200,2),("invalid",502,2),("primary_down",200,3)])
@@ -223,6 +241,33 @@ def test_local_readiness_requires_the_pinned_weights(monkeypatch):
     assert client.get("/readyz").status_code == 503
     monkeypatch.setattr("app.main.local_model_ready",lambda cfg: True)
     assert client.get("/readyz").json() == {"status":"ready","mode":"local"}
+
+
+def test_local_development_recording_replays_without_provider(monkeypatch):
+    from litellm import ModelResponse
+    monkeypatch.setattr(settings, "MODE", "local")
+    monkeypatch.setenv("RECORD_REPLAY", "1")
+    async def completion(**kwargs):
+        return ModelResponse(model=kwargs["model"], choices=[{"message": {"content": "saved"}}],
+                             usage={"prompt_tokens": 3, "completion_tokens": 1, "total_tokens": 4})
+    monkeypatch.setattr(gateway.litellm, "acompletion", completion)
+    messages = [{"role": "user", "content": "synthetic ticket"}]
+    cfg = settings.prompt("v1")
+    original = asyncio.run(gateway.dispatch(cfg["primary"], messages, cfg, "stable"))
+    monkeypatch.setattr(settings, "MODE", "replay")
+    monkeypatch.setenv("REPLAY_SOURCE", "local")
+    settings.prompt.cache_clear()
+    cfg = settings.prompt("v1")
+    monkeypatch.setattr(gateway.litellm, "acompletion", lambda **kw: pytest.fail("unexpected provider call"))
+    assert asyncio.run(gateway.dispatch(cfg["primary"], messages, cfg, "stable")) == original
+    with pytest.raises(Fault, match="replay_miss"):
+        asyncio.run(gateway.dispatch(cfg["primary"], [{"role":"user","content":"another ticket"}], cfg, "stable"))
+
+
+def test_canary_refuses_identical_versions():
+    from scripts.drill import verify_gate
+    with pytest.raises(ValueError, match="distinct prompt versions"):
+        verify_gate({"stable": "v1", "candidate": "v1"})
 
 
 def test_gate_rejects_incomparable_and_degraded():

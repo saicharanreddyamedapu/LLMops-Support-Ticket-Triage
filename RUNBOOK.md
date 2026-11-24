@@ -2,6 +2,10 @@
 
 ## Initial checks
 
+GitHub provisions an Ubuntu runner for each verification job. If checks queue, inspect the workflow run on GitHub. Keep the local staging publisher separate and deploy only verified main revisions.
+
+The separate local staging publisher runs from the checkout with `python -m scripts.local_staging --watch`. It checks the GitHub main verification every two minutes, builds the accepted Git archive, pushes a SHA-tagged image to the registry on loopback port 15000, then validates a trial container before updating staging on port 8767. It serves fixture traffic with no hosted provider calls. The deployment receipt is `.local/staging/deployment.json`. Its two Docker services are independent of the Compose and Qwen services. Run only one publisher from a checkout. Repository polling uses the Git credential helper for the configured GitHub HTTPS origin.
+
 The Collector scrapes the API's Prometheus endpoint every two seconds and publishes those series on its internal port 8889. Prometheus scrapes `collector:8889`. If the target is healthy but a panel is empty, inspect the Collector's upstream scrape errors and verify that the API itself exposes the expected series.
 
 Run `docker compose ps`, then open `http://127.0.0.1:8765/readyz`, `http://127.0.0.1:19090/targets`, the [Grafana dashboard](http://127.0.0.1:13000/d/triage) and [Phoenix](http://127.0.0.1:16006). The configured service runs one worker. Rate limits and breakers are process-local. A shared rate limiter and replicated budget ledger are prerequisites for multi-host operation.
@@ -37,8 +41,15 @@ Select the alert's API instance in Grafana. Run `python -m scripts.slo_report --
 1. Set the version registry and `config/rollout.json` in Git. Validate on dev, freeze, and run the held-out gate. On staging, use the mounted config directory or an equivalent externally managed config volume.
 2. Run `python -m scripts.rollout 10`. The fixture drill evaluates both cohorts after at least 25 observations each. A rollback triggers below 99% schema validity or availability, a one-point relative-to-stable quality drop in either, p95 above 1.5× stable, or unit price above 1.15× stable. The file `config/canary.json` declares the thresholds.
 3. Set the weight to zero to roll back. Sample responses and cohort metric deltas. Keep the degraded candidate out until the cause is resolved. The repeatable local drill uses isolated configuration and restores the initial weight on exit.
-4. An image-only single container needs external persistent runtime storage and mutable rollout config for equivalent behavior. Configure those before enabling staging deployments.
+4. The local staging publisher mounts a separate rollout directory for each deployed revision. To roll back staging in PowerShell, use the commands below from the project root. The container rereads that file for each request. Inspect the next response headers and the mounted file to confirm recovery.
 5. Stop the local stack with `docker compose stop`. Restart with one `docker compose up -d --wait` and inspect `docker compose logs --tail 50` if a container is unhealthy. Keep volumes during diagnosis.
+
+```powershell
+$revision = (Get-Content .local/staging/deployment.json -Raw | ConvertFrom-Json).git_sha
+python -m scripts.rollout 0 --path ".local/staging/rollouts/$revision/rollout.json"
+```
+
+For a rehearsal, run `python -m scripts.drill`. This starts an isolated fixture instance on an ephemeral port. It evaluates v1 and v2, applies the canary policy, and saves the measured rollback to `.local/canary.json`.
 
 ## Live evaluation and two-provider drill
 
@@ -49,3 +60,11 @@ Approve a destination and budget first. Recheck the official model lists, prices
 Run `python -m scripts.dataset validate`; obtain at least 200 actual reviews. Evaluate the two prompt versions separately with `python -m scripts.evaluate --mode live --version v1 --judge --output results/live/baseline.json` and then v2 with `--output results/live/current.json`. Judge usage is reported separately. Calibrate the judge against human ratings before using it as a release criterion. Compare the matching reports with `python -m scripts.gate`. Reconcile amounts with billing and keep the fixture evidence intact.
 
 For failover, use an isolated live staging process at 0% canary. Verify one request on the primary. Temporarily configure an invalid primary key on this isolated process, restart it, and send one approved synthetic ticket. A primary auth error should route directly to the second provider. Verify actual model, token usage, OK secondary span, return the valid key, restart and confirm recovery. Never rotate or revoke a production credential for this drill. Stop when the approved budget is exhausted.
+### Local automatic rollback
+
+Start the API with `AUTO_ROLLBACK=1` and a persistent writable `STATE_DIR`.
+Check `GET /rollout/status` for the stable prompt, candidate prompt, effective candidate percentage and rollback state.
+During a canary, a candidate response with HTTP 5xx stops subsequent candidate traffic. In-flight calls finish normally.
+The stop persists across process restarts and traffic percentage changes. Client errors and practice requests do not trigger it.
+After correcting the candidate and passing its release checks, set a fresh `rollout_id` in the rollout configuration for the next attempt.
+Latency, cost and quality regressions still use the existing thresholds and operator rollback procedure.

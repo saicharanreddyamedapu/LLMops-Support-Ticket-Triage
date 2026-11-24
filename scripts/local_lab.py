@@ -33,7 +33,7 @@ def unpack(span):
 
 
 @contextmanager
-def service():
+def service(rollout=None):
     received=[]
     class Receiver(BaseHTTPRequestHandler):
         def do_POST(self):
@@ -54,7 +54,7 @@ def service():
         os.environ.update(TRIAGE_MODE="fixture",TRIAGE_KEYS="fixture-demo",CLIENT_RPS="12",STATE_DIR=temp,
                           OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=f"http://127.0.0.1:{receiver.server_port}/v1/traces",
                           FIXTURE_FAULT_FILE=str(Path(temp)/"fault.json"),ROLLOUT_PATH=str(Path(temp)/"rollout.json"),DRILL_URL=url)
-        write(os.environ["ROLLOUT_PATH"],json.loads(Path("config/rollout.json").read_text()))
+        write(os.environ["ROLLOUT_PATH"], rollout or json.loads(Path("config/rollout.json").read_text()))
         from app.main import app
         from app.observe import provider
         server=uvicorn.Server(uvicorn.Config(app,access_log=False,log_level="warning"))
@@ -127,13 +127,13 @@ if __name__=="__main__":
     parser=argparse.ArgumentParser()
     parser.add_argument("task",choices=["trace","load","canary","all"])
     task=parser.parse_args().task
-    with service() as (url,received):
+    from scripts.drill import DRILL_ROLLOUT, exercise
+    with service(DRILL_ROLLOUT if task in ("canary", "all") else None) as (url,received):
         if task in ("trace","all"):
             failover(url,received)
             time.sleep(5.1)
         if task in ("canary","all"):
-            from scripts.drill import run
-            run()
+            exercise(url)
             print("canary rollback verified",flush=True)
         if task in ("load","all"):
             asyncio.run(load(url))
