@@ -4,6 +4,12 @@
 
 When support tickets arrive together, an agent has to decide which issue needs attention first and how to respond. This service reads the customer's message and suggests a category, priority, product, summary and draft reply. The agent reviews the draft before sending it.
 
+### How we operate the service
+
+- **Check a release with GitHub Actions.** Each pull request runs tests and compares the candidate with the stable version. One candidate classified more tickets correctly, but its p95 response time rose from 2.64 to 3.17 seconds. The gate blocked that release. [Release comparison](results/local/v4-gate.md)
+- **Monitor traffic with Prometheus and Grafana.** Prometheus collects request counts, latency, errors and fallback metrics. The Grafana dashboard shows how they change during load tests. We tested alerts for rapid error-budget consumption and cost spikes. [Dashboard under load](results/local/grafana-load.png)
+- **Investigate one ticket with Phoenix.** A trace links the API request to its model calls. In a controlled failover drill, the trace showed two failed primary attempts followed by a successful secondary response. [Recorded trace](results/fixture/phoenix-trace.json)
+
 [System design](#architecture) · [Example output](#example-output) · [Run locally](#run-locally) · [Measured results](#measured-results)
 
 ## Architecture
