@@ -12,6 +12,20 @@ When support tickets arrive together, an agent has to decide which issue needs a
 
 [System design](#architecture) · [Example output](#example-output) · [Run locally](#run-locally) · [Measured results](#measured-results)
 
+## A 60-second tour
+
+1. [Read a real ticket response](#example-output). Look at the suggested priority and the reply an agent would review.
+2. [Preview the failover recording](results/fixture/failover-demo.webm). The full video takes about two minutes and shows the controlled drill.
+3. [Open the dashboard snapshot](results/local/grafana-load.png). Compare the incoming request rate with the time the service took to respond.
+
+### Operations evidence
+
+| Question | Evidence |
+| --- | --- |
+| Did the release checks run? | [Successful GitHub Actions run](https://github.com/saicharanreddyamedapu/LLMops-Support-Ticket-Triage/actions/runs/45477392932) |
+| Which provider attempt answered? | [Phoenix trace export with the retry and fallback spans](results/fixture/phoenix-trace.json) |
+| What happened across requests? | [Grafana dashboard under Qwen load](results/local/grafana-load.png) |
+
 ## Architecture
 
 FastAPI accepts tickets and Pydantic validates their fields. Versioned YAML keeps prompt changes reviewable. LiteLLM routes calls and Ollama runs Qwen locally. Docker Compose starts the API and monitoring services together. OpenTelemetry sends request traces to Phoenix so you can inspect one ticket. Prometheus stores time-series metrics that Grafana plots across tickets. k6 generates traffic for capacity tests, and GitHub Actions compares release candidates against the stable baseline.
@@ -237,3 +251,8 @@ The command saves the gate, cohort measurements, trigger and recovery to `.local
 - [Incident report on duplicate trace spans](postmortems/001-duplicate-request-spans.md)
 - [Recorded failover demo](results/fixture/failover-demo.webm)
 - [Bitext dataset attribution and license](data/README.md)
+
+## Possible next improvements
+
+- Test a revised candidate prompt on the development split to improve category and product classification, then compare it with stable on held-out tickets.
+- Investigate the slowest successful Qwen requests in Phoenix and repeat the same load test to measure any change in p95 latency.
