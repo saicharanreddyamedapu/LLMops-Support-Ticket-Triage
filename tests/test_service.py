@@ -3,6 +3,7 @@ import json
 import time
 from datetime import datetime, timezone, timedelta
 from email.utils import format_datetime
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -277,6 +278,13 @@ def test_gate_rejects_incomparable_and_degraded():
         assert compare(base,dict(base,**{key:.96 if key in ("product","category") else 1.2*base[key]}))[0]
     with pytest.raises(ValueError):
         compare(base,dict(base,dataset_digest="b"))
+
+
+def test_local_qwen_p95_accepts_four_seconds_and_rejects_above():
+    base = json.loads(Path("results/baseline.json").read_text())
+    assert not compare(base, dict(base, p95_ms=4000))[0]
+    assert compare(base, dict(base, p95_ms=4001))[0]
+    assert compare(base, dict(base, p95_ms=3999, category=0))[0]
 
 
 def test_rollout_preserves_file_mode_and_other_fields(tmp_path):

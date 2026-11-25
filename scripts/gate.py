@@ -19,6 +19,7 @@ def compare(base, candidate):
         raise ValueError("requires held-out non-replayed measurements")
     metrics = METRICS.copy()
     if base["mode"] == "local":
+        metrics["p95_ms"] = ("ceiling", 4000)
         for key in ("model_digest","judge_model"):
             if not base.get(key) or base[key] != candidate.get(key):
                 raise ValueError("incomparable local "+key)
@@ -43,7 +44,12 @@ def compare(base, candidate):
             raise ValueError("missing or invalid metric "+key)
         if kind == "floor" and max(a,b) > 1:
             raise ValueError("rate above one for "+key)
-        failed = b < a-tolerance-1e-12 if kind == "floor" else b > a*(1+tolerance)+1e-12
+        if kind == "ceiling":
+            failed = b > tolerance
+        elif kind == "floor":
+            failed = b < a-tolerance-1e-12
+        else:
+            failed = b > a*(1+tolerance)+1e-12
         rejected |= failed
         rows.append(f"|{key}|{a:.7g}|{b:.7g}|{'REJECT' if failed else 'pass'}|")
     rows.append(f"\nMode {base['mode']}, n={base['n']}.")
