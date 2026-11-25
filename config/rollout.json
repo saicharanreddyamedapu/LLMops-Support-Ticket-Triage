@@ -1,5 +1,6 @@
 {
   "stable": "v1",
-  "candidate": "v1",
-  "percent": 0
+  "candidate": "v4",
+  "percent": 10,
+  "rollout_id": "v4-four-second-trial"
 }
