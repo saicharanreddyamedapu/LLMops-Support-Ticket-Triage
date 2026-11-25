@@ -1,7 +1,7 @@
 {
   "stable": "v1",
   "candidate": "v4",
-  "percent": 10,
-  "rollout_id": "v4-four-second-trial",
-  "stable_failover": true
+  "percent": 100,
+  "rollout_id": "v4-full-five-second-fallback",
+  "probe_stable_on_latency": true
 }

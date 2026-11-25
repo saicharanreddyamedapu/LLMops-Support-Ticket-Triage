@@ -72,6 +72,33 @@ def test_catalog_product_uses_only_the_predicted_category(monkeypatch):
         assert post("Where is my invoice?").json()["product"] == expected
 
 
+@pytest.mark.parametrize("healthy", [True, False])
+def test_slow_candidate_switches_only_after_healthy_probe(monkeypatch, tmp_path, healthy):
+    from app import main
+    plan = dict(stable="v1", candidate="v4", percent=100, probe_stable_on_latency=True)
+    (tmp_path / "rollout.json").write_text(json.dumps(plan))
+    monkeypatch.setenv("AUTO_ROLLBACK", "1")
+    monkeypatch.setattr(main, "probe_plan", None)
+    monkeypatch.setattr(main, "probe_task", None)
+
+    async def probe(text, cfg, cohort, span, single):
+        assert cfg["version"] == "v1" and cohort == "probe"
+        if not healthy:
+            raise TimeoutError
+
+    monkeypatch.setattr(gateway, "infer", probe)
+
+    async def exercise():
+        for duration in [5.1] + [5.0] * 18:
+            main.check_candidate_latency(plan, duration)
+        assert main.probe_task is None
+        main.check_candidate_latency(plan, 5.2)
+        await main.probe_task
+
+    asyncio.run(exercise())
+    assert settings.effective_percent(plan) == (0 if healthy else 100)
+
+
 def test_candidate_failure_routes_following_requests_to_stable(tmp_path, monkeypatch):
     monkeypatch.setenv("AUTO_ROLLBACK", "1")
     plan = {"stable": "v2", "candidate": "v3", "percent": 100}
