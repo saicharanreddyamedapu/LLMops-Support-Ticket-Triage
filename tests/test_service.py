@@ -87,6 +87,24 @@ def test_candidate_failure_routes_following_requests_to_stable(tmp_path, monkeyp
     assert post().json()["prompt_version"] == "v2"
 
 
+@pytest.mark.parametrize("status,seconds,count", [(200, 4.1, 20), (503, .1, 3)])
+def test_stable_failover_requires_recent_healthy_candidate(monkeypatch, tmp_path, status, seconds, count):
+    monkeypatch.setenv("AUTO_ROLLBACK", "1")
+    plan = dict(stable="v1", candidate="v4", percent=10, stable_failover=True)
+    (tmp_path / "rollout.json").write_text(json.dumps(plan))
+    for i in range(20):
+        settings.observe_route(plan, "candidate", 200, 1, i)
+    for i in range(count):
+        settings.observe_route(plan, "stable", status, seconds, 2000 + i)
+    assert settings.effective_percent(plan) == 10
+    for i in range(20):
+        settings.observe_route(plan, "candidate", 200, 1, 2100 + i)
+    assert client.get("/rollout/status").json()["candidate_percent"] == 100
+    assert post().json()["prompt_version"] == "v4"
+    settings.observe_route(plan, "candidate", 502, 1, 2200)
+    assert post().json()["prompt_version"] == "v1"
+
+
 @pytest.mark.parametrize("fault,status,calls", [("repair",200,2),("invalid",502,2),("primary_down",200,3)])
 def test_fault_paths(fault,status,calls,tmp_path):
     (tmp_path/"fault.json").write_text(json.dumps({fault:True}))

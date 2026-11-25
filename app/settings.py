@@ -2,9 +2,10 @@ import json
 import hashlib
 import os
 import random
+from collections import deque
+from functools import lru_cache
 import re
 import subprocess
-from functools import lru_cache
 from pathlib import Path
 
 import yaml
@@ -59,12 +60,51 @@ def rollback_marker(r):
     return Path(os.getenv("STATE_DIR", ".local")) / ("rollback-" + hashlib.sha256(identity).hexdigest())
 
 
-def choose(r=None):
-    r = rollout() if r is None else r
+@lru_cache(maxsize=1)
+def health_windows(marker):
+    return {role: deque(maxlen=20) for role in ("stable", "candidate")}
+
+
+def observe_route(plan, cohort, status, duration, now):
+    marker = rollback_marker(plan)
+    if marker is None or cohort not in ("stable", "candidate"):
+        return
+    if cohort == "candidate" and status >= 500:
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.touch()
+        return
+    if not plan.get("stable_failover") or not 0 < plan["percent"] < 100 or marker.exists():
+        return
+    if status >= 400 and status < 500:
+        return
+    windows = health_windows(marker)
+    windows[cohort].append((now, status >= 500, duration > 4))
+    for samples in windows.values():
+        while samples and now - samples[0][0] > 1800:
+            samples.popleft()
+    candidate = windows["candidate"]
+    stable = windows["stable"]
+    if len(candidate) < 20 or any(error for _, error, _ in candidate) or sum(slow for _, _, slow in candidate) > 1:
+        return
+    consecutive_errors = len(stable) >= 3 and all(error for _, error, _ in list(stable)[-3:])
+    slow_p95 = len(stable) == 20 and sum(slow for _, _, slow in stable) > 1
+    if consecutive_errors or slow_p95:
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        marker.with_suffix(".failover").touch()
+
+
+def effective_percent(r):
     marker = rollback_marker(r)
     if marker and marker.exists():
-        return "stable", prompt(r["stable"])
-    cohort = "candidate" if random.randrange(100) < r["percent"] else "stable"
+        return 0
+    if marker and r.get("stable_failover") and r["percent"] > 0 and marker.with_suffix(".failover").exists():
+        return 100
+    return r["percent"]
+
+
+def choose(r=None):
+    r = rollout() if r is None else r
+    cohort = "candidate" if random.randrange(100) < effective_percent(r) else "stable"
     return cohort, prompt(r[cohort])
 
 

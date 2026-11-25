@@ -97,8 +97,9 @@ def rollout_status():
     marker = settings.rollback_marker(plan)
     rolled_back = marker is not None and marker.exists()
     return dict(stable=plan["stable"], candidate=plan["candidate"],
-                candidate_percent=0 if rolled_back else plan["percent"],
-                automatic_rollback=marker is not None, rolled_back=rolled_back)
+                candidate_percent=settings.effective_percent(plan),
+                automatic_rollback=marker is not None, rolled_back=rolled_back,
+                stable_failover_enabled=bool(marker and plan.get("stable_failover")))
 
 
 @app.middleware("http")
@@ -135,12 +136,9 @@ async def instrument(request: Request, call_next):
             response = error(outcome, exc.status, version, exc.retry_after)
         except Exception:
             response = error(outcome, 500, version)
-        if cohort == "candidate" and response.status_code >= 500:
-            marker = settings.rollback_marker(plan)
-            if marker is not None:
-                marker.parent.mkdir(parents=True, exist_ok=True)
-                marker.touch()
         duration = time.monotonic() - start
+        if cohort in ("stable", "candidate"):
+            settings.observe_route(plan, cohort, response.status_code, duration, start + duration)
         attrs = dict(prompt_version=version, model=model, git_sha=settings.revision(), cohort=cohort,
                      outcome=outcome, duration_ms=round(duration*1000,2), mode=settings.MODE)
         obs.REQ.labels(cohort,outcome).inc()
