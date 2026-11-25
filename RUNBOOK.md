@@ -64,7 +64,8 @@ For failover, use an isolated live staging process at 0% canary. Verify one requ
 
 Start the API with `AUTO_ROLLBACK=1` and a persistent writable `STATE_DIR`.
 Check `GET /rollout/status` for the stable prompt, candidate prompt, effective candidate percentage and rollback state.
+The current local rollout starts at 100% v4 with v1 available for rollback. With `probe_stable_on_latency` enabled, each worker tracks its last 20 successful candidate responses. Once at least two exceed five seconds, the worker sends a synthetic tracking question to v1. A schema-valid answer within five seconds triggers rollback for subsequent tickets. A failed or slow probe leaves v4 serving. While the slow window persists, new successful candidate requests can trigger another probe after 30 seconds. Restarting the worker clears its latency samples.
 During a canary, a candidate response with HTTP 5xx stops subsequent candidate traffic. In-flight calls finish normally.
 The stop persists across process restarts and traffic percentage changes. Client errors and practice requests do not trigger it.
 After correcting the candidate and passing its release checks, set a fresh `rollout_id` in the rollout configuration for the next attempt.
-Latency, cost and quality regressions still use the existing thresholds and operator rollback procedure.
+With `stable_failover` enabled during a partial rollout, the local worker retains the last 20 eligible responses per version for up to 30 minutes. Three consecutive stable server errors, or at least two stable responses over four seconds in a full window, switch subsequent traffic to the candidate if its full window contains zero server errors and at most one slow response. The decision persists across restarts. A candidate server error takes precedence and routes subsequent traffic to stable. Set the candidate percentage to zero to manually stop candidate traffic. Reply quality and cost still require evaluation.

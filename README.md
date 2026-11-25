@@ -108,6 +108,7 @@ Run Ollama on the host with the `qwen3.5:9b` weights pinned in [the local regist
 $env:TRIAGE_MODE = 'local'
 $env:TRIAGE_KEYS = 'local-demo-only'
 $env:RECORD_REPLAY = '1'
+$env:AUTO_ROLLBACK = '1'
 $env:OTEL_EXPORTER_OTLP_TRACES_ENDPOINT = 'http://127.0.0.1:14318/v1/traces'
 uv run --frozen uvicorn app.main:app --host 127.0.0.1 --port 8766
 ```
@@ -118,7 +119,7 @@ The host service exports traces to the Compose Collector on 14318. On Docker Des
 
 ## Measured results
 
-**Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. That first trial kept v4 at zero weight. In a fresh run under the 4.00 s local Qwen p95 limit, v4 reached 2.99 s and classified 125/132 tickets correctly. The local canary routes 10% to v4 and 90% to stable v1. [Current gate](results/local/gate.md). [Real-model comparison](results/local/v4-gate.md)
+**Local Qwen, 132 held-out tickets, $0 in provider fees.** The v4 candidate improved exact category accuracy from **58/132 to 125/132** and product from **119/132 to 130/132**. Both versions produced 132 valid responses on the first attempt. The release gate blocked v4 because p95 rose from **2.64 s to 3.17 s**, above the **3.04 s** cutoff. That first trial kept v4 at zero weight. In a fresh run under the 4.00 s local Qwen p95 limit, v4 reached 3.03 s and classified 125/132 tickets correctly. The local demo now routes 100% of tickets to v4, with v1 available for rollback. [Runtime routing rules](#release-and-rollback). [Current gate](results/local/gate.md). [Real-model comparison](results/local/v4-gate.md)
 
 In the isolated canary drill, v2 passed a fresh fixture gate, then reached **242.3 ms p95** across 25 requests versus **53.3 ms** across 228 requests on v1. Setting its weight to zero restored v1 on **30/30** subsequent requests at **53.0 ms p95**. The drill injected 180 ms into candidate calls. [Measured rollback](results/fixture/canary-recheck.json) · [Earlier Compose drill](results/fixture/canary.json)
 
@@ -164,9 +165,9 @@ The unconstrained local adapter returned only 9 valid responses on 132 tickets. 
 |Warmed serial p50 / p95 / p99 (seconds)|2.27 / 2.64 / 2.87|2.10 / 2.45 / 2.89|2.51 / 3.17 / 3.43|
 |Reported triage input / output tokens|25,053 / 11,957|18,453 / 11,104|29,409 / 12,726|
 |Actual provider fees|$0|$0|$0|
-|Verdict|Stable|Blocked on category and product|Blocked on latency|
+|Original release decision|Stable|Blocked on category and product|Blocked under the original latency limit|
 
-The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same frozen test IDs. Triage latency excludes the subsequent judge call. The JSON records judge tokens separately. Priority scores have no independent human validation. The held-out thresholds were retained after both rejections. [Original v1 measurement](results/local/original-v1/baseline.json) · [Trimmed version](results/local/v2.json) · [v4 experiment](results/local/v4.json) · [v4 ticket outputs](results/local/v4-outputs.json)
+The comparison uses an RTX 5050 Laptop GPU, the pinned Qwen weights and the same frozen test IDs. Triage latency excludes the subsequent judge call. The JSON records judge tokens separately. Priority scores have no independent human validation. These historical results used the release thresholds in effect at the time. [Original v1 measurement](results/local/original-v1/baseline.json) · [Trimmed version](results/local/v2.json) · [v4 experiment](results/local/v4.json) · [v4 ticket outputs](results/local/v4-outputs.json)
 
 |Held-out fixture measure, same 132 tickets|v1 baseline|v2 trimmed|
 |---|---:|---:|
@@ -225,6 +226,12 @@ GenAI span attributes follow [OpenTelemetry semantic conventions v1.37.0](https:
 </details>
 
 ## Release and rollback
+
+The local Qwen release check measures p95 across the held-out tickets and accepts up to **4 seconds**. Once the app is running, it uses a separate **5-second** threshold for individual responses.
+
+- **Normal operation.** All new tickets go to v4. Check the effective traffic percentage at [local rollout status](http://127.0.0.1:8766/rollout/status).
+- **Repeated slow responses.** If at least two of the last 20 successful v4 responses took over five seconds, the app sends a synthetic order-tracking ticket to v1. A valid v1 response within five seconds sends subsequent traffic to v1. If the probe fails or times out, v4 keeps serving. The original customer ticket is never replayed by the probe.
+- **Server error.** A v4 HTTP 5xx routes subsequent tickets to v1 immediately. The rollback persists across restarts. [Operator runbook](RUNBOOK.md#local-automatic-rollback)
 
 <details>
 <summary>Commands, measurements and interpretation</summary>

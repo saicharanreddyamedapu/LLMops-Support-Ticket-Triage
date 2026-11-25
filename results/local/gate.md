@@ -5,7 +5,7 @@
 |priority|0.5454545|0.5909091|pass|
 |first_pass|1|1|pass|
 |availability|1|1|pass|
-|p95_ms|2705.619|2988.267|pass|
+|p95_ms|2688.828|3030.499|pass|
 |priced_usd_per_request|0|0|pass|
 |draft_reply_judge|0.7727273|0.8257576|pass|
 
